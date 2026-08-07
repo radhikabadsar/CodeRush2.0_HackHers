@@ -1,0 +1,283 @@
+/* ==========================================================================
+   COMMUNITY REDRESSAL PLANNER - CUSTOM STYLESHEET & DESIGN SYSTEM
+   ========================================================================== */
+
+/* Custom Variables & Root Setup */
+:root {
+  --primary-glow: rgba(99, 102, 241, 0.15);
+  --success-glow: rgba(16, 185, 129, 0.15);
+  --warning-glow: rgba(245, 158, 11, 0.15);
+  --danger-glow: rgba(244, 63, 94, 0.15);
+}
+
+/* Base Body Styles */
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  letter-spacing: -0.01em;
+}
+
+h1, h2, h3, h4, .font-display {
+  font-family: 'Outfit', system-ui, -apple-system, sans-serif;
+  letter-spacing: -0.02em;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.3);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(148, 163, 184, 0.5);
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: rgba(71, 85, 105, 0.4);
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: rgba(71, 85, 105, 0.7);
+}
+
+/* Navigation Item Active State */
+.nav-item {
+  position: relative;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.nav-item.active {
+  background-color: rgba(99, 102, 241, 0.1);
+  color: #4f46e5;
+  font-weight: 600;
+}
+
+.dark .nav-item.active {
+  background-color: rgba(99, 102, 241, 0.2);
+  color: #818cf8;
+}
+
+.nav-item.active::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 15%;
+  bottom: 15%;
+  width: 4px;
+  background: linear-gradient(to bottom, #6366f1, #3b82f6);
+  border-radius: 0 4px 4px 0;
+}
+
+/* Content View Animations */
+.content-view {
+  animation: fadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Modal Animations & Backdrop */
+.modal-backdrop {
+  transition: opacity 0.25s ease, visibility 0.25s ease;
+}
+
+.modal-card {
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease;
+}
+
+.modal-backdrop.open {
+  display: flex !important;
+  opacity: 1;
+}
+
+.modal-backdrop.open .modal-card {
+  transform: scale(1);
+  opacity: 1;
+}
+
+/* Map Markers Pulse & Radar Animation */
+.map-marker {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  z-index: 10;
+}
+
+.map-marker:hover {
+  transform: translate(-50%, -50%) scale(1.25);
+  z-index: 20;
+}
+
+.map-pin {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 13px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  position: relative;
+}
+
+.map-pin::after {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 2px solid currentColor;
+  opacity: 0.7;
+  animation: markerPulse 2s infinite cubic-bezier(0, 0.2, 0.8, 1);
+}
+
+@keyframes markerPulse {
+  0% {
+    transform: scale(0.8);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1.8);
+    opacity: 0;
+  }
+}
+
+/* Map Popup Tooltip */
+.map-popup {
+  position: absolute;
+  bottom: 125%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 220px;
+  background: rgba(15, 23, 42, 0.95);
+  backdrop-filter: blur(8px);
+  color: white;
+  padding: 10px 12px;
+  border-radius: 12px;
+  font-size: 11px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.2s ease;
+}
+
+.map-marker:hover .map-popup {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(-4px);
+}
+
+.map-popup::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 6px;
+  border-style: solid;
+  border-color: rgba(15, 23, 42, 0.95) transparent transparent transparent;
+}
+
+/* Priority Pill Colors */
+.priority-critical {
+  background-color: rgba(244, 63, 94, 0.12);
+  color: #e11d48;
+  border: 1px solid rgba(244, 63, 94, 0.3);
+}
+
+.priority-high {
+  background-color: rgba(249, 115, 22, 0.12);
+  color: #ea580c;
+  border: 1px solid rgba(249, 115, 22, 0.3);
+}
+
+.priority-medium {
+  background-color: rgba(245, 158, 11, 0.12);
+  color: #d97706;
+  border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+.priority-low {
+  background-color: rgba(59, 130, 246, 0.12);
+  color: #2563eb;
+  border: 1px solid rgba(59, 130, 246, 0.3);
+}
+
+/* Status Badges */
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 10px;
+  border-radius: 9999px;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+/* High Contrast Mode Utility */
+body.high-contrast {
+  filter: contrast(125%);
+}
+
+body.high-contrast * {
+  border-color: #000 !important;
+}
+
+.dark.high-contrast * {
+  border-color: #fff !important;
+}
+
+/* Voice Wave Recording Indicator */
+.voice-wave {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.voice-wave span {
+  width: 3px;
+  height: 12px;
+  background-color: #f43f5e;
+  border-radius: 3px;
+  animation: wave 1s ease-in-out infinite;
+}
+
+.voice-wave span:nth-child(2) { animation-delay: 0.2s; }
+.voice-wave span:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes wave {
+  0%, 100% { height: 6px; }
+  50% { height: 18px; }
+}
+
+/* Glassmorphism Cards */
+.glass-card {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+.dark .glass-card {
+  background: rgba(30, 41, 59, 0.7);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
