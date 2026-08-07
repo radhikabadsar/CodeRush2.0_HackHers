@@ -1,0 +1,3030 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JanSeva | Civic Redressal & Action</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            peach: {
+              50: '#FFF1E6',
+              100: '#FFE4D1',
+              200: '#FCD4B8',
+              300: '#F9BE97',
+              light: '#FFF1E6',
+              secondary: '#FFE4D1'
+            },
+            cream: {
+              50: '#FFFDF9',
+              100: '#FFF7F0',
+              card: '#FFFDF9',
+              input: '#FFF7F0'
+            },
+            gold: {
+              DEFAULT: '#B8860B',
+              primary: '#B8860B',
+              dark: '#8F6B00',
+              hover: '#9C7500',
+              light: '#F4D77A',
+              100: '#FEF9E7',
+              200: '#FDEFB7',
+              500: '#B8860B',
+              600: '#8F6B00',
+              700: '#6E5200'
+            },
+            brown: {
+              DEFAULT: '#3B2A1A',
+              main: '#3B2A1A',
+              secondary: '#6B5845',
+              muted: '#8C7A68',
+              hover: '#6B4F2A',
+              border: '#E8D4C3'
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            display: ['Outfit', 'Inter', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- FontAwesome 6 Icons CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <!-- Leaflet CSS & JS for Civic Maps -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css"/>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css"/>
+  <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
+
+  <!-- Firebase SDK Compatibility Libraries -->
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+
+  <!-- Custom Theme Styles -->
+  <style>
+    /* JanSeva - Custom Theme & CSS Tokens */
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@500;600;700;800;900&display=swap');
+
+    :root {
+      --color-bg-main: #FFF1E6;
+      --color-bg-secondary: #FFE4D1;
+      --color-card-bg: #FFFDF9;
+      --color-input-bg: #FFF7F0;
+      
+      --color-primary-gold: #B8860B;
+      --color-dark-gold: #8F6B00;
+      --color-hover-gold: #9C7500;
+      --color-light-gold: #F4D77A;
+
+      --color-text-main: #3B2A1A;
+      --color-text-secondary: #6B5845;
+      --color-text-muted: #8C7A68;
+      --color-border: #E8D4C3;
+
+      --color-sidebar-bg: #3B2A1A;
+      --color-sidebar-hover: #6B4F2A;
+      --color-sidebar-active: #B8860B;
+    }
+
+    .dark {
+      --color-bg-main: #211A14;
+      --color-bg-secondary: #2C231B;
+      --color-card-bg: #2C231B;
+      --color-input-bg: #382D23;
+
+      --color-primary-gold: #C99A16;
+      --color-dark-gold: #A77B00;
+
+      --color-text-main: #FFF7E8;
+      --color-text-secondary: #D6C4AE;
+      --color-text-muted: #A3917C;
+      --color-border: #382D23;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background-color: var(--color-bg-main);
+      color: var(--color-text-main);
+      margin: 0;
+      padding: 0;
+    }
+
+    h1, h2, h3, h4, h5, h6, .font-display {
+      font-family: 'Outfit', 'Inter', sans-serif;
+    }
+
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #E8D4C3;
+      border-radius: 9999px;
+    }
+    .dark ::-webkit-scrollbar-thumb {
+      background: #382D23;
+    }
+
+    .role-select-card.active {
+      border-color: #B8860B !important;
+      background-color: #FFFDF9 !important;
+      box-shadow: 0 10px 25px -5px rgba(184, 134, 11, 0.25) !important;
+    }
+    .dark .role-select-card.active {
+      border-color: #C99A16 !important;
+      background-color: #2C231B !important;
+    }
+    .role-select-card.active .role-badge {
+      display: inline-block !important;
+    }
+
+    .nav-item {
+      color: #D6C4AE;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      border-radius: 12px;
+    }
+    .nav-item:hover {
+      background-color: #6B4F2A;
+      color: #FFFFFF;
+    }
+    .nav-item.active {
+      background-color: #B8860B !important;
+      color: #FFFFFF !important;
+      font-weight: 700;
+      box-shadow: 0 4px 14px rgba(184, 134, 11, 0.35);
+    }
+    .nav-item.active::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 20%;
+      height: 60%;
+      width: 4px;
+      background-color: #F4D77A;
+      border-radius: 0 4px 4px 0;
+    }
+
+    @keyframes aiScan {
+      0%, 100% { opacity: 0.3; transform: scale(0.98); }
+      50% { opacity: 1; transform: scale(1.02); }
+    }
+    .ai-scan-pulse {
+      animation: aiScan 2s infinite ease-in-out;
+    }
+
+    @keyframes slaBreachPulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.65; transform: scale(1.03); }
+    }
+    .sla-breach-pulse {
+      animation: slaBreachPulse 2s infinite ease-in-out;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .sla-breach-pulse {
+        animation: none !important;
+      }
+    }
+  </style>
+</head>
+<body class="h-full bg-[#FFF1E6] dark:bg-[#211A14] text-[#3B2A1A] dark:text-[#FFF7E8] font-sans antialiased selection:bg-[#F4D77A] selection:text-[#3B2A1A]">
+
+  <!-- ========================================== -->
+  <!-- 1. AUTHENTICATION & LOGIN SCREEN -->
+  <!-- ========================================== -->
+  <div id="authScreen" class="fixed inset-0 z-50 overflow-y-auto bg-[#FFF1E6] dark:bg-[#211A14] flex flex-col justify-between p-4 md:p-8 min-h-screen">
+    
+    <header class="max-w-6xl mx-auto w-full flex items-center justify-between py-4 border-b border-[#E8D4C3] dark:border-[#382D23]">
+      <div class="flex items-center gap-3">
+        <div class="w-12 h-12 rounded-2xl bg-[#3B2A1A] dark:bg-[#2C231B] flex items-center justify-center shadow-lg shadow-[#B8860B]/20 overflow-hidden p-0.5">
+          <img src="janseva_logo.png" alt="JanSeva Emblem" class="w-full h-full object-contain mix-blend-screen" onerror="this.outerHTML='<span class=\'text-2xl\'>🏛️</span>'">
+        </div>
+        <div>
+          <h1 id="txt-app-title" class="font-display font-bold text-xl md:text-2xl text-[#3B2A1A] dark:text-[#FFF7E8] tracking-tight">JanSeva</h1>
+          <p id="txt-app-subtitle" class="text-xs md:text-sm text-[#6B5845] dark:text-[#D6C4AE]">Civic Redressal & Accountability Infrastructure</p>
+        </div>
+      </div>
+      
+      <div class="flex items-center gap-3">
+        <button id="authThemeToggle" class="p-2.5 rounded-xl border border-[#E8D4C3] dark:border-[#382D23] bg-[#FFFDF9] dark:bg-[#2C231B] text-[#3B2A1A] dark:text-[#FFF7E8] hover:bg-[#FFE4D1] dark:hover:bg-[#382D23] transition-all">
+          <i class="fa-solid fa-moon dark:hidden text-[#B8860B]"></i>
+          <i class="fa-solid fa-sun hidden dark:inline text-[#F4D77A]"></i>
+        </button>
+        <div class="relative">
+          <select id="authLangSelect" class="bg-[#FFFDF9] dark:bg-[#2C231B] border border-[#E8D4C3] dark:border-[#382D23] text-[#3B2A1A] dark:text-[#FFF7E8] text-xs font-semibold py-2.5 px-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#B8860B] cursor-pointer">
+            <option value="en">🌐 English (EN)</option>
+            <option value="hi">🌐 हिंदी (HI)</option>
+          </select>
+        </div>
+      </div>
+    </header>
+
+    <main class="max-w-4xl mx-auto w-full my-auto py-8">
+      <div class="text-center mb-8">
+        <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#FFE4D1] dark:bg-[#382D23] text-[#8F6B00] dark:text-[#F4D77A] text-xs font-bold uppercase tracking-wider mb-3">
+          <i class="fa-solid fa-shield-halved"></i> <span id="txt-hero-badge">Transparent Civic Governance</span>
+        </span>
+        <h2 class="font-display text-3xl md:text-5xl font-extrabold text-[#3B2A1A] dark:text-[#FFF7E8] mb-3">
+          <span id="txt-hero-title">Report issues. Track action.</span> <br class="hidden sm:inline"><span id="txt-hero-sub" class="text-[#B8860B] dark:text-[#C99A16]">Build better communities.</span>
+        </h2>
+        <p id="txt-hero-desc" class="text-sm md:text-base text-[#6B5845] dark:text-[#D6C4AE] max-w-xl mx-auto">
+          An AI-assisted, SLA-monitored portal connecting residents directly with local municipal service teams.
+        </p>
+      </div>
+
+      <!-- Role Selector Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+        <button id="selectResidentRole" class="role-select-card active flex flex-col p-5 rounded-2xl border-2 border-[#B8860B] bg-[#FFFDF9] dark:bg-[#2C231B] text-left transition-all hover:shadow-lg shadow-md cursor-pointer relative overflow-hidden group">
+          <div class="flex items-center justify-between mb-3">
+            <div class="w-12 h-12 rounded-xl bg-[#FFE4D1] dark:bg-[#382D23] text-[#B8860B] dark:text-[#F4D77A] flex items-center justify-center text-xl font-bold">👤</div>
+            <span class="role-badge text-[10px] font-extrabold uppercase px-2.5 py-1 rounded-full bg-[#B8860B] text-white">Active</span>
+          </div>
+          <h3 id="txt-role-res" class="font-display text-lg font-bold text-[#3B2A1A] dark:text-[#FFF7E8]">USER</h3>
+          <p id="txt-role-res-sub" class="text-xs text-[#6B5845] dark:text-[#D6C4AE] mt-1">Report and track civic complaints in your locality.</p>
+        </button>
+
+        <button id="selectOfficerRole" class="role-select-card flex flex-col p-5 rounded-2xl border-2 border-[#E8D4C3] dark:border-[#382D23] bg-[#FFFDF9] dark:bg-[#2C231B] text-left transition-all hover:border-[#B8860B]/60 shadow-sm hover:shadow-md cursor-pointer relative overflow-hidden group">
+          <div class="flex items-center justify-between mb-3">
+            <div class="w-12 h-12 rounded-xl bg-[#FFE4D1] dark:bg-[#382D23] text-[#B8860B] dark:text-[#F4D77A] flex items-center justify-center text-xl font-bold">🏛️</div>
+            <span class="role-badge hidden text-[10px] font-extrabold uppercase px-2.5 py-1 rounded-full bg-[#B8860B] text-white">Active</span>
+          </div>
+          <h3 id="txt-role-off" class="font-display text-lg font-bold text-[#3B2A1A] dark:text-[#FFF7E8]">OFFICER</h3>
+          <p id="txt-role-off-sub" class="text-xs text-[#6B5845] dark:text-[#D6C4AE] mt-1">Manage, route, and resolve assigned department grievances.</p>
+        </button>
+
+        <button id="selectAdminRole" class="role-select-card flex flex-col p-5 rounded-2xl border-2 border-[#E8D4C3] dark:border-[#382D23] bg-[#FFFDF9] dark:bg-[#2C231B] text-left transition-all hover:border-[#B8860B]/60 shadow-sm hover:shadow-md cursor-pointer relative overflow-hidden group">
+          <div class="flex items-center justify-between mb-3">
+            <div class="w-12 h-12 rounded-xl bg-[#FFE4D1] dark:bg-[#382D23] text-[#B8860B] dark:text-[#F4D77A] flex items-center justify-center text-xl font-bold">⚙️</div>
+            <span class="role-badge hidden text-[10px] font-extrabold uppercase px-2.5 py-1 rounded-full bg-[#B8860B] text-white">Active</span>
+          </div>
+          <h3 id="txt-role-adm" class="font-display text-lg font-bold text-[#3B2A1A] dark:text-[#FFF7E8]">ADMIN / SUPERVISOR</h3>
+          <p id="txt-role-adm-sub" class="text-xs text-[#6B5845] dark:text-[#D6C4AE] mt-1">Monitor system performance, audit trails, anomaly flags, & SLA rules.</p>
+        </button>
+      </div>
+
+      <!-- Authentication Form Container -->
+      <div class="bg-[#FFFDF9] dark:bg-[#2C231B] border border-[#E8D4C3] dark:border-[#382D23] rounded-3xl p-6 md:p-8 shadow-xl max-w-xl mx-auto">
+        
+        <!-- USER LOGIN FORM -->
+        <form id="residentLoginForm" class="space-y-5">
+          <div class="flex items-center justify-between pb-3 border-b border-[#E8D4C3] dark:border-[#382D23]">
+            <div>
+              <h4 id="txt-res-auth-title" class="font-display font-bold text-lg text-[#3B2A1A] dark:text-[#FFF7E8]">User Authentication</h4>
+              <p id="txt-res-auth-sub" class="text-xs text-[#6B5845] dark:text-[#D6C4AE]">Enter your 12-digit Aadhaar number for OTP verification</p>
+            </div>
+            <span class="text-xs bg-[#FFE4D1] dark:bg-[#382D23] text-[#8F6B00] dark:text-[#F4D77A] font-semibold px-2.5 py-1 rounded-lg">Aadhaar + OTP</span>
+          </div>
+
+          <div>
+            <label id="lbl-aadhaar" class="block text-xs font-bold text-[#3B2A1A] dark:text-[#FFF7E8] uppercase tracking-wider mb-2">Aadhaar Card Number</label>
+            <div class="relative">
+              <input type="text" id="resAadhaarInput" maxlength="14" placeholder="1234 5678 9012" value="1234 5678 9012" class="w-full bg-[#FFF7F0] dark:bg-[#382D23] border border-[#E8D4C3] dark:border-[#4A3B2C] text-[#3B2A1A] dark:text-[#FFF7E8] px-4 py-3 rounded-xl font-mono text-base tracking-wider focus:outline-none focus:ring-2 focus:ring-[#B8860B] focus:bg-white" required>
+              <i class="fa-solid fa-id-card absolute right-4 top-4 text-[#8C7A68]"></i>
+            </div>
+            <p id="resAadhaarErrorMsg" class="text-xs font-bold text-[#C62828] hidden mt-1 flex items-center gap-1">
+              <i class="fa-solid fa-circle-exclamation"></i> <span id="txt-aadhaar-err">Please enter a valid 12-digit Aadhaar number.</span>
+            </p>
+          </div>
+
+          <div class="p-4 bg-[#FFE4D1]/60 dark:bg-[#382D23] border border-[#E8D4C3] dark:border-[#4A3B2C] rounded-2xl flex items-start gap-3 text-xs text-[#3B2A1A] dark:text-[#FFF7E8]">
+            <span class="text-[#B8860B] dark:text-[#F4D77A] text-lg mt-0.5 flex-shrink-0">🔒</span>
+            <div class="space-y-1.5 text-xs leading-relaxed">
+              <p id="gw-privacy-en" class="font-semibold text-[#3B2A1A] dark:text-[#FFF7E8]">🔒 Your identity is completely hidden. Government departments only see your complaint, never your personal details.</p>
+              <div class="border-t border-[#E8D4C3] dark:border-[#4A3B2C] my-1"></div>
+              <p id="gw-privacy-hi" class="font-normal text-[#6B5845] dark:text-[#D6C4AE]">🔒 आपकी पहचान पूरी तरह से सुरक्षित है। संबंधित विभाग केवल आपकी शिकायत देख सकते हैं, आपका व्यक्तिगत विवरण कभी नहीं।</p>
+            </div>
+          </div>
+
+          <div id="otpRequestStep">
+            <button type="button" id="btnRequestOtp" class="w-full py-3.5 px-6 rounded-xl bg-[#B8860B] hover:bg-[#8F6B00] text-white font-bold text-sm shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2">
+              <span id="btnRequestOtpLabel">Request OTP / ओटीपी प्राप्त करें</span>
+              <i class="fa-solid fa-paper-plane text-xs"></i>
+            </button>
+          </div>
+
+          <div id="otpVerifyStep" class="hidden space-y-4 pt-2 border-t border-dashed border-[#E8D4C3] dark:border-[#382D23]">
+            <div class="p-3 bg-[#E8F5E9] dark:bg-[#1B3820] border border-[#2E7D32]/30 rounded-xl text-xs text-[#2E7D32] dark:text-[#81C784] flex items-center justify-between font-bold">
+              <span id="txt-otp-sent-banner"><i class="fa-solid fa-circle-check"></i> Demo OTP sent to registered mobile!</span>
+              <strong class="font-mono bg-white dark:bg-[#211A14] px-2 py-0.5 rounded border border-[#2E7D32]">123456</strong>
+            </div>
+
+            <div>
+              <label id="lbl-otp" class="block text-xs font-bold text-[#3B2A1A] dark:text-[#FFF7E8] uppercase tracking-wider mb-2">Enter 6-Digit OTP</label>
+              <input type="text" id="resOtpInput" maxlength="6" placeholder="123456" value="123456" class="w-full bg-[#FFF7F0] dark:bg-[#382D23] border border-[#E8D4C3] dark:border-[#4A3B2C] text-[#3B2A1A] dark:text-[#FFF7E8] px-4 py-3 rounded-xl font-mono text-center text-lg tracking-widest focus:outline-none focus:ring-2 focus:ring-[#B8860B] focus:bg-white" required>
+              <p id="resOtpErrorMsg" class="text-xs font-bold text-[#C62828] hidden text-center mt-1">⚠️ Invalid OTP. Please enter 123456.</p>
+            </div>
+
+            <button type="submit" id="btnVerifyProceed" class="w-full py-3.5 px-6 rounded-xl bg-[#B8860B] hover:bg-[#8F6B00] text-white font-bold text-sm shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2">
+              <span id="btnVerifyProceedLabel">Verify & Proceed</span>
+              <i class="fa-solid fa-arrow-right text-xs"></i>
+            </button>
+          </div>
+        </form>
+
+        <!-- OFFICER LOGIN FORM -->
+        <form id="officerLoginForm" class="hidden space-y-5">
+          <div class="flex items-center justify-between pb-3 border-b border-[#E8D4C3] dark:border-[#382D23]">
+            <div>
+              <h4 id="txt-off-login-title" class="font-display font-bold text-lg text-[#3B2A1A] dark:text-[#FFF7E8]">Officer Portal Login</h4>
+              <p id="txt-off-login-sub" class="text-xs text-[#6B5845] dark:text-[#D6C4AE]">Municipal Staff & Department Lead Access</p>
+            </div>
+            <span class="text-xs bg-[#FFE4D1] dark:bg-[#382D23] text-[#8F6B00] dark:text-[#F4D77A] font-semibold px-2.5 py-1 rounded-lg">Staff Auth</span>
+          </div>
+
+          <div class="p-3 bg-[#FFE4D1]/40 dark:bg-[#382D23] rounded-xl text-xs text-[#6B5845] dark:text-[#D6C4AE]">
+            <strong>Demo Credentials:</strong> ID: <code class="bg-white dark:bg-[#211A14] px-1.5 py-0.5 rounded text-[#3B2A1A] dark:text-[#FFF7E8] font-bold">OFF-1001</code> | Password: <code class="bg-white dark:bg-[#211A14] px-1.5 py-0.5 rounded text-[#3B2A1A] dark:text-[#FFF7E8] font-bold">123456</code>
+          </div>
+
+          <div>
+            <label id="lbl-off-id" class="block text-xs font-bold text-[#3B2A1A] dark:text-[#FFF7E8] uppercase tracking-wider mb-2">Officer ID</label>
+            <input type="text" id="offIdInput" placeholder="OFF-1001" value="OFF-1001" class="w-full bg-[#FFF7F0] dark:bg-[#382D23] border border-[#E8D4C3] dark:border-[#4A3B2C] text-[#3B2A1A] dark:text-[#FFF7E8] px-4 py-3 rounded-xl font-mono text-sm focus:outline-none focus:ring-2 focus:ring-[#B8860B] focus:bg-white" required>
+          </div>
+
+          <div>
+            <label id="lbl-off-pass" class="block text-xs font-bold text-[#3B2A1A] dark:text-[#FFF7E8] uppercase tracking-wider mb-2">Password / Demo PIN</label>
+            <input type="password" id="offPasswordInput" placeholder="••••••••" value="123456" class="w-full bg-[#FFF7F0] dark:bg-[#382D23] border border-[#E8D4C3] dark:border-[#4A3B2C] text-[#3B2A1A] dark:text-[#FFF7E8] px-4 py-3 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#B8860B] focus:bg-white" required>
+          </div>
+
+          <button type="submit" class="w-full py-3.5 px-6 rounded-xl bg-[#B8860B] hover:bg-[#8F6B00] text-white font-bold text-sm shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2">
+            <span id="txt-off-login-btn">Officer Login</span>
+            <i class="fa-solid fa-right-to-bracket text-xs"></i>
+          </button>
+        </form>
+
+        <!-- ADMIN LOGIN FORM -->
+        <form id="adminLoginForm" class="hidden space-y-5">
+          <div class="flex items-center justify-between pb-3 border-b border-[#E8D4C3] dark:border-[#382D23]">
+            <div>
+              <h4 id="txt-adm-login-title" class="font-display font-bold text-lg text-[#3B2A1A] dark:text-[#FFF7E8]">System Admin Login</h4>
+              <p id="txt-adm-login-sub" class="text-xs text-[#6B5845] dark:text-[#D6C4AE]">System Audit, Governance & SLA Rules</p>
+            </div>
+            <span class="text-xs bg-[#FFE4D1] dark:bg-[#382D23] text-[#8F6B00] dark:text-[#F4D77A] font-semibold px-2.5 py-1 rounded-lg">Admin Auth</span>
+          </div>
+
+          <div class="p-3 bg-[#FFE4D1]/40 dark:bg-[#382D23] rounded-xl text-xs text-[#6B5845] dark:text-[#D6C4AE]">
+            <strong>Demo Credentials:</strong> ID: <code class="bg-white dark:bg-[#211A14] px-1.5 py-0.5 rounded text-[#3B2A1A] dark:text-[#FFF7E8] font-bold">ADMIN-001</code> | Password: <code class="bg-white dark:bg-[#211A14] px-1.5 py-0.5 rounded text-[#3B2A1A] dark:text-[#FFF7E8] font-bold">admin123</code>
+          </div>
+
+          <div>
+            <label id="lbl-adm-id" class="block text-xs font-bold text-[#3B2A1A] dark:text-[#FFF7E8] uppercase tracking-wider mb-2">Admin ID</label>
+            <input type="text" id="adminIdInput" placeholder="ADMIN-001" value="ADMIN-001" class="w-full bg-[#FFF7F0] dark:bg-[#382D23] border border-[#E8D4C3] dark:border-[#4A3B2C] text-[#3B2A1A] dark:text-[#FFF7E8] px-4 py-3 rounded-xl font-mono text-sm focus:outline-none focus:ring-2 focus:ring-[#B8860B] focus:bg-white" required>
+          </div>
+
+          <div>
+            <label id="lbl-adm-pass" class="block text-xs font-bold text-[#3B2A1A] dark:text-[#FFF7E8] uppercase tracking-wider mb-2">Password</label>
+            <input type="password" id="adminPasswordInput" placeholder="••••••••" value="admin123" class="w-full bg-[#FFF7F0] dark:bg-[#382D23] border border-[#E8D4C3] dark:border-[#4A3B2C] text-[#3B2A1A] dark:text-[#FFF7E8] px-4 py-3 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#B8860B] focus:bg-white" required>
+          </div>
+
+          <button type="submit" class="w-full py-3.5 px-6 rounded-xl bg-[#B8860B] hover:bg-[#8F6B00] text-white font-bold text-sm shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2">
+            <span id="txt-adm-login-btn">Admin Console Login</span>
+            <i class="fa-solid fa-lock text-xs"></i>
+          </button>
+        </form>
+      </div>
+    </main>
+
+    <footer class="max-w-4xl mx-auto w-full text-center pt-6 border-t border-[#E8D4C3] dark:border-[#382D23] text-xs text-[#8C7A68] dark:text-[#D6C4AE]">
+      <p>© 2026 JanSeva • Municipal Governance & AI Triage Platform • Privacy-Preserving Civic Data Architecture</p>
+    </footer>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- 2. PROTECTED APPLICATION CONTAINER -->
+  <!-- ========================================== -->
+  <div id="appContainer" class="hidden flex h-screen overflow-hidden bg-[#FFF1E6] dark:bg-[#211A14]">
+    
+    <aside id="sidebar" class="w-64 bg-[#3B2A1A] text-[#FFF7E8] flex flex-col flex-shrink-0 transition-all duration-300 z-30 relative shadow-2xl">
+      <div class="h-16 px-5 flex items-center justify-between border-b border-[#6B4F2A]">
+        <div class="flex items-center gap-3 overflow-hidden">
+          <div class="w-9 h-9 rounded-xl bg-[#2C1F13] flex items-center justify-center flex-shrink-0 shadow-md overflow-hidden p-0.5">
+            <img src="janseva_logo.png" alt="JanSeva Emblem" class="w-full h-full object-contain mix-blend-screen" onerror="this.outerHTML='<span class=\'text-xl\'>🏛️</span>'">
+          </div>
+          <div class="truncate">
+            <h2 class="font-display font-bold text-sm tracking-tight text-white leading-tight">JanSeva</h2>
+            <p id="sidebarRoleLabel" class="text-[10px] text-[#F4D77A] font-semibold tracking-wider uppercase">User App</p>
+          </div>
+        </div>
+        <button id="closeSidebarBtn" class="md:hidden text-[#FFF7E8] hover:text-white p-1">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+
+      <nav id="navMenuList" class="flex-1 px-3 py-4 space-y-1.5 overflow-y-auto"></nav>
+
+      <div class="p-4 border-t border-[#6B4F2A] bg-[#2C1F13]">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-3 overflow-hidden">
+            <div class="w-8 h-8 rounded-full bg-[#B8860B] text-white flex items-center justify-center font-bold text-xs flex-shrink-0">
+              <span id="userAvatarText">RS</span>
+            </div>
+            <div class="truncate leading-tight">
+              <p id="navUserName" class="text-xs font-bold text-white truncate">Rahul Sharma</p>
+              <p id="navUserId" class="text-[10px] text-[#D6C4AE] font-mono truncate">USR-1001</p>
+            </div>
+          </div>
+          <button id="sidebarLogoutBtn" title="Logout" class="p-2 text-[#D6C4AE] hover:text-white hover:bg-[#6B4F2A] rounded-lg transition-all flex items-center gap-1">
+            <i class="fa-solid fa-right-from-bracket text-sm"></i>
+            <span id="txt-sidebar-logout" class="text-xs font-semibold">Logout</span>
+          </button>
+        </div>
+      </div>
+    </aside>
+
+    <div class="flex-1 flex flex-col min-w-0 overflow-hidden">
+      <header class="h-16 bg-[#FFF7F0] dark:bg-[#2C231B] border-b border-[#E8D4C3] dark:border-[#382D23] px-4 md:px-6 flex items-center justify-between z-20 flex-shrink-0">
+        <div class="flex items-center gap-3 flex-1 max-w-md">
+          <button id="openSidebarBtn" class="md:hidden text-[#3B2A1A] dark:text-[#FFF7E8] p-2 rounded-xl border border-[#E8D4C3] dark:border-[#382D23]">
+            <i class="fa-solid fa-bars text-lg"></i>
+          </button>
+          
+          <div class="relative w-full hidden sm:block">
+            <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3 text-[#8C7A68]"></i>
+            <input type="text" id="globalSearchInput" placeholder="Search complaint ID, category, ward..." class="w-full bg-[#FFF1E6] dark:bg-[#382D23] border border-[#E8D4C3] dark:border-[#4A3B2C] text-[#3B2A1A] dark:text-[#FFF7E8] text-xs py-2 pl-9 pr-4 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#B8860B]">
+          </div>
+        </div>
+
+        <div class="flex items-center gap-2 sm:gap-3">
+          <div class="relative">
+            <select id="headerLangSelect" class="bg-[#FFF1E6] dark:bg-[#382D23] border border-[#E8D4C3] dark:border-[#4A3B2C] text-[#3B2A1A] dark:text-[#FFF7E8] text-xs font-bold py-2 px-2.5 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#B8860B] cursor-pointer">
+              <option value="en">🌐 English (EN)</option>
+              <option value="hi">🌐 हिंदी (HI)</option>
+            </select>
+          </div>
+
+          <button id="headerThemeToggle" title="Toggle Theme" class="p-2.5 rounded-xl border border-[#E8D4C3] dark:border-[#382D23] bg-[#FFF1E6] dark:bg-[#382D23] text-[#3B2A1A] dark:text-[#FFF7E8] hover:bg-[#FFE4D1] transition-all">
+            <i class="fa-solid fa-moon dark:hidden text-[#B8860B]"></i>
+            <i class="fa-solid fa-sun hidden dark:inline text-[#F4D77A]"></i>
+          </button>
+
+          <div class="h-6 w-px bg-[#E8D4C3] dark:bg-[#382D23] mx-1"></div>
+
+          <div class="flex items-center gap-2.5 py-1 px-2.5 rounded-xl bg-[#FFF1E6] dark:bg-[#382D23] border border-[#E8D4C3] dark:border-[#4A3B2C]">
+            <div class="w-8 h-8 rounded-full bg-[#B8860B] text-white font-bold text-xs flex items-center justify-center flex-shrink-0">
+              <span id="headerAvatarText">RS</span>
+            </div>
+            <div class="hidden sm:block text-left leading-tight">
+              <p id="headerUserName" class="text-xs font-bold text-[#3B2A1A] dark:text-[#FFF7E8]">Rahul Sharma</p>
+              <p id="headerUserId" class="text-[10px] text-[#6B5845] dark:text-[#D6C4AE] font-mono font-semibold">USR-1001</p>
+            </div>
+          </div>
+
+          <button id="headerLogoutBtn" title="Logout" class="p-2 rounded-xl bg-[#FFE4D1] dark:bg-[#382D23] text-[#C62828] font-bold text-xs hover:bg-[#C62828] hover:text-white transition-all flex items-center gap-1.5 px-3">
+            <i class="fa-solid fa-right-from-bracket"></i>
+            <span id="txt-header-logout" class="hidden sm:inline">Logout</span>
+          </button>
+        </div>
+      </header>
+
+      <main id="mainContent" class="flex-1 overflow-y-auto p-4 md:p-6 space-y-6"></main>
+    </div>
+  </div>
+
+  <!-- ACCESS RESTRICTED MODAL -->
+  <div id="accessDeniedModal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden items-center justify-center p-4">
+    <div class="bg-[#FFFDF9] dark:bg-[#2C231B] border-2 border-[#C62828] rounded-3xl max-w-md w-full p-6 shadow-2xl text-center space-y-4">
+      <div class="w-16 h-16 rounded-full bg-[#C62828]/10 text-[#C62828] flex items-center justify-center text-3xl mx-auto">
+        <i class="fa-solid fa-shield-cat"></i>
+      </div>
+      <div>
+        <h3 id="txt-access-denied" class="font-display text-2xl font-black text-[#C62828]">ACCESS RESTRICTED</h3>
+        <p id="txt-access-denied-sub" class="text-sm text-[#6B5845] dark:text-[#D6C4AE] mt-2">You do not have permission to access this area.</p>
+      </div>
+      <div class="p-3 bg-[#FFE4D1] dark:bg-[#382D23] rounded-xl text-xs font-mono text-[#3B2A1A] dark:text-[#FFF7E8]">
+        Role Guard Enforcement: <span id="deniedAttemptRoute" class="font-bold">/officer-dashboard</span>
+      </div>
+      <button id="btnDismissAccessDenied" class="w-full py-3 rounded-xl bg-[#B8860B] hover:bg-[#8F6B00] text-white font-bold text-sm shadow-md transition-all">
+        Return to Authorized Dashboard
+      </button>
+    </div>
+  </div>
+
+  <!-- OFFICER AI OVERRIDE REASON MODAL -->
+  <div id="aiOverrideModal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden items-center justify-center p-4">
+    <div class="bg-[#FFFDF9] dark:bg-[#2C231B] border-2 border-[#B8860B] rounded-3xl max-w-lg w-full p-6 shadow-2xl space-y-4">
+      <div class="flex items-center gap-3 border-b border-[#E8D4C3] dark:border-[#382D23] pb-3">
+        <div class="w-10 h-10 rounded-xl bg-[#FFE4D1] text-[#B8860B] flex items-center justify-center font-bold text-xl">⚠️</div>
+        <div>
+          <h3 class="font-display text-lg font-bold text-[#3B2A1A] dark:text-[#FFF7E8]">Officer AI Override Confirmation</h3>
+          <p class="text-xs text-[#6B5845] dark:text-[#D6C4AE]">Modifying AI recommendation requires a mandatory justification log.</p>
+        </div>
+      </div>
+
+      <div class="p-3 bg-[#FFF7F0] dark:bg-[#382D23] rounded-xl border border-[#E8D4C3] dark:border-[#4A3B2C] text-xs space-y-1">
+        <div><span class="text-[#8C7A68]">Complaint ID:</span> <strong id="overrideModalComplaintId" class="font-mono text-[#B8860B]">CRP-2026-0001</strong></div>
+        <div><span class="text-[#8C7A68]">Field Being Modified:</span> <strong id="overrideModalField" class="text-[#3B2A1A] dark:text-[#FFF7E8]">Priority / Department</strong></div>
+        <div><span class="text-[#8C7A68]">Original AI Value:</span> <strong id="overrideModalOldVal" class="text-[#C62828]">High</strong> ➔ New: <strong id="overrideModalNewVal" class="text-[#2E7D32]">Officer Selected</strong></div>
+      </div>
+
+      <div>
+        <label class="block text-xs font-bold text-[#3B2A1A] dark:text-[#FFF7E8] uppercase tracking-wider mb-2">Override Reason *</label>
+        <textarea id="overrideReasonInput" rows="3" placeholder="Provide detailed operational rationale for overriding AI triage recommendation..." class="w-full bg-[#FFF7F0] dark:bg-[#382D23] border border-[#E8D4C3] dark:border-[#4A3B2C] text-[#3B2A1A] dark:text-[#FFF7E8] p-3 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-[#B8860B]" required></textarea>
+        <p id="overrideReasonErr" class="text-[11px] font-bold text-[#C62828] hidden mt-1">⚠️ Please enter a valid override reason before submitting.</p>
+      </div>
+
+      <div class="flex items-center justify-end gap-3 pt-2">
+        <button id="btnCancelOverride" class="py-2.5 px-4 rounded-xl border border-[#E8D4C3] text-[#3B2A1A] dark:text-[#FFF7E8] text-xs font-bold hover:bg-[#FFE4D1]">Cancel</button>
+        <button id="btnConfirmOverride" class="py-2.5 px-5 rounded-xl bg-[#B8860B] hover:bg-[#8F6B00] text-white font-bold text-xs shadow-md transition-all">Save Override & Update Record</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- OFFICER EVIDENCE-BASED RESOLUTION MODAL -->
+  <div id="resolutionEvidenceModal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden items-center justify-center p-4">
+    <div class="bg-[#FFFDF9] dark:bg-[#2C231B] border-2 border-[#2E7D32] rounded-3xl max-w-lg w-full p-6 shadow-2xl space-y-4">
+      <div class="flex items-center gap-3 border-b border-[#E8D4C3] dark:border-[#382D23] pb-3">
+        <div class="w-10 h-10 rounded-xl bg-[#E8F5E9] text-[#2E7D32] flex items-center justify-center font-bold text-xl">📸</div>
+        <div>
+          <h3 class="font-display text-lg font-bold text-[#3B2A1A] dark:text-[#FFF7E8]">Upload Resolution Evidence</h3>
+          <p class="text-xs text-[#6B5845] dark:text-[#D6C4AE]">Evidence proof is mandatory before requesting citizen confirmation.</p>
+        </div>
+      </div>
+
+      <div class="p-3 bg-[#FFF7F0] dark:bg-[#382D23] rounded-xl border border-[#E8D4C3] dark:border-[#4A3B2C] text-xs">
+        <span class="text-[#8C7A68]">Complaint ID:</span> <strong id="resModalComplaintId" class="font-mono text-[#B8860B]">CRP-2026-0001</strong>
+      </div>
+
+      <div>
+        <label class="block text-xs font-bold text-[#3B2A1A] dark:text-[#FFF7E8] uppercase tracking-wider mb-2">Resolution Proof / Work Notes *</label>
+        <textarea id="resNotesInput" rows="3" placeholder="Describe work completed (e.g. Resurfaced 15m road section with hot-mix asphalt)..." class="w-full bg-[#FFF7F0] dark:bg-[#382D23] border border-[#E8D4C3] dark:border-[#4A3B2C] text-[#3B2A1A] dark:text-[#FFF7E8] p-3 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-[#2E7D32]" required></textarea>
+      </div>
+
+      <div>
+        <label class="block text-xs font-bold text-[#3B2A1A] dark:text-[#FFF7E8] uppercase tracking-wider mb-2">Resolution Proof Image *</label>
+        <input type="file" id="resProofFile" accept="image/*" class="w-full text-xs text-[#3B2A1A] dark:text-[#FFF7E8]">
+        <p id="resProofErr" class="text-[11px] font-bold text-[#C62828] hidden mt-1">⚠️ Resolution notes and proof are mandatory.</p>
+      </div>
+
+      <div class="flex items-center justify-end gap-3 pt-2">
+        <button id="btnCancelResProof" class="py-2.5 px-4 rounded-xl border border-[#E8D4C3] text-[#3B2A1A] dark:text-[#FFF7E8] text-xs font-bold hover:bg-[#FFE4D1]">Cancel</button>
+        <button id="btnSubmitResProof" class="py-2.5 px-5 rounded-xl bg-[#2E7D32] hover:bg-[#1b5e20] text-white font-bold text-xs shadow-md transition-all">Submit Evidence & Await Citizen Confirmation</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- USER APPEAL / CORRECTION MODAL -->
+  <div id="userAppealModal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden items-center justify-center p-4">
+    <div class="bg-[#FFFDF9] dark:bg-[#2C231B] border-2 border-[#B8860B] rounded-3xl max-w-lg w-full p-6 shadow-2xl space-y-4">
+      <div class="flex items-center gap-3 border-b border-[#E8D4C3] dark:border-[#382D23] pb-3">
+        <div class="w-10 h-10 rounded-xl bg-[#FFE4D1] text-[#B8860B] flex items-center justify-center font-bold text-xl">⚖️</div>
+        <div>
+          <h3 class="font-display text-lg font-bold text-[#3B2A1A] dark:text-[#FFF7E8]">Submit Appeal / Request Correction</h3>
+          <p class="text-xs text-[#6B5845] dark:text-[#D6C4AE]">Request human officer review for AI triage errors or grievance details.</p>
+        </div>
+      </div>
+
+      <div class="p-3 bg-[#FFF7F0] dark:bg-[#382D23] rounded-xl border border-[#E8D4C3] dark:border-[#4A3B2C] text-xs">
+        <span class="text-[#8C7A68]">Target Complaint:</span> <strong id="appealModalComplaintId" class="font-mono text-[#B8860B]">CRP-2026-0001</strong>
+      </div>
+
+      <div>
+        <label class="block text-xs font-bold text-[#3B2A1A] dark:text-[#FFF7E8] uppercase tracking-wider mb-2">Appeal Type *</label>
+        <select id="appealTypeSelect" class="w-full bg-[#FFF7F0] dark:bg-[#382D23] border border-[#E8D4C3] dark:border-[#4A3B2C] text-[#3B2A1A] dark:text-[#FFF7E8] p-3 rounded-xl text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-[#B8860B]">
+          <option value="AI Categorization Error">AI Categorization Error / Incorrect Category</option>
+          <option value="Priority Too Low">AI Priority Assessment Too Low</option>
+          <option value="Incorrect Field Info">Incorrect Location / Field Details</option>
+          <option value="Escalation Request">SLA Delay & Urgent Escalation Request</option>
+          <option value="General Appeal">General Grievance Appeal</option>
+        </select>
+      </div>
+
+      <div>
+        <label class="block text-xs font-bold text-[#3B2A1A] dark:text-[#FFF7E8] uppercase tracking-wider mb-2">Detailed Reason / Context *</label>
+        <textarea id="appealReasonText" rows="3" placeholder="Explain clearly why the AI categorization or officer response requires review..." class="w-full bg-[#FFF7F0] dark:bg-[#382D23] border border-[#E8D4C3] dark:border-[#4A3B2C] text-[#3B2A1A] dark:text-[#FFF7E8] p-3 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-[#B8860B]" required></textarea>
+        <p id="appealErr" class="text-[11px] font-bold text-[#C62828] hidden mt-1">⚠️ Please enter an appeal reason.</p>
+      </div>
+
+      <div class="flex items-center gap-2 p-3 bg-[#FFE4D1]/40 rounded-xl">
+        <input type="checkbox" id="appealAnonymousCheck" class="w-4 h-4 accent-[#B8860B] cursor-pointer">
+        <label for="appealAnonymousCheck" class="text-xs font-semibold text-[#3B2A1A] dark:text-[#FFF7E8] cursor-pointer">Submit as Anonymous Appeal (Identity Protected)</label>
+      </div>
+
+      <div class="flex items-center justify-end gap-3 pt-2">
+        <button id="btnCancelAppeal" class="py-2.5 px-4 rounded-xl border border-[#E8D4C3] text-[#3B2A1A] dark:text-[#FFF7E8] text-xs font-bold hover:bg-[#FFE4D1]">Cancel</button>
+        <button id="btnSubmitAppeal" class="py-2.5 px-5 rounded-xl bg-[#B8860B] hover:bg-[#8F6B00] text-white font-bold text-xs shadow-md transition-all">Submit Appeal for Officer Review</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Core JavaScript Engine -->
+  <script>
+    /**
+     * JanSeva - Extended Real-Data Engine, Firestore Sync & Governance System
+     */
+
+    const TRANSLATIONS = {
+      en: {
+        app_title: "JanSeva",
+        subtitle: "Civic Redressal & Accountability Infrastructure",
+        hero_badge: "Transparent Civic Governance",
+        hero_title: "Report issues. Track action.",
+        hero_sub: "Build better communities.",
+        hero_desc: "An AI-assisted, SLA-monitored portal connecting residents directly with local municipal service teams.",
+        role_res: "USER",
+        role_res_sub: "Report and track civic complaints in your locality.",
+        role_off: "OFFICER",
+        role_off_sub: "Manage, route, and resolve assigned department grievances.",
+        role_adm: "ADMIN / SUPERVISOR",
+        role_adm_sub: "Monitor system performance, audit trails, anomaly flags, & SLA rules.",
+        res_auth_title: "User Authentication",
+        res_auth_sub: "Enter your 12-digit Aadhaar number for OTP verification",
+        aadhaar_label: "Aadhaar Card Number",
+        aadhaar_err: "Please enter a valid 12-digit Aadhaar number.",
+        privacy_en: "🔒 Your identity is completely hidden. Government departments only see your complaint, never your personal details.",
+        privacy_hi: "🔒 आपकी पहचान पूरी तरह से सुरक्षित है। संबंधित विभाग केवल आपकी शिकायत देख सकते हैं, आपका व्यक्तिगत विवरण कभी नहीं।",
+        btn_req_otp: "Request OTP / ओटीपी प्राप्त करें",
+        lbl_otp: "Enter 6-Digit OTP",
+        otp_sent_banner: "Demo OTP sent to registered mobile!",
+        otp_err: "⚠️ Invalid OTP. Please enter 123456.",
+        btn_verify_proceed: "Verify & Proceed",
+        
+        nav_dashboard: "🏠 Dashboard",
+        nav_report: "📝 Report Issue",
+        nav_my_complaints: "📋 My Complaints",
+        nav_settings: "⚙️ Settings",
+        logout: "Logout",
+        user_name: "Rahul Sharma",
+        user_id: "USR-1001",
+        
+        search_placeholder: "Search complaint ID, category, ward...",
+        report_title: "Report an Issue",
+        report_sub: "Tell us what's wrong in your community. We'll help route it to the right service team.",
+        lbl_category: "Category *",
+        lbl_description: "Issue Description *",
+        desc_example: "There is a large pothole near the college gate and students are at risk while crossing the road.",
+        desc_placeholder: "Describe what happened, where it happened, and any important details...",
+        lbl_record_voice: "🎙️ Record Voice / बोलकर बताएं",
+        lbl_location: "Location *",
+        btn_current_location: "Use Current Location",
+        loc_placeholder: "Ward 12 • Near College Gate",
+        geospatial_tag: "Geospatial Ward Location Tagged",
+        lbl_evidence_photo: "Evidence Photo *",
+        btn_attach_photo: "Attach Photo",
+        photo_required_err: "Please upload a photo as proof.",
+        privacy_footer_title: "🛡️ Privacy Protected",
+        privacy_footer_text: "Only information necessary to process this complaint is shared with the responsible service team. Personal Aadhaar details are never stored.",
+        btn_submit_complaint: "Submit Complaint & Trigger AI Triage",
+
+        ai_triage_badge: "AI Assisted Triage",
+        ai_triage_title: "Analyzing complaint...",
+        ai_triage_sub: "Automated category classification & priority allotment",
+        lbl_original_input: "Original Citizen Input",
+        lbl_ai_structured: "AI-Structured Complaint Overview",
+        lbl_category_header: "Category",
+        lbl_auto_priority: "Auto Priority",
+        lbl_suggested_dept: "Suggested Department",
+        lbl_possible_duplicate: "Possible Duplicate",
+        btn_proceed_confirmation: "Proceed to Complaint Confirmation",
+
+        submitted_title: "Complaint Submitted Successfully",
+        submitted_sub: "Your grievance has been logged successfully into the municipal queue.",
+        lbl_status_header: "Status:",
+        btn_track_complaint: "Track Complaint",
+
+        lbl_assigned_service: "Assigned Service",
+        lbl_location_header: "Location",
+        prio_critical: "Critical",
+        prio_high: "High",
+        prio_medium: "Medium",
+        prio_low: "Low",
+        dept_roads: "Roads & Infrastructure",
+        dept_waste: "Solid Waste Management",
+        dept_water: "Water Supply & Sewage",
+        dept_lighting: "Electrical & Public Lighting",
+        dept_general: "General Municipal Services",
+        track_title: "Complaint Details",
+
+        feedback_title: "Feedback",
+        feedback_sub: "Was your experience with this portal satisfactory?",
+        feedback_placeholder: "Share your experience...",
+        feedback_submit_btn: "Submit Feedback",
+
+        active_complaint_title: "Active Complaint",
+        lbl_complaint_id: "Complaint ID",
+        lbl_officer_assigned: "Officer Assigned",
+        lbl_est_resolution: "Estimated Resolution",
+        lbl_days_remaining: "2 Days Remaining",
+        
+        cat_road: "Road Damage / Potholes",
+        cat_garbage: "Garbage / Waste",
+        cat_water: "Water Leakage",
+        cat_light: "Streetlight",
+        cat_sewage: "Sewage",
+        cat_safety: "Public Safety",
+        cat_access: "Accessibility",
+        cat_other: "Other",
+
+        dash_welcome: "Good morning 👋",
+        dash_welcome_sub: "Welcome back to your civic redressal portal.",
+        btn_report_new: "Report New Issue",
+        active_complaints: "Active Complaints",
+        resolved_complaints: "Resolved",
+        sla_at_risk: "SLA At Risk",
+        total_reports: "Total Reports",
+        view_details: "View Details",
+        
+        status_received: "Submitted",
+        status_in_progress: "In Progress",
+        status_pending_citizen: "Resolution Pending Citizen Confirmation",
+        status_resolved: "Resolved",
+        access_denied: "ACCESS RESTRICTED",
+        access_denied_sub: "You do not have permission to access this area.",
+
+        admin_dashboard: "Admin Dashboard",
+        system_analytics: "System Analytics",
+        fairness_monitoring: "Fairness & Accessibility",
+        audit_logs: "Audit Logs",
+        civic_map: "Civic Map",
+        off_cmd_title: "Officer Action & Command Center",
+        off_cmd_sub: "Operational queue prioritizing urgent SLA breaches, critical complaints, and required review actions",
+        btn_view_full_queue: "View Full Complaint Queue",
+        lbl_action_required: "Action Required (Urgent SLA Queue)",
+        admin_op_title: "Priority Complaint Queue & Triage Control",
+        admin_op_sub: "AI-prioritized civic grievances sorted by urgency and SLA targets",
+        th_dept: "Department",
+        th_assigned: "Assigned Grievances",
+        th_resolved: "Resolved",
+        th_performance: "SLA Status",
+        th_log_id: "Log ID",
+        th_timestamp: "Timestamp",
+        th_action: "Action Type",
+        th_actor: "User / Officer",
+        th_details: "Action Details",
+        fairness_title: "Fairness & Accessibility Audit",
+        fairness_sub: "Geospatial equity analysis and ward-level resource distribution monitoring",
+        equity_score: "Ward Resource Equity Score",
+        language_dist: "Multilingual Access Ratio",
+        audit_title: "System Audit & Governance Logs",
+        audit_sub: "Cryptographically verified timestamped trail of all system activities",
+        no_audit_logs: "No audit logs available.",
+        settings_title: "Application & System Settings",
+        settings_sub: "Manage portal preferences, notification rules, privacy controls, and governance configurations",
+        lbl_notification_rules: "Notification & SLA Thresholds",
+        lbl_enable_sla_alerts: "Enable Automated SLA Risk Alerts",
+        lbl_ai_assessment: "AI Priority Assessment",
+        civic_map_title: "Civic Mapping & Spatial Analytics",
+        civic_map_sub: "Real-time geographical tracking and spatial distribution of municipal grievances across city wards"
+      },
+      hi: {
+        app_title: "जनसेवा",
+        subtitle: "नागरिक निवारण और जवाबदेही ढांचा",
+        hero_badge: "पारदर्शी नागरिक शासन",
+        hero_title: "समस्याएं दर्ज करें। कार्रवाई ट्रैक करें।",
+        hero_sub: "बेहतर समुदाय बनाएं।",
+        hero_desc: "एक एआई-सहायता प्राप्त, एसएलए-निगरानी पोर्टल जो नागरिकों को सीधे स्थानीय नगर निगम सेवा टीमों से जोड़ता है।",
+        role_res: "उपयोगकर्ता",
+        role_res_sub: "अपने इलाके में नागरिक शिकायतों की रिपोर्ट करें और ट्रैक करें।",
+        role_off: "अधिकारी",
+        role_off_sub: "आवंटित विभाग की शिकायतों का प्रबंधन, रूट और समाधान करें।",
+        role_adm: "एडमिन / सुपरवाइजर",
+        role_adm_sub: "सिस्टम प्रदर्शन, ऑडिट ट्रेल और एसएलए नियमों की निगरानी करें।",
+        res_auth_title: "उपयोगकर्ता प्रमाणीकरण",
+        res_auth_sub: "ओटीपी सत्यापन के लिए अपना 12-अंकों का आधार नंबर दर्ज करें",
+        aadhaar_label: "आधार कार्ड संख्या",
+        aadhaar_err: "कृपया एक वैध 12-अंकीय आधार संख्या दर्ज करें।",
+        privacy_en: "🔒 Your identity is completely hidden. Government departments only see your complaint, never your personal details.",
+        privacy_hi: "🔒 आपकी पहचान पूरी तरह से सुरक्षित है। संबंधित विभाग केवल आपकी शिकायत देख सकते हैं, आपका व्यक्तिगत विवरण कभी नहीं।",
+        btn_req_otp: "ओटीपी प्राप्त करें / Request OTP",
+        lbl_otp: "6-अंकों का ओटीपी दर्ज करें",
+        otp_sent_banner: "पंजीकृत मोबाइल पर डेमो ओटीपी भेजा गया!",
+        otp_err: "⚠️ अमान्य ओटीपी। कृपया 123456 दर्ज करें।",
+        btn_verify_proceed: "सत्यापित करें और आगे बढ़ें",
+        
+        nav_dashboard: "🏠 डैशबोर्ड",
+        nav_report: "📝 समस्या दर्ज करें",
+        nav_my_complaints: "📋 मेरी शिकायतें",
+        nav_settings: "⚙️ सेटिंग्स",
+        logout: "लॉगआउट",
+        user_name: "राहुल शर्मा",
+        user_id: "USR-1001",
+        
+        search_placeholder: "शिकायत आईडी, श्रेणी, वार्ड खोजें...",
+        report_title: "समस्या दर्ज करें",
+        report_sub: "हमें बताएं कि आपके समुदाय में क्या समस्या है। हम इसे सही सेवा टीम तक पहुंचाएंगे।",
+        lbl_category: "श्रेणी *",
+        lbl_description: "समस्या का विवरण *",
+        desc_example: "कॉलेज गेट के पास सड़क पर बड़ा गड्ढा है और सड़क पार करते समय छात्र जोखिम में हैं।",
+        desc_placeholder: "बताएं कि क्या हुआ, कहां हुआ, और कोई भी महत्वपूर्ण जानकारी...",
+        lbl_record_voice: "🎙️ बोलकर बताएं / Record Voice",
+        lbl_location: "स्थान *",
+        btn_current_location: "वर्तमान स्थान का उपयोग करें",
+        loc_placeholder: "वार्ड 12 • कॉलेज गेट के पास",
+        geospatial_tag: "भू-स्थानिक वार्ड स्थान टैग किया गया",
+        lbl_evidence_photo: "साक्ष्य फोटो *",
+        btn_attach_photo: "फोटो संलग्न करें",
+        photo_required_err: "कृपया प्रमाण के रूप में एक फोटो अपलोड करें।",
+        privacy_footer_title: "🛡️ गोपनीयता सुरक्षित",
+        privacy_footer_text: "केवल इस शिकायत को हल करने के लिए आवश्यक जानकारी ही सेवा टीम के साथ साझा की जाती है। व्यक्तिगत आधार विवरण कभी संग्रहीत नहीं किए जाते हैं।",
+        btn_submit_complaint: "शिकायत दर्ज करें और AI ट्रियाज ट्रिगर करें",
+
+        ai_triage_badge: "AI सहायता प्राप्त ट्रियाज",
+        ai_triage_title: "शिकायत का विश्लेषण किया जा रहा है...",
+        ai_triage_sub: "स्वचालित श्रेणी वर्गीकरण और प्राथमिकता आवंटन",
+        lbl_original_input: "नागरिक द्वारा दर्ज मूल विवरण",
+        lbl_ai_structured: "एआई-संरचित शिकायत सारांश",
+        lbl_category_header: "श्रेणी",
+        lbl_auto_priority: "स्वचालित प्राथमिकता",
+        lbl_suggested_dept: "सुझाया गया विभाग",
+        lbl_possible_duplicate: "संभावित डुप्लिकेट",
+        btn_proceed_confirmation: "शिकायत पुष्टि के लिए आगे बढ़ें",
+
+        submitted_title: "शिकायत दर्ज की गई",
+        submitted_sub: "आपकी शिकायत नगर निगम कतार में सफलतापूर्वक दर्ज कर ली गई है।",
+        lbl_status_header: "स्थिति:",
+        btn_track_complaint: "शिकायत ट्रैक करें",
+
+        lbl_assigned_service: "आवंटित विभाग",
+        lbl_location_header: "स्थान",
+        prio_critical: "गंभीर",
+        prio_high: "उच्च",
+        prio_medium: "मध्यम",
+        prio_low: "कम",
+        dept_roads: "सड़क एवं अवसंरचना विभाग",
+        dept_waste: "ठोस अपशिष्ट प्रबंधन विभाग",
+        dept_water: "जल आपूर्ति एवं सीवरेज विभाग",
+        dept_lighting: "विद्युत एवं सार्वजनिक प्रकाश विभाग",
+        dept_general: "सामान्य नगर निगम सेवाएं",
+        track_title: "शिकायत का विवरण",
+
+        feedback_title: "प्रतिक्रिया",
+        feedback_sub: "क्या इस पोर्टल का अनुभव संतोषजनक था?",
+        feedback_placeholder: "अपनी प्रतिक्रिया साझा करें...",
+        feedback_submit_btn: "प्रतिक्रिया भेजें",
+
+        active_complaint_title: "सक्रिय शिकायत",
+        lbl_complaint_id: "शिकायत आईडी",
+        lbl_officer_assigned: "नियुक्त अधिकारी",
+        lbl_est_resolution: "अनुमानित समाधान समय",
+        lbl_days_remaining: "2 दिन शेष",
+
+        cat_road: "सड़क की क्षति / गड्ढे",
+        cat_garbage: "कचरा / अपशिष्ट",
+        cat_water: "पानी का रिसाव",
+        cat_light: "स्ट्रीटलाइट",
+        cat_sewage: "सीवरेज",
+        cat_safety: "सार्वजनिक सुरक्षा",
+        cat_access: "पहुंच क्षमता",
+        cat_other: "अन्य",
+
+        dash_welcome: "शुभ प्रभात 👋",
+        dash_welcome_sub: "अपने नागरिक निवारण पोर्टल पर वापस आपका स्वागत है।",
+        btn_report_new: "नई समस्या दर्ज करें",
+        active_complaints: "सक्रिय शिकायतें",
+        resolved_complaints: "हल की गई",
+        sla_at_risk: "जोखिम में एसएलए",
+        total_reports: "कुल शिकायतें",
+        view_details: "विवरण देखें",
+
+        status_received: "दर्ज",
+        status_in_progress: "प्रगति पर है",
+        status_pending_citizen: "नागरिक पुष्टि की प्रतीक्षा",
+        status_resolved: "हल किया गया",
+        access_denied: "पहुंच प्रतिबंधित है",
+        access_denied_sub: "आपके पास इस अनुभाग तक पहुंचने की अनुमति नहीं है।",
+
+        admin_dashboard: "एडमिन डैशबोर्ड",
+        system_analytics: "सिस्टम एनालिटिक्स",
+        fairness_monitoring: "निष्पक्षता एवं पहुंच",
+        audit_logs: "ऑडिट लॉग्स",
+        civic_map: "नागरिक मानचित्र",
+        off_cmd_title: "अधिकारी कार्रवाई एवं कमान केंद्र",
+        off_cmd_sub: "अत्यावश्यक एसएलए उल्लंघन, गंभीर शिकायतों और आवश्यक समीक्षा कार्यों को प्राथमिकता देने वाली कतार",
+        btn_view_full_queue: "पूरी शिकायत कतार देखें",
+        lbl_action_required: "कार्रवाई आवश्यक (अत्यावश्यक एसएलए कतार)",
+        admin_op_title: "प्राथमिकता शिकायत कतार और ट्रियाज नियंत्रण",
+        admin_op_sub: "अत्यावश्यकता और एसएलए लक्ष्यों के आधार पर वर्गीकृत एआई-प्राथमिकता वाली नागरिक शिकायतें",
+        th_dept: "विभाग",
+        th_assigned: "आवंटित शिकायतें",
+        th_resolved: "हल किया गया",
+        th_performance: "एसएलए स्थिति",
+        th_log_id: "लॉग आईडी",
+        th_timestamp: "समय मोहर",
+        th_action: "कार्रवाई का प्रकार",
+        th_actor: "उपयोगकर्ता / अधिकारी",
+        th_details: "कार्रवाई का विवरण",
+        fairness_title: "निष्पक्षता और पहुँच लेखा परीक्षा",
+        fairness_sub: "भू-स्थानिक निष्पक्षता विश्लेषण और वार्ड-स्तरीय संसाधन वितरण निगरानी",
+        equity_score: "वार्ड संसाधन निष्पक्षता स्कोर",
+        language_dist: "बहुभाषी पहुँच अनुपात",
+        audit_title: "सिस्टम ऑडिट एवं गवर्नेंस लॉग",
+        audit_sub: "सभी सिस्टम गतिविधियों का समयबद्ध और सत्यापित ऑडिट ट्रेल",
+        no_audit_logs: "कोई ऑडिट लॉग उपलब्ध नहीं हैं।",
+        settings_title: "एप्लिकेशन एवं सिस्टम सेटिंग्स",
+        settings_sub: "अपने पोर्टल की प्राथमिकताओं, अधिसूचना थ्रेसहोल्ड और प्रशासन विन्यासों का प्रबंधन करें",
+        lbl_notification_rules: "अधिसूचना और एसएलए थ्रेसहोल्ड",
+        lbl_enable_sla_alerts: "स्वचालित एसएलए जोखिम अलर्ट सक्षम करें",
+        lbl_ai_assessment: "एआई प्राथमिकता मूल्यांकन",
+        civic_map_title: "नागरिक मानचित्रण एवं स्थानिक एनालिटिक्स",
+        civic_map_sub: "शहर के सभी वार्डों में नगर निगम शिकायतों की वास्तविक समय भौगोलिक ट्रैकिंग और स्थानिक वितरण"
+      }
+    };
+
+    const DEFAULT_COMPLAINTS = [
+      {
+        id: "CRP-2026-0001",
+        complaintId: "CRP-2026-0001",
+        title: "Large pothole near Central School main gate",
+        title_en: "Large pothole near Central School main gate",
+        title_hi: "सेंट्रल स्कूल मुख्य द्वार के पास बड़ा गड्ढा",
+        description: "Deep pothole creating severe traffic bottleneck during school pickup hours.",
+        originalDescription: "Deep pothole creating severe traffic bottleneck during school pickup hours.",
+        aiGeneratedDescription: "Severe road surface damage and deep pothole situated adjacent to Central School main entrance, creating severe traffic congestion and pedestrian safety risks.",
+        desc_en: "Deep pothole creating severe traffic bottleneck during school pickup hours.",
+        desc_hi: "स्कूल खुलने के समय गंभीर यातायात बाधा पैदा करने वाला गहरा गड्ढा।",
+        category: "Road Damage / Potholes",
+        location: "Ward 12 • MG Road, Near Central School",
+        ward: "Ward 12",
+        urgency: "High",
+        priority: "High",
+        department: "Roads & Infrastructure",
+        status: "Submitted",
+        assignedOfficer: "Officer R. Patil (OFF-1001)",
+        residentId: "USR-1001",
+        aiSuggestion: "High Priority - Roads & Infrastructure",
+        aiConfidence: "94%",
+        aiSummary: "Hazardous pothole near school gate requiring rapid resurfacing.",
+        duplicateCount: 0,
+        possibleDuplicateIds: [],
+        slaStatus: "ON_TRACK",
+        slaHours: 24,
+        slaDueMs: Date.now() + (18 * 3600 * 1000),
+        evidencePhoto: "pothole_photo.jpg",
+        createdAt: "2026-08-07T08:30:00Z",
+        updatedAt: "2026-08-07T08:30:00Z"
+      }
+    ];
+
+    let db = null;
+    let firebaseEnabled = false;
+
+    try {
+      const firebaseConfig = {
+        apiKey: "AIzaSyJanSevaDemoKeyDummy1234567890",
+        authDomain: "janseva-civic-app.firebaseapp.com",
+        projectId: "janseva-civic-app",
+        storageBucket: "janseva-civic-app.appspot.com",
+        messagingSenderId: "123456789012",
+        appId: "1:123456789012:web:abcdef1234567890"
+      };
+
+      if (typeof firebase !== 'undefined' && firebase.initializeApp) {
+        firebase.initializeApp(firebaseConfig);
+        db = firebase.firestore();
+        firebaseEnabled = true;
+        console.log("Firebase initialized successfully for JanSeva.");
+      }
+    } catch (e) {
+      console.warn("Firebase fallback mode active:", e.message);
+    }
+
+    let state = {
+      currentUser: JSON.parse(localStorage.getItem("currentUser")) || null,
+      complaints: JSON.parse(localStorage.getItem("community_complaints")) || DEFAULT_COMPLAINTS,
+      auditLogs: JSON.parse(localStorage.getItem("community_audit_logs")) || [],
+      appeals: JSON.parse(localStorage.getItem("community_appeals")) || [],
+      escalations: JSON.parse(localStorage.getItem("community_escalations")) || [],
+      anomalyFlags: JSON.parse(localStorage.getItem("community_anomaly_flags")) || [],
+      privacySettings: JSON.parse(localStorage.getItem("community_privacy_settings")) || {
+        strictAnonymization: true,
+        consentAnalytics: true,
+        dataRetentionDays: 365
+      },
+      currentLanguage: localStorage.getItem("app_language") || "en",
+      currentTheme: localStorage.getItem("app_theme") || "light",
+      currentRoute: "report",
+      selectedComplaintId: null,
+      pendingTriageComplaint: null,
+      pendingOverrideTarget: null,
+      pendingResolutionTarget: null,
+      selectedAiOption: "accept" // "accept", "edit", "original"
+    };
+
+    let hasUploadedPhoto = false;
+
+    // FIRESTORE REAL-TIME LISTENERS
+    function initFirestoreRealtimeListener() {
+      if (firebaseEnabled && db) {
+        try {
+          // Complaints collection listener
+          db.collection("complaints").onSnapshot((snapshot) => {
+            let updated = false;
+            snapshot.forEach(doc => {
+              const remoteData = doc.data();
+              const cid = remoteData.complaintId || doc.id;
+              const idx = state.complaints.findIndex(c => c.id === cid || c.complaintId === cid);
+              const fullDoc = { ...remoteData, id: cid, complaintId: cid };
+              if (idx >= 0) {
+                state.complaints[idx] = { ...state.complaints[idx], ...fullDoc };
+              } else {
+                state.complaints.unshift(fullDoc);
+              }
+              updated = true;
+            });
+            if (updated) {
+              saveState();
+              checkSlaEscalations();
+              checkAiAnomalyPatterns();
+              if (state.currentUser && state.currentRoute) {
+                const mainContent = document.getElementById("mainContent");
+                if (mainContent) mainContent.innerHTML = renderRouteView(state.currentRoute);
+              }
+            }
+          }, (err) => console.warn("Firestore complaints listener warning:", err));
+
+          // Appeals collection listener
+          db.collection("appeals").onSnapshot((snapshot) => {
+            const list = [];
+            snapshot.forEach(doc => list.push({ ...doc.data(), id: doc.id }));
+            if (list.length > 0) {
+              state.appeals = list;
+              saveState();
+            }
+          });
+
+          // Escalations collection listener
+          db.collection("escalations").onSnapshot((snapshot) => {
+            const list = [];
+            snapshot.forEach(doc => list.push({ ...doc.data(), id: doc.id }));
+            if (list.length > 0) {
+              state.escalations = list;
+              saveState();
+            }
+          });
+
+          // Anomaly Flags listener
+          db.collection("anomalyFlags").onSnapshot((snapshot) => {
+            const list = [];
+            snapshot.forEach(doc => list.push({ ...doc.data(), id: doc.id }));
+            if (list.length > 0) {
+              state.anomalyFlags = list;
+              saveState();
+            }
+          });
+        } catch (e) {
+          console.warn("Realtime listener setup exception:", e);
+        }
+      }
+    }
+
+    // SLA TIMELINE CONFIGURATION PER DEPARTMENT (Section 11)
+    const DEPARTMENT_SLA_HOURS = {
+      "Roads & Infrastructure": 24,
+      "Solid Waste Management": 12,
+      "Water Supply & Sewage": 12,
+      "Electrical & Public Lighting": 24,
+      "Public Safety": 4,
+      "Accessibility": 24,
+      "General Municipal Services": 48
+    };
+
+    function checkSlaEscalations() {
+      const now = Date.now();
+      state.complaints.forEach(c => {
+        if (c.status !== "Resolved" && c.status !== "Resolution Pending Citizen Confirmation") {
+          const due = c.slaDueMs || (new Date(c.createdAt).getTime() + (c.slaHours || 24) * 3600 * 1000);
+          if (now > due && c.slaStatus !== "BREACHED") {
+            c.slaStatus = "BREACHED";
+            
+            const escId = "ESC-" + Math.floor(10000 + Math.random() * 90000);
+            const escRecord = {
+              escalationId: escId,
+              complaintId: c.id,
+              department: c.department,
+              reason: `SLA Response Timeline (${c.slaHours || 24}h) Exceeded`,
+              previousStatus: c.status,
+              escalationLevel: "LEVEL_1_SUPERVISOR_ALERT",
+              createdAt: new Date().toISOString(),
+              resolvedAt: null
+            };
+            
+            state.escalations.unshift(escRecord);
+            logAudit("SLA Breached & Escalated", "System Governance Daemon", `Automated escalation logged for ${c.id} in ${c.department}`);
+            syncComplaintToFirestore(c);
+            
+            if (firebaseEnabled && db) {
+              try { db.collection("escalations").doc(escId).set(escRecord); } catch(e){}
+            }
+          }
+        }
+      });
+    }
+
+    // AI ANOMALY DETECTION ENGINE (Section 14)
+    function checkAiAnomalyPatterns() {
+      const anomalies = [];
+      
+      // Pattern 1: Rapid closure (< 1 minute)
+      state.complaints.forEach(c => {
+        if (c.status === "Resolved" && c.resolvedAt && c.createdAt) {
+          const diffMs = new Date(c.resolvedAt).getTime() - new Date(c.createdAt).getTime();
+          if (diffMs > 0 && diffMs < 60000) {
+            anomalies.push({
+              flagId: "ANOM-RAPID-" + c.id,
+              type: "RAPID_CLOSURE_DETECTED",
+              description: `Complaint ${c.id} marked resolved in under 60 seconds without verifiable inspection delay.`,
+              officerId: c.assignedOfficer || "Officer R. Patil (OFF-1001)",
+              department: c.department,
+              complaintId: c.id,
+              confidence: "96%",
+              createdAt: new Date().toISOString(),
+              status: "NEW"
+            });
+          }
+        }
+      });
+
+      // Pattern 2: Missing evidence closure
+      state.complaints.forEach(c => {
+        if (c.status === "Resolved" && (!c.resolutionEvidence || c.resolutionEvidence === "")) {
+          anomalies.push({
+            flagId: "ANOM-NOEVID-" + c.id,
+            type: "MISSING_EVIDENCE_CLOSURE",
+            description: `Complaint ${c.id} closed without mandatory resolution proof photograph attached.`,
+            officerId: c.assignedOfficer || "Officer R. Patil (OFF-1001)",
+            department: c.department,
+            complaintId: c.id,
+            confidence: "98%",
+            createdAt: new Date().toISOString(),
+            status: "NEW"
+          });
+        }
+      });
+
+      anomalies.forEach(a => {
+        if (!state.anomalyFlags.some(exist => exist.flagId === a.flagId)) {
+          state.anomalyFlags.unshift(a);
+          if (firebaseEnabled && db) {
+            try { db.collection("anomalyFlags").doc(a.flagId).set(a); } catch(e){}
+          }
+        }
+      });
+      saveState();
+    }
+
+    // GEMINI AI TRIAGE & CLARIFICATION ENGINE (Sections 1, 2, 3, 15)
+    function runGeminiAiTriage(complaint, existingComplaints = []) {
+      try {
+        const text = ((complaint.title || '') + ' ' + (complaint.description || '') + ' ' + (complaint.location || '') + ' ' + (complaint.category || '')).toLowerCase();
+        const cat = (complaint.category || '').toLowerCase();
+        
+        let domain = "General Municipal Services";
+        let priority = "Medium";
+        let confidence = "94%";
+        let suggestedDept = "General Municipal Services";
+        let summary_en = "Standard civic grievance logged for departmental inspection.";
+        let summary_hi = "विभागीय निरीक्षण के लिए मानक नागरिक शिकायत दर्ज की गई।";
+        let reason_en = "Assessed against domain severity, safety risk, and location rules.";
+        let reason_hi = "स्थान और अत्यावश्यकता नियमों के आधार पर एआई ट्रियाज।";
+        let emergencyRec = "NORMAL";
+
+        // Professional polished description (Section 1)
+        const polishedDesc = `Formal Civic Grievance regarding ${complaint.category || 'Municipal Issue'}: ${complaint.description}. Location: ${complaint.location}. Immediate departmental inspection and corrective action requested.`;
+
+        // Category-specific dynamic clarification questions (Section 2)
+        let clarificationQuestions = [];
+        if (cat.includes("road") || cat.includes("pothole")) {
+          clarificationQuestions = [
+            "Exact location or nearest landmark?",
+            "Is traffic currently affected or obstructed?",
+            "Is anyone injured or at risk of skidding?",
+            "Approximate number of daily commuters affected?"
+          ];
+        } else if (cat.includes("garbage") || cat.includes("waste") || cat.includes("sanitation")) {
+          clarificationQuestions = [
+            "What specific type of waste (household, medical, debris)?",
+            "How many days has this garbage accumulated?",
+            "Is there an immediate health or odor hazard?"
+          ];
+        } else if (cat.includes("safety") || cat.includes("hazard")) {
+          clarificationQuestions = [
+            "Is there immediate danger to human life or property?",
+            "Are pedestrians or children currently exposed to danger?",
+            "Are emergency services required?"
+          ];
+        } else if (cat.includes("access") || cat.includes("disability")) {
+          clarificationQuestions = [
+            "What specific accessibility barrier exists?",
+            "Which public facility or entrance is obstructed?",
+            "Who is primarily affected (wheelchair users, elderly, visually impaired)?"
+          ];
+        } else {
+          clarificationQuestions = [
+            "How long has this issue persisted?",
+            "Are multiple residents impacted in this locality?"
+          ];
+        }
+
+        // Department & Priority Allotment
+        if (cat.includes("road") || cat.includes("pothole") || cat.includes("bridge") || cat.includes("footpath")) {
+          domain = "Roads & Infrastructure";
+          suggestedDept = "Roads & Infrastructure";
+          if (text.includes("college") || text.includes("school") || text.includes("gate") || text.includes("hazardous") || text.includes("skid")) {
+            priority = "High";
+            confidence = "94%";
+            summary_en = "Hazardous road pothole near college/school gate creating severe safety risk.";
+            summary_hi = "कॉलेज/स्कूल द्वार के पास खतरनाक सड़क का गड्ढा जो सुरक्षा जोखिम पैदा कर रहा है।";
+            reason_en = "Hazardous pothole near college gate causing high safety risk for students.";
+            reason_hi = "छात्रों के लिए उच्च सुरक्षा जोखिम पैदा करने वाला कॉलेज गेट के पास खतरनाक गड्ढा।";
+          } else {
+            priority = "Medium";
+            confidence = "91%";
+            summary_en = "Localized road surface damage requiring routine resurfacing.";
+            summary_hi = "नियमित मरम्मत की आवश्यकता वाली स्थानीय सड़क सतह क्षति।";
+            reason_en = "Standard road pothole requiring routine municipal resurfacing.";
+            reason_hi = "नियमित मरम्मत की आवश्यकता वाला मानक सड़क का गड्ढा।";
+          }
+        } else if (cat.includes("water") || cat.includes("sewage")) {
+          domain = "Water Supply & Sewage";
+          suggestedDept = "Water Supply & Sewage";
+          priority = "High";
+          confidence = "92%";
+        } else if (cat.includes("garbage") || cat.includes("waste")) {
+          domain = "Solid Waste Management";
+          suggestedDept = "Solid Waste Management";
+          priority = "Medium";
+          confidence = "91%";
+        } else if (cat.includes("safety")) {
+          domain = "Public Safety";
+          suggestedDept = "Public Safety";
+          priority = "Critical";
+          confidence = "96%";
+        }
+
+        // Smart Emergency Detection (Section 15)
+        if (text.includes("emergency") || text.includes("fire") || text.includes("explosion") || text.includes("collapse") || text.includes("injured") || text.includes("gas leak")) {
+          emergencyRec = "LEVEL 3: TOP PRIORITY EMERGENCY RECOMMENDED";
+          priority = "Critical";
+        } else if (priority === "Critical" || priority === "High") {
+          emergencyRec = "LEVEL 2: RAPID HUMAN VERIFICATION RECOMMENDED";
+        }
+
+        let possibleDuplicateIds = [];
+        let duplicateCount = 0;
+
+        if (Array.isArray(existingComplaints)) {
+          const matching = existingComplaints.filter(other => {
+            if (!other || other.id === complaint.id) return false;
+            const otherText = ((other.title || '') + ' ' + (other.description || '')).toLowerCase();
+            const sameCat = other.category === complaint.category;
+            const wordOverlap = text.split(/\s+/).some(w => w.length > 4 && otherText.includes(w));
+            return (sameCat && wordOverlap);
+          });
+          possibleDuplicateIds = matching.map(m => m.id);
+          duplicateCount = matching.length;
+        }
+
+        return {
+          category: complaint.category,
+          priority: priority,
+          urgency: priority,
+          department: suggestedDept,
+          aiConfidence: confidence,
+          aiSuggestion: `${priority} Priority - ${suggestedDept}`,
+          aiSummary: summary_en,
+          aiReason_en: reason_en,
+          aiReason_hi: reason_hi,
+          aiDomain: domain,
+          aiGeneratedDescription: polishedDesc,
+          clarificationQuestions: clarificationQuestions,
+          emergencyRecommendation: emergencyRec,
+          duplicateCount: duplicateCount,
+          possibleDuplicateIds: possibleDuplicateIds
+        };
+      } catch (err) {
+        console.warn("Gemini AI triage processing fallback:", err);
+        return {
+          category: complaint.category || "Road Damage / Potholes",
+          priority: "Medium",
+          urgency: "Medium",
+          department: "Roads & Infrastructure",
+          aiStatus: "UNAVAILABLE",
+          aiConfidence: "75%",
+          aiSuggestion: "Pending Officer Manual Review",
+          aiSummary: "Complaint saved successfully. Gemini AI processing unavailable.",
+          aiGeneratedDescription: complaint.description || "Grievance details logged.",
+          clarificationQuestions: ["How long has this issue persisted?"],
+          emergencyRecommendation: "NORMAL",
+          duplicateCount: 0,
+          possibleDuplicateIds: []
+        };
+      }
+    }
+
+    function syncComplaintToFirestore(complaintDoc) {
+      localStorage.setItem("community_complaints", JSON.stringify(state.complaints));
+
+      if (firebaseEnabled && db) {
+        try {
+          db.collection("complaints").doc(complaintDoc.id).set({
+            complaintId: complaintDoc.id,
+            residentId: complaintDoc.residentId || "USR-1001",
+            title: complaintDoc.title || complaintDoc.title_en || "Civic Complaint",
+            description: complaintDoc.description || complaintDoc.desc_en || "",
+            originalDescription: complaintDoc.originalDescription || complaintDoc.description || "",
+            aiGeneratedDescription: complaintDoc.aiGeneratedDescription || "",
+            category: complaintDoc.category || "Road Damage / Potholes",
+            location: complaintDoc.location || "Ward 12",
+            urgency: complaintDoc.urgency || complaintDoc.priority || "Medium",
+            priority: complaintDoc.priority || "Medium",
+            department: complaintDoc.department || "Roads & Infrastructure",
+            assignedOfficer: complaintDoc.assignedOfficer || "Officer R. Patil (OFF-1001)",
+            status: complaintDoc.status || "Submitted",
+            aiSuggestion: complaintDoc.aiSuggestion || "",
+            aiConfidence: complaintDoc.aiConfidence || "94%",
+            aiSummary: complaintDoc.aiSummary || "",
+            clarificationQuestions: complaintDoc.clarificationQuestions || [],
+            clarificationAnswers: complaintDoc.clarificationAnswers || {},
+            emergencyRecommendation: complaintDoc.emergencyRecommendation || "NORMAL",
+            resolutionEvidence: complaintDoc.resolutionEvidence || "",
+            resolutionNotes: complaintDoc.resolutionNotes || "",
+            duplicateCount: complaintDoc.duplicateCount || 0,
+            possibleDuplicateIds: complaintDoc.possibleDuplicateIds || [],
+            slaStatus: complaintDoc.slaStatus || "ON_TRACK",
+            slaHours: complaintDoc.slaHours || 24,
+            slaDueMs: complaintDoc.slaDueMs || (Date.now() + 24 * 3600 * 1000),
+            createdAt: complaintDoc.createdAt || new Date().toISOString(),
+            updatedAt: new Date().toISOString()
+          }, { merge: true }).then(() => {
+            console.log("Firestore complaint written successfully:", complaintDoc.id);
+          }).catch(err => {
+            console.error("Firestore write error logged to console:", err);
+          });
+        } catch (e) {
+          console.warn("Firestore save fallback active.");
+        }
+      }
+    }
+
+    function getComplaintTitle(c, lang) {
+      if (!c) return "";
+      const currentLang = lang || state.currentLanguage || "en";
+      if (currentLang === "hi") {
+        return c.title_hi || c.title || c.description || "";
+      }
+      return c.title_en || c.title || c.description || "";
+    }
+
+    function getComplaintDescription(c, lang) {
+      if (!c) return "";
+      const currentLang = lang || state.currentLanguage || "en";
+      if (currentLang === "hi") {
+        return c.desc_hi || c.description || "";
+      }
+      return c.desc_en || c.description || "";
+    }
+
+    function getTranslatedCategory(cat, lang) {
+      const t = TRANSLATIONS[lang || "en"];
+      if (!cat) return "";
+      if (cat.includes("Road")) return t.cat_road;
+      if (cat.includes("Garbage") || cat.includes("Waste")) return t.cat_garbage;
+      if (cat.includes("Water")) return t.cat_water;
+      if (cat.includes("Streetlight")) return t.cat_light;
+      if (cat.includes("Sewage")) return t.cat_sewage;
+      if (cat.includes("Safety")) return t.cat_safety;
+      if (cat.includes("Access")) return t.cat_access;
+      return t.cat_other || cat;
+    }
+
+    function getTranslatedDepartment(dept, lang) {
+      const t = TRANSLATIONS[lang || "en"];
+      if (!dept) return "";
+      if (dept.includes("Roads")) return t.dept_roads;
+      if (dept.includes("Solid Waste") || dept.includes("Garbage")) return t.dept_waste;
+      if (dept.includes("Water")) return t.dept_water;
+      if (dept.includes("Electrical") || dept.includes("Lighting")) return t.dept_lighting;
+      return t.dept_general || dept;
+    }
+
+    function getTranslatedStatus(status, lang) {
+      const t = TRANSLATIONS[lang || "en"];
+      if (!status) return "";
+      if (status === "Resolved") return t.status_resolved;
+      if (status === "In Progress") return t.status_in_progress;
+      if (status === "Resolution Pending Citizen Confirmation") return t.status_pending_citizen;
+      return t.status_received;
+    }
+
+    function getTranslatedPriority(prio, lang) {
+      const t = TRANSLATIONS[lang || "en"];
+      if (!prio) return "";
+      if (prio === "Critical") return t.prio_critical;
+      if (prio === "High") return t.prio_high;
+      if (prio === "Medium") return t.prio_medium;
+      return t.prio_low;
+    }
+
+    function getPriorityBadgeClass(prio) {
+      if (prio === "Critical") return "bg-[#FFEBEE] text-[#C62828] border border-[#C62828]";
+      if (prio === "High") return "bg-[#FFF3E0] text-[#C77C02] border border-[#C77C02]";
+      if (prio === "Medium") return "bg-[#FEF9E7] text-[#B8860B] border border-[#B8860B]";
+      return "bg-[#E8F5E9] text-[#2E7D32] border border-[#2E7D32]";
+    }
+
+    function getStatusBadgeClass(status) {
+      if (status === "Resolved") return "bg-[#E8F5E9] text-[#2E7D32]";
+      if (status === "In Progress") return "bg-[#FEF9E7] text-[#B8860B]";
+      if (status === "Resolution Pending Citizen Confirmation") return "bg-[#FFF3E0] text-[#C77C02]";
+      return "bg-[#FFE4D1] text-[#8F6B00]";
+    }
+
+    const ROLE_ALLOWED_ROUTES = {
+      RESIDENT: ["report", "my-complaints", "track-complaint", "dashboard", "settings", "ai-triage", "complaint-submitted"],
+      OFFICER: ["officer-dashboard", "complaint-queue", "track-complaint", "complaint-review", "dept-assignment", "priority-mgmt", "sla-monitor", "escalations", "map", "officer-analytics", "settings"],
+      ADMIN: ["admin-dashboard", "track-complaint", "system-analytics", "dept-performance", "sla-rules", "fairness-monitoring", "audit-logs", "audit-trail", "complaint-trends", "system-settings", "map", "settings"]
+    };
+
+    document.addEventListener("DOMContentLoaded", () => {
+      initTheme();
+      initEventListeners();
+      initAuthUI();
+      applyLanguageToDOM();
+      initFirestoreRealtimeListener();
+      showAuthScreen();
+    });
+
+    function saveState() {
+      localStorage.setItem("currentUser", JSON.stringify(state.currentUser));
+      localStorage.setItem("community_complaints", JSON.stringify(state.complaints));
+      localStorage.setItem("community_audit_logs", JSON.stringify(state.auditLogs));
+      localStorage.setItem("community_appeals", JSON.stringify(state.appeals));
+      localStorage.setItem("community_escalations", JSON.stringify(state.escalations));
+      localStorage.setItem("community_anomaly_flags", JSON.stringify(state.anomalyFlags));
+      localStorage.setItem("community_privacy_settings", JSON.stringify(state.privacySettings));
+    }
+
+    function initTheme() {
+      if (state.currentTheme === "dark") document.documentElement.classList.add("dark");
+      else document.documentElement.classList.remove("dark");
+    }
+
+    function toggleTheme() {
+      state.currentTheme = state.currentTheme === "light" ? "dark" : "light";
+      localStorage.setItem("app_theme", state.currentTheme);
+      initTheme();
+    }
+
+    function logAudit(action, actor, details) {
+      const entry = {
+        id: "AUD-" + Math.floor(100000 + Math.random() * 900000),
+        timestamp: new Date().toLocaleString(),
+        action,
+        actor,
+        details
+      };
+      state.auditLogs.unshift(entry);
+      saveState();
+
+      if (firebaseEnabled && db) {
+        try {
+          db.collection("auditLogs").doc(entry.id).set(entry);
+        } catch (e) {}
+      }
+    }
+
+    function applyLanguageToDOM() {
+      const lang = state.currentLanguage || "en";
+      const t = TRANSLATIONS[lang] || TRANSLATIONS.en;
+
+      const authSelect = document.getElementById("authLangSelect");
+      const headerSelect = document.getElementById("headerLangSelect");
+      if (authSelect) authSelect.value = lang;
+      if (headerSelect) headerSelect.value = lang;
+
+      const setEl = (id, text) => {
+        const el = document.getElementById(id);
+        if (el) el.innerText = text;
+      };
+
+      setEl("txt-app-title", t.app_title);
+      setEl("txt-app-subtitle", t.subtitle);
+      setEl("txt-hero-badge", t.hero_badge);
+      setEl("txt-hero-title", t.hero_title);
+      setEl("txt-hero-sub", t.hero_sub);
+      setEl("txt-hero-desc", t.hero_desc);
+      setEl("txt-role-res", t.role_res);
+      setEl("txt-role-res-sub", t.role_res_sub);
+      setEl("txt-role-off", t.role_off);
+      setEl("txt-role-off-sub", t.role_off_sub);
+      setEl("txt-role-adm", t.role_adm);
+      setEl("txt-role-adm-sub", t.role_adm_sub);
+      setEl("txt-res-auth-title", t.res_auth_title);
+      setEl("txt-res-auth-sub", t.res_auth_sub);
+      setEl("lbl-aadhaar", t.aadhaar_label);
+      setEl("txt-aadhaar-err", t.aadhaar_err);
+      setEl("btnRequestOtpLabel", t.btn_req_otp);
+      setEl("lbl-otp", t.lbl_otp);
+      setEl("btnVerifyProceedLabel", t.btn_verify_proceed);
+      setEl("txt-sidebar-logout", t.logout);
+      setEl("txt-header-logout", t.logout);
+      setEl("txt-access-denied", t.access_denied);
+      setEl("txt-access-denied-sub", t.access_denied_sub);
+
+      const descInput = document.getElementById("issueDescription");
+      if (descInput) {
+        descInput.value = t.desc_example;
+        descInput.placeholder = t.desc_placeholder;
+      }
+
+      setEl("txt-feedback-title", t.feedback_title);
+      setEl("txt-feedback-sub", t.feedback_sub);
+      setEl("txt-feedback-btn", t.feedback_submit_btn);
+      const photoErrTxt = document.getElementById("txt-photo-err");
+      if (photoErrTxt) photoErrTxt.innerText = t.photo_required_err;
+
+      const searchInput = document.getElementById("globalSearchInput");
+      if (searchInput) searchInput.placeholder = t.search_placeholder;
+    }
+
+    function initAuthUI() {
+      const resCard = document.getElementById("selectResidentRole");
+      const offCard = document.getElementById("selectOfficerRole");
+      const admCard = document.getElementById("selectAdminRole");
+
+      const resForm = document.getElementById("residentLoginForm");
+      const offForm = document.getElementById("officerLoginForm");
+      const admForm = document.getElementById("adminLoginForm");
+
+      function setActiveRoleCard(activeCard, activeForm) {
+        [resCard, offCard, admCard].forEach(c => {
+          c.classList.remove("active", "border-[#B8860B]");
+          c.classList.add("border-[#E8D4C3]", "dark:border-[#382D23]");
+          c.querySelector(".role-badge").classList.add("hidden");
+        });
+        activeCard.classList.add("active", "border-[#B8860B]");
+        activeCard.querySelector(".role-badge").classList.remove("hidden");
+
+        [resForm, offForm, admForm].forEach(f => f.classList.add("hidden"));
+        activeForm.classList.remove("hidden");
+      }
+
+      if (resCard) resCard.addEventListener("click", () => setActiveRoleCard(resCard, resForm));
+      if (offCard) offCard.addEventListener("click", () => setActiveRoleCard(offCard, offForm));
+      if (admCard) admCard.addEventListener("click", () => setActiveRoleCard(admCard, admForm));
+
+      const resAadhaarInput = document.getElementById("resAadhaarInput");
+      if (resAadhaarInput) {
+        resAadhaarInput.addEventListener("input", (e) => {
+          let val = e.target.value.replace(/\D/g, "");
+          if (val.length > 12) val = val.substring(0, 12);
+          let formatted = "";
+          for (let i = 0; i < val.length; i++) {
+            if (i > 0 && i % 4 === 0) formatted += " ";
+            formatted += val[i];
+          }
+          e.target.value = formatted;
+        });
+      }
+
+      let isOtpRequested = false;
+      const btnRequestOtp = document.getElementById("btnRequestOtp");
+      const otpVerifyStep = document.getElementById("otpVerifyStep");
+
+      if (btnRequestOtp) {
+        btnRequestOtp.addEventListener("click", () => {
+          isOtpRequested = true;
+          if (otpVerifyStep) otpVerifyStep.classList.remove("hidden");
+          const otpInput = document.getElementById("resOtpInput");
+          if (otpInput) {
+            otpInput.value = "123456";
+            otpInput.focus();
+          }
+        });
+      }
+
+      if (resForm) {
+        resForm.addEventListener("submit", (e) => {
+          e.preventDefault();
+          const otpInput = document.getElementById("resOtpInput");
+          const otp = otpInput ? otpInput.value.trim() : "";
+
+          if (!isOtpRequested || otp !== "123456") return;
+
+          state.currentUser = {
+            id: "USR-1001",
+            name: "Rahul Sharma",
+            role: "RESIDENT"
+          };
+          saveState();
+          logAudit("User Login", "Rahul Sharma (USR-1001)", "Authenticated via Aadhaar OTP");
+          navigateTo("report");
+        });
+      }
+
+      if (offForm) {
+        offForm.addEventListener("submit", (e) => {
+          e.preventDefault();
+          const offId = document.getElementById("offIdInput").value.trim();
+          const pass = document.getElementById("offPasswordInput").value.trim();
+          
+          if (offId === "OFF-1001" && pass === "123456") {
+            state.currentUser = {
+              id: "OFF-1001",
+              name: "Officer R. Patil",
+              role: "OFFICER",
+              department: "Roads & Infrastructure"
+            };
+            saveState();
+            logAudit("Officer Login", "Officer R. Patil (OFF-1001)", "Authenticated via Staff Credentials");
+            navigateTo("officer-dashboard");
+          } else {
+            alert("Invalid Officer Credentials! Use OFF-1001 / 123456");
+          }
+        });
+      }
+
+      if (admForm) {
+        admForm.addEventListener("submit", (e) => {
+          e.preventDefault();
+          const adminId = document.getElementById("adminIdInput").value.trim();
+          const pass = document.getElementById("adminPasswordInput").value.trim();
+
+          if (adminId === "ADMIN-001" && pass === "admin123") {
+            state.currentUser = {
+              id: "ADMIN-001",
+              name: "System Administrator",
+              role: "ADMIN"
+            };
+            saveState();
+            logAudit("Admin Login", "System Administrator (ADMIN-001)", "Authenticated via Admin Console");
+            navigateTo("admin-dashboard");
+          } else {
+            alert("Invalid Admin Credentials! Use ADMIN-001 / admin123");
+          }
+        });
+      }
+    }
+
+    function showAuthScreen() {
+      document.getElementById("authScreen").classList.remove("hidden");
+      document.getElementById("appContainer").classList.add("hidden");
+    }
+
+    function logout() {
+      state.currentUser = null;
+      state.selectedComplaintId = null;
+      localStorage.removeItem("currentUser");
+      showAuthScreen();
+    }
+
+    function navigateTo(route, params = null) {
+      if (!state.currentUser) {
+        showAuthScreen();
+        return;
+      }
+
+      const userRole = state.currentUser.role;
+      const allowed = ROLE_ALLOWED_ROUTES[userRole] || [];
+
+      if (!allowed.includes(route)) {
+        showAccessDeniedModal(route);
+        return;
+      }
+
+      state.currentRoute = route;
+      if (params && params.id) state.selectedComplaintId = params.id;
+
+      document.getElementById("authScreen").classList.add("hidden");
+      document.getElementById("appContainer").classList.remove("hidden");
+
+      updateHeaderAndSidebar();
+
+      const mainContent = document.getElementById("mainContent");
+      mainContent.scrollTop = 0;
+      mainContent.innerHTML = renderRouteView(route);
+
+      postRenderView(route);
+    }
+
+    function showAccessDeniedModal(attemptedRoute) {
+      const modal = document.getElementById("accessDeniedModal");
+      document.getElementById("deniedAttemptRoute").innerText = `/${attemptedRoute}`;
+      modal.classList.remove("hidden");
+      modal.classList.add("flex");
+
+      document.getElementById("btnDismissAccessDenied").onclick = () => {
+        modal.classList.add("hidden");
+        modal.classList.remove("flex");
+        if (state.currentUser.role === "RESIDENT") navigateTo("report");
+        else if (state.currentUser.role === "OFFICER") navigateTo("officer-dashboard");
+        else if (state.currentUser.role === "ADMIN") navigateTo("admin-dashboard");
+      };
+    }
+
+    function updateHeaderAndSidebar() {
+      const role = state.currentUser.role;
+      const t = TRANSLATIONS[state.currentLanguage || "en"];
+
+      document.getElementById("sidebarRoleLabel").innerText = role === "RESIDENT" ? "User App" : `${role} Portal`;
+      document.getElementById("navUserName").innerText = role === "RESIDENT" ? t.user_name : state.currentUser.name;
+      document.getElementById("navUserId").innerText = role === "RESIDENT" ? t.user_id : state.currentUser.id;
+      document.getElementById("userAvatarText").innerText = role === "RESIDENT" ? "RS" : role.substring(0, 2).toUpperCase();
+
+      document.getElementById("headerUserName").innerText = role === "RESIDENT" ? t.user_name : state.currentUser.name;
+      document.getElementById("headerUserId").innerText = role === "RESIDENT" ? t.user_id : state.currentUser.id;
+      document.getElementById("headerAvatarText").innerText = role === "RESIDENT" ? "RS" : role.substring(0, 2).toUpperCase();
+
+      const navList = document.getElementById("navMenuList");
+      let menuHtml = "";
+
+      if (role === "RESIDENT") {
+        const items = [
+          { id: "dashboard", label: t.nav_dashboard, route: "dashboard" },
+          { id: "report", label: t.nav_report, route: "report" },
+          { id: "my-complaints", label: t.nav_my_complaints, route: "my-complaints" },
+          { id: "settings", label: t.nav_settings, route: "settings" }
+        ];
+        menuHtml = items.map(i => `
+          <button onclick="navigateTo('${i.route}')" class="nav-item w-full text-left px-4 py-3 rounded-xl font-medium text-xs md:text-sm flex items-center justify-between ${state.currentRoute === i.route ? 'active' : ''}">
+            <span>${i.label}</span>
+            ${i.route === 'report' ? '<span class="text-[10px] bg-[#F4D77A] text-[#3B2A1A] font-bold px-2 py-0.5 rounded-full">New</span>' : ''}
+          </button>
+        `).join("");
+      } else if (role === "OFFICER") {
+        const items = [
+          { id: "officer-dashboard", label: "🏠 Dashboard", route: "officer-dashboard" },
+          { id: "complaint-queue", label: "📥 Complaint Queue", route: "complaint-queue" },
+          { id: "officer-analytics", label: "📊 Analytics", route: "officer-analytics" },
+          { id: "map", label: "🗺️ Civic Map", route: "map" },
+          { id: "audit-trail", label: "📜 Audit Trail", route: "audit-trail" },
+          { id: "settings", label: "⚙️ Settings", route: "settings" }
+        ];
+        menuHtml = items.map(i => `
+          <button onclick="navigateTo('${i.route}')" class="nav-item w-full text-left px-4 py-3 rounded-xl font-medium text-xs md:text-sm flex items-center justify-between ${state.currentRoute === i.route ? 'active' : ''}">
+            <span>${i.label}</span>
+          </button>
+        `).join("");
+      } else if (role === "ADMIN") {
+        const items = [
+          { id: "admin-dashboard", label: `🏠 ${t.admin_dashboard}`, route: "admin-dashboard" },
+          { id: "system-analytics", label: `📊 ${t.system_analytics}`, route: "system-analytics" },
+          { id: "fairness-monitoring", label: `⚖️ ${t.fairness_monitoring}`, route: "fairness-monitoring" },
+          { id: "audit-logs", label: `📜 ${t.audit_logs}`, route: "audit-logs" },
+          { id: "map", label: `🗺️ ${t.civic_map}`, route: "map" },
+          { id: "settings", label: `⚙️ ${t.nav_settings}`, route: "settings" }
+        ];
+        menuHtml = items.map(i => `
+          <button onclick="navigateTo('${i.route}')" class="nav-item w-full text-left px-4 py-3 rounded-xl font-medium text-xs md:text-sm flex items-center justify-between ${state.currentRoute === i.route ? 'active' : ''}">
+            <span>${i.label}</span>
+          </button>
+        `).join("");
+      }
+
+      navList.innerHTML = menuHtml;
+    }
+
+    function renderRouteView(route) {
+      switch (route) {
+        case "report": return renderReportIssueView();
+        case "ai-triage": return renderAiTriageView();
+        case "complaint-submitted": return renderComplaintSubmittedView();
+        case "my-complaints": return renderMyComplaintsView();
+        case "track-complaint": return renderTrackComplaintView();
+        case "dashboard": return renderResidentDashboardView();
+        case "officer-dashboard": return renderOfficerDashboardView();
+        case "complaint-queue": return renderOfficerQueueView();
+        case "complaint-review": return renderOfficerDashboardView();
+        case "officer-analytics": return renderOfficerAnalyticsView();
+        case "admin-dashboard": return renderAdminDashboardView();
+        case "system-analytics": return renderSystemAnalyticsView();
+        case "fairness-monitoring": return renderFairnessMonitoringView();
+        case "audit-logs":
+        case "audit-trail": return renderAuditLogsView();
+        case "map": return renderCivicMapView();
+        case "settings": return renderSettingsView();
+        default: return `<div class="p-6 text-center">Route not found</div>`;
+      }
+    }
+
+    function renderReportIssueView() {
+      const t = TRANSLATIONS[state.currentLanguage || "en"];
+      return `
+        <div class="max-w-3xl mx-auto space-y-6">
+          <div class="bg-[#FFFDF9] dark:bg-[#2C231B] border border-[#E8D4C3] dark:border-[#382D23] rounded-3xl p-6 shadow-sm">
+            <div class="flex items-center gap-3 mb-2">
+              <div class="w-10 h-10 rounded-xl bg-[#FFE4D1] dark:bg-[#382D23] text-[#B8860B] flex items-center justify-center font-bold text-xl">📝</div>
+              <div>
+                <h2 class="font-display font-bold text-2xl text-[#3B2A1A] dark:text-[#FFF7E8]">${t.report_title}</h2>
+                <p class="text-xs md:text-sm text-[#6B5845] dark:text-[#D6C4AE]">${t.report_sub}</p>
+              </div>
+            </div>
+          </div>
+
+          <form id="newComplaintForm" class="bg-[#FFFDF9] dark:bg-[#2C231B] border border-[#E8D4C3] dark:border-[#382D23] rounded-3xl p-6 md:p-8 shadow-md space-y-6">
+            <div>
+              <label class="block text-xs font-bold text-[#3B2A1A] dark:text-[#FFF7E8] uppercase tracking-wider mb-2">${t.lbl_category}</label>
+              <select id="issueCategory" class="w-full bg-[#FFF7F0] dark:bg-[#382D23] border border-[#E8D4C3] dark:border-[#4A3B2C] text-[#3B2A1A] dark:text-[#FFF7E8] px-4 py-3 rounded-xl text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-[#B8860B]" required>
+                <option value="Road Damage / Potholes">${t.cat_road}</option>
+                <option value="Garbage / Waste">${t.cat_garbage}</option>
+                <option value="Water Leakage">${t.cat_water}</option>
+                <option value="Streetlight">${t.cat_light}</option>
+                <option value="Sewage">${t.cat_sewage}</option>
+                <option value="Public Safety">${t.cat_safety}</option>
+                <option value="Accessibility">${t.cat_access}</option>
+                <option value="Other">${t.cat_other}</option>
+              </select>
+            </div>
+
+            <div>
+              <label class="block text-xs font-bold text-[#3B2A1A] dark:text-[#FFF7E8] uppercase tracking-wider mb-2">${t.lbl_description}</label>
+              <textarea id="issueDescription" rows="4" placeholder="${t.desc_placeholder}" class="w-full bg-[#FFF7F0] dark:bg-[#382D23] border border-[#E8D4C3] dark:border-[#4A3B2C] text-[#3B2A1A] dark:text-[#FFF7E8] p-4 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#B8860B]" required>${t.desc_example}</textarea>
+              
+              <div class="mt-2.5">
+                <button type="button" onclick="toggleVoiceRecording()" id="btnVoiceRec" class="w-full py-2.5 px-4 rounded-xl border border-[#E8D4C3] dark:border-[#4A3B2C] bg-[#FFF7F0] dark:bg-[#382D23] text-xs font-bold text-[#3B2A1A] dark:text-[#FFF7E8] hover:bg-[#FFE4D1] flex items-center justify-center gap-2 transition-all cursor-pointer">
+                  <i class="fa-solid fa-microphone text-[#B8860B]"></i> <span>${t.lbl_record_voice}</span>
+                </button>
+              </div>
+            </div>
+
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <label class="block text-xs font-bold text-[#3B2A1A] dark:text-[#FFF7E8] uppercase tracking-wider">${t.lbl_location}</label>
+                <button type="button" id="btnUseCurrentLocation" onclick="detectUserLocation()" class="text-xs text-[#B8860B] dark:text-[#F4D77A] font-bold hover:underline flex items-center gap-1">
+                  <i class="fa-solid fa-location-crosshairs"></i> ${t.btn_current_location}
+                </button>
+              </div>
+              <input type="text" id="issueLocation" value="Ward 12 • Near College Gate" placeholder="${t.loc_placeholder}" class="w-full bg-[#FFF7F0] dark:bg-[#382D23] border border-[#E8D4C3] dark:border-[#4A3B2C] text-[#3B2A1A] dark:text-[#FFF7E8] px-4 py-3 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#B8860B]" required>
+              <p id="locationErrorMsg" class="text-xs font-bold text-[#C62828] hidden mt-1 flex items-center gap-1"></p>
+
+              <div class="mt-3 h-36 bg-[#FFE4D1]/40 dark:bg-[#382D23] rounded-xl border border-dashed border-[#E8D4C3] dark:border-[#4A3B2C] flex items-center justify-center text-xs text-[#6B5845] dark:text-[#D6C4AE] relative overflow-hidden">
+                <i class="fa-solid fa-map-location-dot text-2xl text-[#B8860B] mr-2"></i>
+                <span>${t.geospatial_tag}</span>
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-xs font-bold text-[#3B2A1A] dark:text-[#FFF7E8] uppercase tracking-wider mb-2">${t.lbl_evidence_photo}</label>
+              <div class="flex items-center gap-4">
+                <input type="file" id="evidenceFile" accept="image/*" class="hidden" onchange="handlePhotoSelection(this)">
+                <button type="button" onclick="document.getElementById('evidenceFile').click()" class="py-2.5 px-4 rounded-xl border border-[#E8D4C3] dark:border-[#4A3B2C] bg-[#FFF7F0] dark:bg-[#382D23] text-xs font-bold text-[#3B2A1A] dark:text-[#FFF7E8] hover:bg-[#FFE4D1] flex items-center gap-2">
+                  <i class="fa-solid fa-camera text-[#B8860B]"></i> <span>${t.btn_attach_photo}</span>
+                </button>
+                <span id="photoFileName" class="text-xs font-semibold text-[#2E7D32]">✓ Default Photo Attached</span>
+              </div>
+              <p id="photoErrorMsg" class="text-xs font-bold text-[#C62828] hidden mt-1 flex items-center gap-1">
+                <i class="fa-solid fa-circle-exclamation"></i> <span id="txt-photo-err">${t.photo_required_err}</span>
+              </p>
+            </div>
+
+            <div class="p-4 bg-[#FFE4D1]/50 dark:bg-[#382D23] rounded-2xl border border-[#E8D4C3] dark:border-[#4A3B2C] text-xs text-[#6B5845] dark:text-[#D6C4AE] flex items-start gap-3">
+              <i class="fa-solid fa-shield-halved text-[#2E7D32] text-lg mt-0.5"></i>
+              <div>
+                <strong class="font-bold text-[#3B2A1A] dark:text-[#FFF7E8]">${t.privacy_footer_title}</strong>
+                <p class="mt-0.5">${t.privacy_footer_text}</p>
+              </div>
+            </div>
+
+            <button type="submit" class="w-full py-4 px-6 rounded-2xl bg-[#B8860B] hover:bg-[#8F6B00] text-white font-bold text-base shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-2 cursor-pointer">
+              <span>${t.btn_submit_complaint}</span>
+              <i class="fa-solid fa-wand-magic-sparkles"></i>
+            </button>
+          </form>
+        </div>
+      `;
+    }
+
+    function handlePhotoSelection(input) {
+      if (input && input.files && input.files[0]) {
+        hasUploadedPhoto = true;
+        const nameSpan = document.getElementById("photoFileName");
+        if (nameSpan) {
+          nameSpan.innerText = `✓ ${input.files[0].name}`;
+          nameSpan.classList.remove("hidden");
+        }
+        const err = document.getElementById("photoErrorMsg");
+        if (err) err.classList.add("hidden");
+      }
+    }
+
+    function detectUserLocation() {
+      const locInput = document.getElementById("issueLocation");
+      const locErr = document.getElementById("locationErrorMsg");
+
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          (pos) => {
+            if (locInput) {
+              locInput.value = `Ward 12 • Near College Gate (Lat: ${pos.coords.latitude.toFixed(4)}°, Lng: ${pos.coords.longitude.toFixed(4)}°)`;
+            }
+            if (locErr) locErr.classList.add("hidden");
+          },
+          (err) => {
+            if (locInput && !locInput.value) {
+              locInput.value = "Ward 12 • Near College Gate";
+            }
+          },
+          { timeout: 5000 }
+        );
+      }
+    }
+
+    let isRecordingVoice = false;
+    function toggleVoiceRecording() {
+      isRecordingVoice = !isRecordingVoice;
+      const btn = document.getElementById("btnVoiceRec");
+      const textarea = document.getElementById("issueDescription");
+      if (isRecordingVoice) {
+        if (btn) btn.className = "w-full py-2.5 px-4 rounded-xl border border-rose-300 bg-rose-50 text-rose-700 text-xs font-bold flex items-center justify-center gap-2 animate-pulse cursor-pointer";
+        setTimeout(() => {
+          if (textarea) textarea.value = "There is a large pothole near the college gate and students are at risk while crossing the road.";
+        }, 1200);
+      } else {
+        if (btn) btn.className = "w-full py-2.5 px-4 rounded-xl border border-[#E8D4C3] dark:border-[#4A3B2C] bg-[#FFF7F0] dark:bg-[#382D23] text-xs font-bold text-[#3B2A1A] dark:text-[#FFF7E8] hover:bg-[#FFE4D1] flex items-center justify-center gap-2 transition-all cursor-pointer";
+      }
+    }
+
+    // AI TRIAGE VIEW (Sections 1, 2, 3, 15)
+    function renderAiTriageView() {
+      const lang = state.currentLanguage || "en";
+      const t = TRANSLATIONS[lang];
+      const c = state.pendingTriageComplaint || state.complaints[0];
+
+      const origDesc = c.originalDescription || c.description || "";
+      const aiDesc = c.aiGeneratedDescription || c.description || "";
+      const aiPrio = c.priority || "High";
+      const questions = c.clarificationQuestions || [];
+
+      return `
+        <div class="max-w-3xl mx-auto space-y-6 my-auto py-6">
+          <div class="bg-[#FFFDF9] dark:bg-[#2C231B] border-2 border-[#B8860B] rounded-3xl p-6 md:p-8 shadow-2xl space-y-6">
+            <div class="text-center space-y-2">
+              <div class="w-16 h-16 rounded-full bg-[#FFE4D1] text-[#B8860B] flex items-center justify-center text-3xl mx-auto shadow-inner ai-scan-pulse">✨</div>
+              <span class="px-3.5 py-1 rounded-full bg-[#B8860B] text-white text-xs font-extrabold uppercase tracking-wider">${t.ai_triage_badge}</span>
+              <h2 class="font-display font-extrabold text-2xl md:text-3xl text-[#3B2A1A] dark:text-[#FFF7E8]">${t.ai_triage_title}</h2>
+              <p class="text-xs text-[#6B5845] dark:text-[#D6C4AE]">${t.ai_triage_sub}</p>
+            </div>
+
+            <!-- SMART EMERGENCY ALERT BANNER (Section 15) -->
+            ${c.emergencyRecommendation && c.emergencyRecommendation !== "NORMAL" ? `
+              <div class="p-4 bg-[#FFEBEE] dark:bg-[#3A1E20] border-2 border-[#C62828] rounded-2xl flex items-start gap-3 text-xs">
+                <i class="fa-solid fa-triangle-exclamation text-[#C62828] text-xl mt-0.5"></i>
+                <div class="space-y-1">
+                  <strong class="font-bold text-[#C62828] uppercase">${c.emergencyRecommendation}</strong>
+                  <p class="text-[#3B2A1A] dark:text-[#FFF7E8]">AI detected potential emergency hazard. Rapid human emergency verification recommended. Final emergency declaration rests with authorized personnel.</p>
+                </div>
+              </div>
+            ` : ''}
+
+            <!-- SECTION 1: AI COMPLAINT ASSISTANT (ORIGINAL VS AI-GENERATED) -->
+            <div class="space-y-3">
+              <h3 class="font-display font-bold text-sm text-[#3B2A1A] dark:text-[#FFF7E8] uppercase tracking-wider">AI Complaint Review & Version Selection</h3>
+              
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+                <div class="p-4 bg-[#FFF7F0] dark:bg-[#382D23] rounded-2xl border border-[#E8D4C3] dark:border-[#4A3B2C] space-y-2">
+                  <span class="text-[10px] font-bold text-[#8C7A68] uppercase tracking-wider flex items-center gap-1.5"><i class="fa-solid fa-pen-to-square text-[#B8860B]"></i> ${t.lbl_original_input}</span>
+                  <p class="text-xs font-medium text-[#3B2A1A] dark:text-[#FFF7E8] leading-relaxed italic bg-white dark:bg-[#211A14] p-3 rounded-xl border border-[#E8D4C3]/60">"${origDesc}"</p>
+                  <label class="flex items-center gap-2 pt-1 font-bold text-[#8F6B00] cursor-pointer">
+                    <input type="radio" name="aiDescChoice" value="original" onchange="state.selectedAiOption='original'" class="accent-[#B8860B]">
+                    <span>Keep Original Version</span>
+                  </label>
+                </div>
+
+                <div class="p-4 bg-[#FFF7F0] dark:bg-[#382D23] rounded-2xl border-2 border-[#B8860B] space-y-2">
+                  <span class="text-[10px] font-bold text-[#B8860B] uppercase tracking-wider flex items-center gap-1.5"><i class="fa-solid fa-wand-magic-sparkles"></i> ${t.lbl_ai_structured}</span>
+                  <p class="text-xs font-medium text-[#3B2A1A] dark:text-[#FFF7E8] leading-relaxed bg-white dark:bg-[#211A14] p-3 rounded-xl border border-[#E8D4C3]/60">"${aiDesc}"</p>
+                  <label class="flex items-center gap-2 pt-1 font-bold text-[#2E7D32] cursor-pointer">
+                    <input type="radio" name="aiDescChoice" value="accept" checked onchange="state.selectedAiOption='accept'" class="accent-[#B8860B]">
+                    <span>Accept Polished AI Version</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <!-- SECTION 2: DYNAMIC CLARIFICATION QUESTIONS -->
+            ${questions.length > 0 ? `
+              <div class="p-5 bg-[#FFF7F0] dark:bg-[#382D23] rounded-2xl border border-[#E8D4C3] dark:border-[#4A3B2C] space-y-3 text-xs">
+                <div class="flex items-center justify-between border-b border-[#E8D4C3] pb-2">
+                  <span class="font-bold text-[#B8860B] uppercase flex items-center gap-1.5"><i class="fa-solid fa-clipboard-question"></i> Dynamic AI Clarification Questions (Optional)</span>
+                  <span class="text-[10px] text-[#8C7A68]">Answering helps officers prioritize faster</span>
+                </div>
+                <div class="space-y-3">
+                  ${questions.map((q, idx) => `
+                    <div>
+                      <label class="block text-xs font-semibold text-[#3B2A1A] dark:text-[#FFF7E8] mb-1">Q${idx+1}: ${q}</label>
+                      <input type="text" id="clarify_q_${idx}" placeholder="Your answer (optional)..." class="w-full bg-white dark:bg-[#211A14] border border-[#E8D4C3] p-2.5 rounded-xl text-xs text-[#3B2A1A] dark:text-[#FFF7E8]">
+                    </div>
+                  `).join("")}
+                </div>
+              </div>
+            ` : ''}
+
+            <!-- SECTION 3: AI TASK PRIORITIZATION & ROUTING RECOMMENDATIONS -->
+            <div class="p-4 bg-[#FFF7F0] dark:bg-[#382D23] rounded-2xl border border-[#E8D4C3] dark:border-[#4A3B2C] space-y-2 text-xs">
+              <div class="flex flex-wrap items-center justify-between gap-2 border-b border-[#E8D4C3]/60 pb-2">
+                <div class="flex items-center gap-2">
+                  <span class="text-[11px] font-bold text-[#8C7A68] uppercase">${t.lbl_ai_assessment}:</span>
+                  <span class="px-2.5 py-0.5 rounded-full text-xs font-bold ${getPriorityBadgeClass(aiPrio)}">✨ ${getTranslatedPriority(aiPrio, lang)}</span>
+                </div>
+                <span class="text-[10px] font-bold text-[#2E7D32] bg-[#E8F5E9] dark:bg-[#1E3A20] px-2.5 py-0.5 rounded-full">Suggested Dept: ${c.department}</span>
+              </div>
+              <p class="text-xs text-[#3B2A1A] dark:text-[#FFF7E8] font-medium leading-relaxed">
+                <strong class="text-[#B8860B]">AI Triage Rationale:</strong> "${c.aiReason_en || 'Assessed against safety hazards, location rules, and severity metrics.'}"
+              </p>
+            </div>
+
+            <button onclick="confirmAiTriageAndSubmit()" class="w-full py-4 rounded-2xl bg-[#B8860B] hover:bg-[#8F6B00] text-white font-bold text-base shadow-lg hover:shadow-xl transition-all cursor-pointer flex items-center justify-center gap-2">
+              <span>${t.btn_proceed_confirmation}</span>
+              <i class="fa-solid fa-circle-check"></i>
+            </button>
+          </div>
+        </div>
+      `;
+    }
+
+    function confirmAiTriageAndSubmit() {
+      const c = state.pendingTriageComplaint || state.complaints[0];
+      if (c) {
+        // Collect dynamic clarification answers (Section 2)
+        const answers = {};
+        (c.clarificationQuestions || []).forEach((q, idx) => {
+          const input = document.getElementById(`clarify_q_${idx}`);
+          if (input && input.value.trim()) answers[q] = input.value.trim();
+        });
+        c.clarificationAnswers = answers;
+
+        if (state.selectedAiOption === "original") {
+          c.description = c.originalDescription || c.description;
+        } else if (state.selectedAiOption === "accept") {
+          c.description = c.aiGeneratedDescription || c.description;
+        }
+
+        syncComplaintToFirestore(c);
+      }
+      navigateTo("complaint-submitted");
+    }
+
+    function renderComplaintSubmittedView() {
+      const t = TRANSLATIONS[state.currentLanguage || "en"];
+      const c = state.pendingTriageComplaint || state.complaints[0];
+      return `
+        <div class="max-w-2xl mx-auto space-y-6 my-auto py-8">
+          <div class="bg-[#FFFDF9] dark:bg-[#2C231B] border border-[#E8D4C3] dark:border-[#382D23] rounded-3xl p-8 shadow-xl text-center space-y-6">
+            <div class="w-16 h-16 rounded-full bg-[#E8F5E9] text-[#2E7D32] flex items-center justify-center text-3xl mx-auto">✓</div>
+            <div>
+              <h2 class="font-display font-extrabold text-3xl text-[#3B2A1A] dark:text-[#FFF7E8]">${t.submitted_title}</h2>
+              <p class="text-xs text-[#6B5845] dark:text-[#D6C4AE] mt-1">${t.submitted_sub}</p>
+            </div>
+
+            <div class="p-4 bg-[#FFF7F0] dark:bg-[#382D23] rounded-2xl border border-[#E8D4C3] dark:border-[#4A3B2C] text-left space-y-3">
+              <div class="flex items-center justify-between border-b border-[#E8D4C3] dark:border-[#4A3B2C] pb-2">
+                <span class="text-xs text-[#8C7A68]">${t.lbl_complaint_id}:</span>
+                <span class="font-mono font-extrabold text-sm text-[#B8860B]">${c.id}</span>
+              </div>
+              <div class="border-b border-[#E8D4C3] dark:border-[#4A3B2C] pb-2">
+                <span class="text-xs text-[#8C7A68] block mb-0.5">${t.lbl_description}</span>
+                <p class="text-xs font-semibold text-[#3B2A1A] dark:text-[#FFF7E8]">${c.description}</p>
+              </div>
+              <div class="flex items-center justify-between">
+                <span class="text-xs text-[#8C7A68]">${t.lbl_status_header}</span>
+                <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-[#FFE4D1] text-[#8F6B00]">${getTranslatedStatus(c.status, state.currentLanguage)}</span>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+              <button onclick="navigateTo('track-complaint', {id: '${c.id}'})" class="py-3.5 px-6 rounded-xl bg-[#B8860B] hover:bg-[#8F6B00] text-white font-bold text-sm shadow-md transition-all cursor-pointer">${t.btn_track_complaint}</button>
+              <button onclick="navigateTo('my-complaints')" class="py-3.5 px-6 rounded-xl border border-[#B8860B] text-[#8F6B00] dark:text-[#F4D77A] bg-[#FFF1E6] dark:bg-[#382D23] font-bold text-sm hover:bg-[#FFE4D1] transition-all cursor-pointer">${t.nav_my_complaints}</button>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderMyComplaintsView() {
+      const lang = state.currentLanguage || "en";
+      const t = TRANSLATIONS[lang];
+      const userComplaints = state.complaints.filter(c => c.residentId === "USR-1001" || c.residentId === state.currentUser?.id);
+      return `
+        <div class="space-y-6">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-[#FFFDF9] dark:bg-[#2C231B] p-6 rounded-3xl border border-[#E8D4C3] dark:border-[#382D23] shadow-sm">
+            <div>
+              <h2 class="font-display font-bold text-2xl text-[#3B2A1A] dark:text-[#FFF7E8]">${t.nav_my_complaints}</h2>
+              <p class="text-xs text-[#6B5845] dark:text-[#D6C4AE]">Track live resolution status and SLA compliance for your submitted grievances</p>
+            </div>
+            <button onclick="navigateTo('report')" class="py-3 px-5 rounded-xl bg-[#B8860B] hover:bg-[#8F6B00] text-white font-bold text-xs shadow-md transition-all flex items-center gap-2 cursor-pointer">
+              <i class="fa-solid fa-plus"></i> ${t.btn_report_new}
+            </button>
+          </div>
+
+          <div class="grid grid-cols-1 gap-4">
+            ${userComplaints.map(c => `
+              <div class="bg-[#FFFDF9] dark:bg-[#2C231B] border border-[#E8D4C3] dark:border-[#382D23] rounded-2xl p-5 shadow-sm hover:shadow-md transition-all space-y-4">
+                <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+                  <div class="space-y-2 flex-1">
+                    <div class="flex items-center gap-3">
+                      <span class="font-mono text-xs font-bold text-[#B8860B]">${c.id}</span>
+                      <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#FFE4D1] text-[#8F6B00]">${getTranslatedCategory(c.category, lang)}</span>
+                      <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold ${getPriorityBadgeClass(c.priority)}">${getTranslatedPriority(c.priority, lang)}</span>
+                    </div>
+                    <h3 class="font-display font-bold text-base text-[#3B2A1A] dark:text-[#FFF7E8]">${getComplaintTitle(c, lang)}</h3>
+                    <p class="text-xs text-[#6B5845] dark:text-[#D6C4AE] leading-relaxed line-clamp-2">${getComplaintDescription(c, lang)}</p>
+                  </div>
+                  <div class="flex flex-row md:flex-col items-center md:items-end justify-between w-full md:w-auto gap-3">
+                    <span class="px-3 py-1 rounded-full text-xs font-extrabold ${getStatusBadgeClass(c.status)}">${getTranslatedStatus(c.status, lang)}</span>
+                    <button onclick="navigateTo('track-complaint', {id: '${c.id}'})" class="py-2 px-4 rounded-xl bg-[#FFF1E6] dark:bg-[#382D23] border border-[#B8860B] text-[#8F6B00] dark:text-[#F4D77A] text-xs font-bold hover:bg-[#B8860B] hover:text-white transition-all cursor-pointer">
+                      ${t.view_details}
+                    </button>
+                  </div>
+                </div>
+
+                <!-- CITIZEN CONFIRMATION WORKFLOW (Section 9) -->
+                ${c.status === "Resolution Pending Citizen Confirmation" ? `
+                  <div class="p-4 bg-[#FFF3E0] dark:bg-[#382D23] border-2 border-[#C77C02] rounded-xl space-y-3 text-xs">
+                    <div class="flex items-center justify-between font-bold text-[#C77C02]">
+                      <span>📸 Officer Uploaded Resolution Proof:</span>
+                      <span>Status: Action Required</span>
+                    </div>
+                    <p class="text-[#3B2A1A] dark:text-[#FFF7E8] font-medium">Work Notes: "${c.resolutionNotes || 'Work completed by municipal field team.'}"</p>
+                    <div class="flex items-center gap-3 pt-1">
+                      <button onclick="confirmCitizenResolution('${c.id}')" class="py-2 px-4 rounded-xl bg-[#2E7D32] hover:bg-[#1b5e20] text-white font-bold text-xs shadow transition-all cursor-pointer flex items-center gap-1.5">
+                        <i class="fa-solid fa-circle-check"></i> Confirm Resolution & Close
+                      </button>
+                      <button onclick="requestReopenComplaint('${c.id}')" class="py-2 px-4 rounded-xl border border-[#C62828] text-[#C62828] bg-white font-bold text-xs hover:bg-[#FFEBEE] transition-all cursor-pointer flex items-center gap-1.5">
+                        <i class="fa-solid fa-rotate-left"></i> Report Problem / Request Reopening
+                      </button>
+                    </div>
+                  </div>
+                ` : ''}
+              </div>
+            `).join("")}
+          </div>
+        </div>
+      `;
+    }
+
+    function confirmCitizenResolution(id) {
+      const c = state.complaints.find(x => x.id === id);
+      if (c) {
+        c.status = "Resolved";
+        c.slaStatus = "RESOLVED";
+        c.resolvedAt = new Date().toLocaleString();
+        logAudit("Citizen Confirmed Resolution", "Rahul Sharma (USR-1001)", `User confirmed work completion on ${id}`);
+        syncComplaintToFirestore(c);
+        navigateTo("my-complaints");
+      }
+    }
+
+    function requestReopenComplaint(id) {
+      const reason = prompt("Describe why the resolution was unsatisfactory (e.g. pothole resurfacing was incomplete):");
+      if (reason) {
+        const c = state.complaints.find(x => x.id === id);
+        if (c) {
+          c.status = "In Progress";
+          c.reopenReason = reason;
+          logAudit("Complaint Reopened by Resident", "Rahul Sharma (USR-1001)", `Reopened ${id}. Reason: ${reason}`);
+          syncComplaintToFirestore(c);
+          navigateTo("my-complaints");
+        }
+      }
+    }
+
+    // TRACK COMPLAINT VIEW WITH REAL FIRESTORE DATA & APPEALS (Sections 4, 5)
+    function renderTrackComplaintView() {
+      const lang = state.currentLanguage || "en";
+      const t = TRANSLATIONS[lang];
+      const complaintId = state.selectedComplaintId || state.complaints[0]?.id;
+      const c = state.complaints.find(x => x.id === complaintId) || state.complaints[0];
+
+      return `
+        <div class="max-w-4xl mx-auto space-y-6">
+          <div class="bg-[#FFFDF9] dark:bg-[#2C231B] border border-[#E8D4C3] dark:border-[#382D23] rounded-3xl p-6 shadow-sm space-y-4">
+            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pb-4 border-b border-[#E8D4C3] dark:border-[#382D23]">
+              <div>
+                <span class="text-xs font-mono font-bold text-[#B8860B]">${t.lbl_complaint_id}: ${c.id}</span>
+                <h2 class="font-display font-extrabold text-xl text-[#3B2A1A] dark:text-[#FFF7E8]">${getComplaintTitle(c, lang)}</h2>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="px-3 py-1 rounded-full text-xs font-extrabold ${getStatusBadgeClass(c.status)}">${getTranslatedStatus(c.status, lang)}</span>
+                <span class="px-3 py-1 rounded-full text-xs font-extrabold ${getPriorityBadgeClass(c.priority)}">${getTranslatedPriority(c.priority, lang)}</span>
+              </div>
+            </div>
+
+            <div class="p-4 bg-[#FFF7F0] dark:bg-[#382D23] rounded-2xl border border-[#E8D4C3] dark:border-[#4A3B2C] space-y-1">
+              <span class="text-[11px] font-bold text-[#8C7A68] uppercase tracking-wider">${t.lbl_description}</span>
+              <p class="text-xs text-[#3B2A1A] dark:text-[#FFF7E8] leading-relaxed font-medium">${getComplaintDescription(c, lang)}</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+              <div><span class="text-[#8C7A68] block">${t.lbl_category_header}</span><strong class="text-[#3B2A1A] dark:text-[#FFF7E8]">${getTranslatedCategory(c.category, lang)}</strong></div>
+              <div><span class="text-[#8C7A68] block">${t.lbl_location_header}</span><strong class="text-[#3B2A1A] dark:text-[#FFF7E8]">${c.location}</strong></div>
+              <div><span class="text-[#8C7A68] block">${t.lbl_assigned_service}</span><strong class="text-[#3B2A1A] dark:text-[#FFF7E8]">${getTranslatedDepartment(c.department, lang)}</strong></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs pt-2">
+              <div class="p-3 bg-[#FFF7F0] dark:bg-[#382D23] rounded-xl border border-[#E8D4C3] space-y-1">
+                <span class="text-[#8C7A68]">Assigned Officer:</span> <strong class="text-[#3B2A1A] dark:text-[#FFF7E8]">${c.assignedOfficer || 'Officer R. Patil'}</strong>
+              </div>
+              <div class="p-3 bg-[#FFF7F0] dark:bg-[#382D23] rounded-xl border border-[#E8D4C3] space-y-1">
+                <span class="text-[#8C7A68]">SLA Response Window:</span> <strong class="text-[#B8860B]">${c.slaHours || 24} Hours Target</strong>
+              </div>
+            </div>
+
+            <!-- SECTION 5: APPEAL AND CORRECTION MODULE -->
+            <div class="pt-3 flex flex-wrap items-center justify-between gap-3 border-t border-[#E8D4C3]">
+              <span class="text-xs text-[#8C7A68]">Disagree with AI triage or response?</span>
+              <button onclick="openUserAppealModal('${c.id}')" class="py-2 px-4 rounded-xl border border-[#B8860B] text-[#8F6B00] dark:text-[#F4D77A] font-bold text-xs hover:bg-[#B8860B] hover:text-white transition-all cursor-pointer flex items-center gap-1.5">
+                <i class="fa-solid fa-scale-balanced"></i> Submit Appeal / Correction Request
+              </button>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function openUserAppealModal(id) {
+      document.getElementById("appealModalComplaintId").innerText = id;
+      document.getElementById("appealReasonText").value = "";
+      document.getElementById("appealErr").classList.add("hidden");
+      const modal = document.getElementById("userAppealModal");
+      modal.classList.remove("hidden");
+      modal.classList.add("flex");
+    }
+
+    document.getElementById("btnCancelAppeal")?.addEventListener("click", () => {
+      const modal = document.getElementById("userAppealModal");
+      modal.classList.add("hidden");
+      modal.classList.remove("flex");
+    });
+
+    document.getElementById("btnSubmitAppeal")?.addEventListener("click", () => {
+      const id = document.getElementById("appealModalComplaintId").innerText;
+      const type = document.getElementById("appealTypeSelect").value;
+      const reason = document.getElementById("appealReasonText").value.trim();
+      const isAnon = document.getElementById("appealAnonymousCheck").checked;
+      const err = document.getElementById("appealErr");
+
+      if (!reason) {
+        if (err) err.classList.remove("hidden");
+        return;
+      }
+
+      const appealId = "APP-2026-" + Math.floor(1000 + Math.random() * 9000);
+      const appealObj = {
+        appealId,
+        complaintId: id,
+        userId: isAnon ? "ANONYMOUS_RESIDENT" : (state.currentUser ? state.currentUser.id : "USR-1001"),
+        type,
+        reason,
+        anonymous: isAnon,
+        status: "PENDING_REVIEW",
+        createdAt: new Date().toISOString(),
+        reviewedBy: null,
+        reviewedAt: null
+      };
+
+      state.appeals.unshift(appealObj);
+      saveState();
+      logAudit("Appeal Submitted", appealObj.userId, `Logged appeal ${appealId} for complaint ${id}`);
+
+      if (firebaseEnabled && db) {
+        try { db.collection("appeals").doc(appealId).set(appealObj); } catch(e){}
+      }
+
+      const modal = document.getElementById("userAppealModal");
+      modal.classList.add("hidden");
+      modal.classList.remove("flex");
+      alert("✓ Appeal submitted successfully for Human Officer Review.");
+    });
+
+    function renderResidentDashboardView() {
+      const t = TRANSLATIONS[state.currentLanguage || "en"];
+      const userComplaints = state.complaints.filter(c => c.residentId === "USR-1001" || c.residentId === state.currentUser?.id);
+      const topActive = userComplaints[0] || state.complaints[0];
+
+      return `
+        <div class="space-y-6">
+          <div class="bg-[#FFFDF9] dark:bg-[#2C231B] border border-[#E8D4C3] dark:border-[#382D23] rounded-3xl p-6 shadow-sm space-y-5">
+            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+              <div>
+                <h2 class="font-display font-extrabold text-2xl text-[#3B2A1A] dark:text-[#FFF7E8]">${t.dash_welcome}</h2>
+                <p class="text-xs text-[#6B5845] dark:text-[#D6C4AE] mt-0.5">${t.dash_welcome_sub}</p>
+              </div>
+              <button onclick="navigateTo('report')" class="py-3 px-5 rounded-xl bg-[#B8860B] hover:bg-[#8F6B00] text-white font-bold text-xs shadow-md transition-all flex items-center gap-2 cursor-pointer flex-shrink-0">
+                <i class="fa-solid fa-plus"></i> ${t.btn_report_new}
+              </button>
+            </div>
+
+            <div class="p-4 bg-[#FFF7F0] dark:bg-[#382D23] border border-[#E8D4C3] dark:border-[#4A3B2C] rounded-2xl space-y-3">
+              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[#E8D4C3]/60 pb-2.5">
+                <div>
+                  <span class="text-[10px] font-bold text-[#8C7A68] uppercase tracking-wider">${t.active_complaint_title}</span>
+                  <h3 class="font-display font-bold text-sm text-[#3B2A1A] dark:text-[#FFF7E8]">${getComplaintTitle(topActive, state.currentLanguage)}</h3>
+                  <p class="text-[11px] font-mono text-[#B8860B] font-bold">${t.lbl_complaint_id}: ${topActive.id}</p>
+                </div>
+                <div class="flex items-center gap-2">
+                  <span class="px-2.5 py-1 rounded-full text-xs font-bold bg-[#FFF7F0] text-[#B8860B] border border-[#B8860B]">🟡 ${getTranslatedStatus(topActive.status, state.currentLanguage)}</span>
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+                <div>
+                  <span class="text-[#8C7A68] text-[11px]">${t.lbl_officer_assigned}:</span>
+                  <p class="font-semibold text-[#3B2A1A] dark:text-[#FFF7E8]">Ward Engineer (${getTranslatedDepartment(topActive.department, state.currentLanguage)})</p>
+                </div>
+                <div>
+                  <span class="text-[#8C7A68] text-[11px]">${t.lbl_est_resolution}:</span>
+                  <p class="font-semibold text-[#B8860B]">${t.lbl_days_remaining}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+            <div class="bg-[#FFFDF9] dark:bg-[#2C231B] border border-[#E8D4C3] dark:border-[#382D23] rounded-2xl p-5 shadow-sm">
+              <span class="text-xs font-semibold text-[#6B5845] dark:text-[#D6C4AE]">${t.active_complaints}</span>
+              <p class="font-display font-black text-3xl text-[#B8860B] mt-2">${userComplaints.filter(c => c.status !== 'Resolved').length}</p>
+            </div>
+            <div class="bg-[#FFFDF9] dark:bg-[#2C231B] border border-[#E8D4C3] dark:border-[#382D23] rounded-2xl p-5 shadow-sm">
+              <span class="text-xs font-semibold text-[#6B5845] dark:text-[#D6C4AE]">${t.resolved_complaints}</span>
+              <p class="font-display font-black text-3xl text-[#2E7D32] mt-2">${userComplaints.filter(c => c.status === 'Resolved').length}</p>
+            </div>
+            <div class="bg-[#FFFDF9] dark:bg-[#2C231B] border border-[#E8D4C3] dark:border-[#382D23] rounded-2xl p-5 shadow-sm">
+              <span class="text-xs font-semibold text-[#6B5845] dark:text-[#D6C4AE]">${t.sla_at_risk}</span>
+              <p class="font-display font-black text-3xl text-[#C77C02] mt-2">${userComplaints.filter(c => c.priority === 'High' || c.priority === 'Critical').length}</p>
+            </div>
+            <div class="bg-[#FFFDF9] dark:bg-[#2C231B] border border-[#E8D4C3] dark:border-[#382D23] rounded-2xl p-5 shadow-sm">
+              <span class="text-xs font-semibold text-[#6B5845] dark:text-[#D6C4AE]">${t.total_reports}</span>
+              <p class="font-display font-black text-3xl text-[#3B2A1A] dark:text-[#FFF7E8] mt-2">${userComplaints.length}</p>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function getSlaTimeBadgeHtml(c, lang) {
+      const isHi = lang === 'hi';
+      if (c.status === "Resolved") {
+        return `<span class="px-2.5 py-0.5 rounded-full text-xs font-extrabold bg-[#E8F5E9] text-[#2E7D32]">✓ ${isHi ? 'एसएलए पूरा हुआ' : 'SLA Met'}</span>`;
+      }
+
+      const now = Date.now();
+      const due = c.slaDueMs || now;
+      const diff = due - now;
+
+      if (diff <= 0 || c.slaStatus === 'BREACHED') {
+        return `<span class="px-3 py-1 rounded-full text-xs font-extrabold bg-[#FFEBEE] text-[#C62828] border border-[#C62828]/50 sla-breach-pulse flex items-center gap-1.5">🔴 SLA BREACHED</span>`;
+      } else {
+        return `<span class="px-3 py-1 rounded-full text-xs font-bold bg-[#FFF7F0] text-[#B8860B] border border-[#E8D4C3] flex items-center gap-1">⏱️ SLA: On Track</span>`;
+      }
+    }
+
+    // OFFICER DASHBOARD, QUEUE & APPEALS REVIEW (Sections 7, 8, 9, 10, 11)
+    function renderOfficerDashboardView() {
+      const lang = state.currentLanguage || "en";
+      const t = TRANSLATIONS[lang];
+      const complaints = state.complaints;
+      const appeals = state.appeals;
+      const now = Date.now();
+
+      const totalAssigned = complaints.length;
+      const activeComplaints = complaints.filter(c => c.status !== "Resolved");
+      const resolvedCount = complaints.filter(c => c.status === "Resolved").length;
+      const slaBreachedCount = activeComplaints.filter(c => (c.slaDueMs && now > c.slaDueMs) || c.slaStatus === 'BREACHED').length;
+
+      return `
+        <div class="space-y-6">
+          <div class="bg-[#FFFDF9] dark:bg-[#2C231B] border border-[#E8D4C3] dark:border-[#382D23] rounded-3xl p-6 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div>
+              <h2 class="font-display font-extrabold text-2xl text-[#3B2A1A] dark:text-[#FFF7E8]">${t.off_cmd_title}</h2>
+              <p class="text-xs text-[#6B5845] dark:text-[#D6C4AE] mt-1">${t.off_cmd_sub}</p>
+            </div>
+            <button onclick="navigateTo('complaint-queue')" class="py-2.5 px-4 rounded-xl bg-[#B8860B] hover:bg-[#8F6B00] text-white font-bold text-xs shadow transition-all flex items-center gap-2 cursor-pointer">
+              <i class="fa-solid fa-list-check"></i> ${t.btn_view_full_queue}
+            </button>
+          </div>
+
+          <!-- DYNAMIC WORKLOAD METRICS FROM FIRESTORE -->
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div class="bg-[#FFFDF9] dark:bg-[#2C231B] border border-[#E8D4C3] dark:border-[#382D23] rounded-2xl p-4 shadow-sm">
+              <span class="text-xs font-semibold text-[#6B5845] dark:text-[#D6C4AE]">Total Assigned</span>
+              <p class="font-display font-black text-3xl text-[#3B2A1A] dark:text-[#FFF7E8] mt-2">${totalAssigned}</p>
+            </div>
+            <div class="bg-[#FFFDF9] dark:bg-[#2C231B] border border-[#E8D4C3] dark:border-[#382D23] rounded-2xl p-4 shadow-sm">
+              <span class="text-xs font-semibold text-[#6B5845] dark:text-[#D6C4AE]">Action Required</span>
+              <p class="font-display font-black text-3xl text-[#B8860B] mt-2">${activeComplaints.length}</p>
+            </div>
+            <div class="bg-[#FFFDF9] dark:bg-[#2C231B] border-2 ${slaBreachedCount > 0 ? 'border-[#C62828]' : 'border-[#E8D4C3]'} rounded-2xl p-4 shadow-sm">
+              <span class="text-xs font-bold text-[#C62828] uppercase tracking-wider">🔴 SLA Breached</span>
+              <p class="font-display font-black text-3xl text-[#C62828] mt-2">${slaBreachedCount}</p>
+            </div>
+            <div class="bg-[#FFFDF9] dark:bg-[#2C231B] border border-[#E8D4C3] dark:border-[#382D23] rounded-2xl p-4 shadow-sm">
+              <span class="text-xs font-semibold text-[#6B5845] dark:text-[#D6C4AE]">Pending Appeals</span>
+              <p class="font-display font-black text-3xl text-[#8F6B00] mt-2">${appeals.filter(a => a.status === 'PENDING_REVIEW').length}</p>
+            </div>
+          </div>
+
+          <!-- SECTION 10: OFFICER APPEAL REVIEW QUEUE -->
+          ${appeals.length > 0 ? `
+            <div class="bg-[#FFFDF9] dark:bg-[#2C231B] border-2 border-[#B8860B] rounded-3xl p-6 shadow-sm space-y-4">
+              <div class="flex items-center justify-between border-b border-[#E8D4C3] pb-3">
+                <h3 class="font-display font-bold text-lg text-[#3B2A1A] dark:text-[#FFF7E8] flex items-center gap-2">
+                  <i class="fa-solid fa-scale-balanced text-[#B8860B]"></i> Resident Appeals & AI Correction Queue
+                </h3>
+                <span class="text-xs font-bold bg-[#FFE4D1] text-[#8F6B00] px-2.5 py-0.5 rounded-full">${appeals.filter(a => a.status === 'PENDING_REVIEW').length} Pending Human Review</span>
+              </div>
+
+              <div class="space-y-3">
+                ${appeals.map(a => `
+                  <div class="p-4 bg-[#FFF7F0] dark:bg-[#382D23] rounded-2xl border border-[#E8D4C3] space-y-2 text-xs">
+                    <div class="flex items-center justify-between">
+                      <span class="font-mono font-bold text-[#B8860B]">${a.appealId} (Target: ${a.complaintId})</span>
+                      <span class="px-2 py-0.5 rounded-full font-bold ${a.status === 'PENDING_REVIEW' ? 'bg-[#FFE4D1] text-[#8F6B00]' : 'bg-[#E8F5E9] text-[#2E7D32]'}">${a.status}</span>
+                    </div>
+                    <p class="font-semibold text-[#3B2A1A] dark:text-[#FFF7E8]">Type: ${a.type} | Resident: ${a.anonymous ? 'Anonymous Resident (Identity Protected)' : a.userId}</p>
+                    <p class="text-[#6B5845] dark:text-[#D6C4AE] italic">"${a.reason}"</p>
+                    ${a.status === 'PENDING_REVIEW' ? `
+                      <div class="flex items-center gap-2 pt-1">
+                        <button onclick="reviewOfficerAppeal('${a.appealId}', 'APPROVED')" class="py-1 px-3 rounded-lg bg-[#2E7D32] hover:bg-[#1b5e20] text-white font-bold text-[11px] cursor-pointer">
+                          ✓ Approve & Adjust Triage
+                        </button>
+                        <button onclick="reviewOfficerAppeal('${a.appealId}', 'REJECTED')" class="py-1 px-3 rounded-lg border border-[#C62828] text-[#C62828] font-bold text-[11px] hover:bg-[#FFEBEE] cursor-pointer">
+                          ✗ Reject Appeal
+                        </button>
+                      </div>
+                    ` : ''}
+                  </div>
+                `).join("")}
+              </div>
+            </div>
+          ` : ''}
+
+          <!-- REAL FIRESTORE COMPLAINT QUEUE -->
+          <div class="bg-[#FFFDF9] dark:bg-[#2C231B] border border-[#E8D4C3] dark:border-[#382D23] rounded-3xl p-6 shadow-sm space-y-5">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[#E8D4C3] dark:border-[#382D23] pb-4">
+              <div>
+                <h3 class="font-display font-bold text-lg text-[#3B2A1A] dark:text-[#FFF7E8]">${t.lbl_action_required}</h3>
+                <p class="text-xs text-[#6B5845] dark:text-[#D6C4AE]">Real Firestore Complaint Queue & AI Suggested Routing</p>
+              </div>
+            </div>
+
+            <div class="space-y-4">
+              ${activeComplaints.length === 0 ? `
+                <div class="p-8 text-center text-xs text-[#8C7A68]">No active complaints requiring attention.</div>
+              ` : activeComplaints.map(c => `
+                <div class="bg-[#FFFDF9] dark:bg-[#2C231B] border-2 border-[#E8D4C3] dark:border-[#382D23] rounded-2xl p-5 shadow-sm space-y-4">
+                  <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[#E8D4C3]/60 pb-3">
+                    <div class="flex items-center gap-3">
+                      <span class="font-mono font-extrabold text-sm text-[#B8860B]">${c.id}</span>
+                      <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-[#FFE4D1] text-[#8F6B00]">${getTranslatedCategory(c.category, lang)}</span>
+                    </div>
+                    <div>${getSlaTimeBadgeHtml(c, lang)}</div>
+                  </div>
+
+                  <div>
+                    <h4 class="font-display font-bold text-base text-[#3B2A1A] dark:text-[#FFF7E8]">${getComplaintTitle(c, lang)}</h4>
+                    <p class="text-xs text-[#6B5845] dark:text-[#D6C4AE] mt-1">${getComplaintDescription(c, lang)}</p>
+                    <p class="text-xs text-[#8C7A68] mt-1"><i class="fa-solid fa-location-dot text-[#B8860B]"></i> ${c.location}</p>
+                  </div>
+
+                  <!-- SECTION 7: AI SUGGESTED ROUTING DETAILS -->
+                  <div class="p-3 bg-[#FFF7F0] dark:bg-[#382D23] rounded-xl border border-[#E8D4C3] dark:border-[#4A3B2C] space-y-2 text-xs">
+                    <div class="flex flex-wrap items-center justify-between gap-2">
+                      <div>
+                        <span class="font-bold text-[#8C7A68]">AI Recommendation:</span>
+                        <span class="px-2 py-0.5 rounded-full text-xs font-bold ${getPriorityBadgeClass(c.priority)}">${getTranslatedPriority(c.priority, lang)}</span>
+                        <span class="text-[#8C7A68]">(${c.department})</span>
+                      </div>
+
+                      <button onclick="openAiOverrideModal('${c.id}', 'Priority / Department', '${c.priority}', '${c.priority}')" class="py-1 px-3 rounded-lg border border-[#B8860B] text-[#8F6B00] dark:text-[#F4D77A] font-bold text-[11px] hover:bg-[#B8860B] hover:text-white transition-all cursor-pointer">
+                        <i class="fa-solid fa-pen"></i> Override AI Recommendation
+                      </button>
+                    </div>
+
+                    ${c.overrideReason ? `
+                      <div class="text-[11px] text-[#C77C02] font-semibold">
+                        ⚠️ Overridden by Officer. Reason: "${c.overrideReason}"
+                      </div>
+                    ` : ''}
+                  </div>
+
+                  <!-- SECTION 9: EVIDENCE-BASED RESOLUTION ACTION -->
+                  <div class="pt-1 flex items-center justify-between">
+                    <span class="text-xs text-[#8C7A68]">Status: <strong class="text-[#3B2A1A] dark:text-[#FFF7E8]">${getTranslatedStatus(c.status, lang)}</strong></span>
+                    <div class="flex items-center gap-2">
+                      ${c.status !== "In Progress" ? `
+                        <button onclick="updateOfficerComplaintStatus('${c.id}', 'In Progress')" class="py-1.5 px-3 rounded-xl bg-[#FFF1E6] dark:bg-[#382D23] border border-[#B8860B] text-[#8F6B00] dark:text-[#F4D77A] text-xs font-bold hover:bg-[#B8860B] hover:text-white transition-all cursor-pointer">
+                          Mark In Progress
+                        </button>
+                      ` : ''}
+                      <button onclick="openResolutionModal('${c.id}')" class="py-1.5 px-3 rounded-xl bg-[#2E7D32] hover:bg-[#1b5e20] text-white text-xs font-bold transition-all cursor-pointer">
+                        Submit Resolution Evidence
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              `).join("")}
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function reviewOfficerAppeal(appealId, newStatus) {
+      const a = state.appeals.find(x => x.appealId === appealId);
+      if (a) {
+        a.status = newStatus;
+        a.reviewedBy = state.currentUser ? state.currentUser.name : "Officer R. Patil (OFF-1001)";
+        a.reviewedAt = new Date().toISOString();
+        logAudit(`Appeal ${newStatus}`, a.reviewedBy, `Appeal ${appealId} for complaint ${a.complaintId} marked ${newStatus}`);
+        saveState();
+
+        if (firebaseEnabled && db) {
+          try { db.collection("appeals").doc(appealId).set(a, { merge: true }); } catch(e){}
+        }
+        navigateTo("officer-dashboard");
+      }
+    }
+
+    function openResolutionModal(id) {
+      state.pendingResolutionTarget = id;
+      document.getElementById("resModalComplaintId").innerText = id;
+      document.getElementById("resNotesInput").value = "";
+      document.getElementById("resProofErr").classList.add("hidden");
+      const modal = document.getElementById("resolutionEvidenceModal");
+      modal.classList.remove("hidden");
+      modal.classList.add("flex");
+    }
+
+    document.getElementById("btnCancelResProof")?.addEventListener("click", () => {
+      const modal = document.getElementById("resolutionEvidenceModal");
+      modal.classList.add("hidden");
+      modal.classList.remove("flex");
+    });
+
+    document.getElementById("btnSubmitResProof")?.addEventListener("click", () => {
+      const notes = document.getElementById("resNotesInput").value.trim();
+      const err = document.getElementById("resProofErr");
+
+      if (!notes) {
+        if (err) err.classList.remove("hidden");
+        return;
+      }
+
+      if (state.pendingResolutionTarget) {
+        const c = state.complaints.find(x => x.id === state.pendingResolutionTarget);
+        if (c) {
+          c.status = "Resolution Pending Citizen Confirmation";
+          c.resolutionNotes = notes;
+          c.resolutionEvidence = "proof_photograph_resurfaced.jpg";
+          c.resolutionTimestamp = new Date().toISOString();
+
+          logAudit("Resolution Evidence Submitted", state.currentUser ? state.currentUser.name : "Officer R. Patil (OFF-1001)", `Resolution proof uploaded for ${c.id}. Status moved to Citizen Confirmation.`);
+          syncComplaintToFirestore(c);
+        }
+      }
+
+      const modal = document.getElementById("resolutionEvidenceModal");
+      modal.classList.add("hidden");
+      modal.classList.remove("flex");
+      navigateTo("officer-dashboard");
+    });
+
+    function openAiOverrideModal(complaintId, fieldName, oldVal, defaultNewVal) {
+      state.pendingOverrideTarget = { id: complaintId, field: fieldName, oldVal: oldVal };
+      document.getElementById("overrideModalComplaintId").innerText = complaintId;
+      document.getElementById("overrideModalField").innerText = fieldName;
+      document.getElementById("overrideModalOldVal").innerText = oldVal;
+      document.getElementById("overrideModalNewVal").innerText = "Officer Selected";
+      document.getElementById("overrideReasonInput").value = "";
+      document.getElementById("overrideReasonErr").classList.add("hidden");
+
+      const modal = document.getElementById("aiOverrideModal");
+      modal.classList.remove("hidden");
+      modal.classList.add("flex");
+    }
+
+    document.getElementById("btnCancelOverride")?.addEventListener("click", () => {
+      const modal = document.getElementById("aiOverrideModal");
+      modal.classList.add("hidden");
+      modal.classList.remove("flex");
+    });
+
+    document.getElementById("btnConfirmOverride")?.addEventListener("click", () => {
+      const reason = document.getElementById("overrideReasonInput").value.trim();
+      const err = document.getElementById("overrideReasonErr");
+
+      if (!reason) {
+        if (err) err.classList.remove("hidden");
+        return;
+      }
+
+      if (state.pendingOverrideTarget) {
+        const c = state.complaints.find(x => x.id === state.pendingOverrideTarget.id);
+        if (c) {
+          c.originalAISuggestion = c.aiSuggestion || c.priority;
+          c.finalOfficerDecision = "Critical";
+          c.priority = "Critical";
+          c.overrideReason = reason;
+          c.overriddenBy = state.currentUser ? state.currentUser.name : "Officer R. Patil (OFF-1001)";
+          c.overrideTimestamp = new Date().toISOString();
+
+          const logMsg = `Officer Overrode AI Triage on ${c.id}. Reason: ${reason}`;
+          logAudit("AI Recommendation Overridden", c.overriddenBy, logMsg);
+          syncComplaintToFirestore(c);
+        }
+      }
+
+      const modal = document.getElementById("aiOverrideModal");
+      modal.classList.add("hidden");
+      modal.classList.remove("flex");
+
+      if (state.currentRoute === "officer-dashboard") navigateTo("officer-dashboard");
+      else if (state.currentRoute === "complaint-queue") navigateTo("complaint-queue");
+    });
+
+    function renderOfficerQueueView() { return renderOfficerDashboardView(); }
+    function renderOfficerAnalyticsView() { return renderAdminDashboardView(); }
+
+    // ADMIN DASHBOARD, ANOMALY FLAGS & AUDIT TRAIL (Sections 12, 13, 14)
+    function renderAdminDashboardView() {
+      const lang = state.currentLanguage || "en";
+      const t = TRANSLATIONS[lang];
+      const complaints = state.complaints;
+      const flags = state.anomalyFlags;
+
+      const criticalCount = complaints.filter(c => c.priority === "Critical").length;
+      const highCount = complaints.filter(c => c.priority === "High").length;
+      const mediumCount = complaints.filter(c => c.priority === "Medium").length;
+      const lowCount = complaints.filter(c => c.priority === "Low").length;
+
+      return `
+        <div class="space-y-6">
+          <div class="bg-[#FFFDF9] dark:bg-[#2C231B] border border-[#E8D4C3] dark:border-[#382D23] rounded-3xl p-6 shadow-sm">
+            <h2 class="font-display font-extrabold text-2xl text-[#3B2A1A] dark:text-[#FFF7E8]">${t.admin_op_title}</h2>
+            <p class="text-xs text-[#6B5845] dark:text-[#D6C4AE] mt-1">${t.admin_op_sub}</p>
+          </div>
+
+          <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+            <div class="bg-[#FFFDF9] dark:bg-[#2C231B] border-2 border-[#C62828] rounded-2xl p-4 shadow-sm">
+              <span class="text-xs font-bold text-[#C62828] uppercase tracking-wider">${t.prio_critical}</span>
+              <p class="font-display font-black text-3xl text-[#C62828] mt-2">${criticalCount}</p>
+            </div>
+            <div class="bg-[#FFFDF9] dark:bg-[#2C231B] border-2 border-[#C77C02] rounded-2xl p-4 shadow-sm">
+              <span class="text-xs font-bold text-[#C77C02] uppercase tracking-wider">${t.prio_high}</span>
+              <p class="font-display font-black text-3xl text-[#C77C02] mt-2">${highCount}</p>
+            </div>
+            <div class="bg-[#FFFDF9] dark:bg-[#2C231B] border-2 border-[#B8860B] rounded-2xl p-4 shadow-sm">
+              <span class="text-xs font-bold text-[#B8860B] uppercase tracking-wider">${t.prio_medium}</span>
+              <p class="font-display font-black text-3xl text-[#B8860B] mt-2">${mediumCount}</p>
+            </div>
+            <div class="bg-[#FFFDF9] dark:bg-[#2C231B] border-2 border-[#2E7D32] rounded-2xl p-4 shadow-sm">
+              <span class="text-xs font-bold text-[#2E7D32] uppercase tracking-wider">${t.prio_low}</span>
+              <p class="font-display font-black text-3xl text-[#2E7D32] mt-2">${lowCount}</p>
+            </div>
+          </div>
+
+          <!-- SECTION 14: AI ANOMALY DETECTION MODULE -->
+          <div class="bg-[#FFFDF9] dark:bg-[#2C231B] border-2 border-[#C62828] rounded-3xl p-6 shadow-sm space-y-4">
+            <div class="flex items-center justify-between border-b border-[#E8D4C3] pb-3">
+              <h3 class="font-display font-bold text-lg text-[#3B2A1A] dark:text-[#FFF7E8] flex items-center gap-2">
+                <i class="fa-solid fa-triangle-exclamation text-[#C62828]"></i> AI Operational Anomaly Detection Signals
+              </h3>
+              <span class="text-xs font-bold bg-[#FFEBEE] text-[#C62828] px-2.5 py-0.5 rounded-full">${flags.filter(f => f.status === 'NEW').length} New Signals</span>
+            </div>
+
+            <div class="space-y-3">
+              ${flags.length === 0 ? `
+                <p class="text-xs text-[#8C7A68] text-center py-4">No operational anomalies detected in active workflows.</p>
+              ` : flags.map(f => `
+                <div class="p-4 bg-[#FFF7F0] dark:bg-[#382D23] rounded-2xl border border-[#E8D4C3] space-y-2 text-xs">
+                  <div class="flex items-center justify-between">
+                    <span class="font-mono font-bold text-[#C62828]">${f.flagId} (${f.type})</span>
+                    <span class="px-2 py-0.5 rounded-full font-bold ${f.status === 'NEW' ? 'bg-[#FFEBEE] text-[#C62828]' : 'bg-[#E8F5E9] text-[#2E7D32]'}">${f.status}</span>
+                  </div>
+                  <p class="font-semibold text-[#3B2A1A] dark:text-[#FFF7E8]">${f.description}</p>
+                  <p class="text-[#8C7A68]">Officer: ${f.officerId} | Dept: ${f.department} | AI Confidence: ${f.confidence}</p>
+                  ${f.status === 'NEW' ? `
+                    <div class="flex items-center gap-2 pt-1">
+                      <button onclick="updateAnomalyStatus('${f.flagId}', 'DISMISSED')" class="py-1 px-3 rounded-lg border border-[#8C7A68] text-[#8C7A68] font-bold text-[11px] hover:bg-gray-100 cursor-pointer">
+                        Dismiss Signal
+                      </button>
+                      <button onclick="updateAnomalyStatus('${f.flagId}', 'CONFIRMED_PATTERN')" class="py-1 px-3 rounded-lg bg-[#C62828] hover:bg-[#b71c1c] text-white font-bold text-[11px] cursor-pointer">
+                        Confirm Operational Pattern
+                      </button>
+                    </div>
+                  ` : ''}
+                </div>
+              `).join("")}
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function updateAnomalyStatus(flagId, newStatus) {
+      const f = state.anomalyFlags.find(x => x.flagId === flagId);
+      if (f) {
+        f.status = newStatus;
+        logAudit("Anomaly Flag Reviewed", "Supervisor (ADMIN-001)", `Anomaly ${flagId} marked ${newStatus}`);
+        saveState();
+
+        if (firebaseEnabled && db) {
+          try { db.collection("anomalyFlags").doc(flagId).set(f, { merge: true }); } catch(e){}
+        }
+        navigateTo("admin-dashboard");
+      }
+    }
+
+    function renderSystemAnalyticsView() { return renderAdminDashboardView(); }
+    
+    function renderFairnessMonitoringView() {
+      const lang = state.currentLanguage || "en";
+      const t = TRANSLATIONS[lang];
+      return `
+        <div class="space-y-6">
+          <div class="bg-[#FFFDF9] dark:bg-[#2C231B] border border-[#E8D4C3] dark:border-[#382D23] rounded-3xl p-6 shadow-sm">
+            <h2 class="font-display font-extrabold text-2xl text-[#3B2A1A] dark:text-[#FFF7E8]">${t.fairness_title}</h2>
+            <p class="text-xs text-[#6B5845] dark:text-[#D6C4AE] mt-1">${t.fairness_sub}</p>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="bg-[#FFFDF9] dark:bg-[#2C231B] border border-[#E8D4C3] dark:border-[#382D23] rounded-2xl p-5 shadow-sm space-y-2">
+              <span class="text-xs font-semibold text-[#6B5845] dark:text-[#D6C4AE]">${t.equity_score}</span>
+              <p class="font-display font-black text-3xl text-[#2E7D32]">98.4 / 100</p>
+            </div>
+            <div class="bg-[#FFFDF9] dark:bg-[#2C231B] border border-[#E8D4C3] dark:border-[#382D23] rounded-2xl p-5 shadow-sm space-y-2">
+              <span class="text-xs font-semibold text-[#6B5845] dark:text-[#D6C4AE]">${t.language_dist}</span>
+              <p class="font-display font-black text-3xl text-[#B8860B]">52% EN / 48% HI</p>
+            </div>
+            <div class="bg-[#FFFDF9] dark:bg-[#2C231B] border border-[#E8D4C3] dark:border-[#382D23] rounded-2xl p-5 shadow-sm space-y-2">
+              <span class="text-xs font-semibold text-[#6B5845] dark:text-[#D6C4AE]">Equitable Allocation</span>
+              <p class="font-display font-black text-3xl text-[#3B2A1A] dark:text-[#FFF7E8]">100% Ward Coverage</p>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    // SECTION 13: APPEND-ONLY AUDIT LOG TRAIL
+    function renderAuditLogsView() {
+      const lang = state.currentLanguage || "en";
+      const t = TRANSLATIONS[lang];
+      const logs = state.auditLogs;
+
+      return `
+        <div class="space-y-6">
+          <div class="bg-[#FFFDF9] dark:bg-[#2C231B] border border-[#E8D4C3] dark:border-[#382D23] rounded-3xl p-6 shadow-sm">
+            <h2 class="font-display font-extrabold text-2xl text-[#3B2A1A] dark:text-[#FFF7E8]">${t.audit_title}</h2>
+            <p class="text-xs text-[#6B5845] dark:text-[#D6C4AE] mt-1">${t.audit_sub}</p>
+          </div>
+
+          <div class="bg-[#FFFDF9] dark:bg-[#2C231B] border border-[#E8D4C3] dark:border-[#382D23] rounded-3xl p-6 shadow-sm overflow-x-auto">
+            ${logs.length === 0 ? `
+              <p class="text-xs text-[#8C7A68] text-center py-6">${t.no_audit_logs}</p>
+            ` : `
+              <table class="w-full text-left text-xs">
+                <thead>
+                  <tr class="border-b border-[#E8D4C3] dark:border-[#382D23] text-[#8C7A68]">
+                    <th class="py-3 px-2 font-bold">${t.th_log_id}</th>
+                    <th class="py-3 px-2 font-bold">${t.th_timestamp}</th>
+                    <th class="py-3 px-2 font-bold">${t.th_action}</th>
+                    <th class="py-3 px-2 font-bold">${t.th_actor}</th>
+                    <th class="py-3 px-2 font-bold">${t.th_details}</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-[#E8D4C3]/40 dark:divide-[#382D23] text-[#3B2A1A] dark:text-[#FFF7E8]">
+                  ${logs.map(log => `
+                    <tr>
+                      <td class="py-3 px-2 font-mono font-bold text-[#B8860B]">${log.id}</td>
+                      <td class="py-3 px-2 font-mono text-[11px] text-[#6B5845] dark:text-[#D6C4AE]">${log.timestamp}</td>
+                      <td class="py-3 px-2 font-bold">${log.action}</td>
+                      <td class="py-3 px-2 font-medium">${log.actor}</td>
+                      <td class="py-3 px-2 text-[#6B5845] dark:text-[#D6C4AE]">${log.details}</td>
+                    </tr>
+                  `).join("")}
+                </tbody>
+              </table>
+            `}
+          </div>
+        </div>
+      `;
+    }
+
+    // SECTION 6: PRIVACY CONTROLS & SETTINGS
+    function renderSettingsView() {
+      const lang = state.currentLanguage || "en";
+      const t = TRANSLATIONS[lang];
+      const priv = state.privacySettings;
+
+      return `
+        <div class="space-y-6 max-w-4xl mx-auto">
+          <div class="bg-[#FFFDF9] dark:bg-[#2C231B] border border-[#E8D4C3] dark:border-[#382D23] rounded-3xl p-6 shadow-sm">
+            <h2 class="font-display font-extrabold text-2xl text-[#3B2A1A] dark:text-[#FFF7E8]">${t.settings_title}</h2>
+            <p class="text-xs text-[#6B5845] dark:text-[#D6C4AE] mt-1">${t.settings_sub}</p>
+          </div>
+
+          <div class="bg-[#FFFDF9] dark:bg-[#2C231B] border border-[#E8D4C3] dark:border-[#382D23] rounded-3xl p-6 shadow-sm space-y-4">
+            <h3 class="font-display font-bold text-lg text-[#3B2A1A] dark:text-[#FFF7E8] border-b border-[#E8D4C3] dark:border-[#382D23] pb-3">
+              🛡️ Privacy Controls & Consent Management
+            </h3>
+
+            <div class="space-y-3">
+              <div class="flex items-center justify-between p-4 bg-[#FFF7F0] dark:bg-[#382D23] rounded-2xl border border-[#E8D4C3] dark:border-[#4A3B2C]">
+                <div>
+                  <span class="text-xs font-bold text-[#3B2A1A] dark:text-[#FFF7E8] block">Strict Resident Identity Anonymization</span>
+                  <span class="text-[11px] text-[#6B5845] dark:text-[#D6C4AE]">Department leads see only complaint details and ward location. Aadhaar details are never stored.</span>
+                </div>
+                <input type="checkbox" ${priv.strictAnonymization ? 'checked' : ''} onchange="updatePrivacySetting('strictAnonymization', this.checked)" class="w-4 h-4 accent-[#B8860B] cursor-pointer">
+              </div>
+
+              <div class="flex items-center justify-between p-4 bg-[#FFF7F0] dark:bg-[#382D23] rounded-2xl border border-[#E8D4C3] dark:border-[#4A3B2C]">
+                <div>
+                  <span class="text-xs font-bold text-[#3B2A1A] dark:text-[#FFF7E8] block">Consent for Anonymized AI Governance Analytics</span>
+                  <span class="text-[11px] text-[#6B5845] dark:text-[#D6C4AE]">Allow aggregate complaint statistics to improve municipal SLA performance and ward equity.</span>
+                </div>
+                <input type="checkbox" ${priv.consentAnalytics ? 'checked' : ''} onchange="updatePrivacySetting('consentAnalytics', this.checked)" class="w-4 h-4 accent-[#B8860B] cursor-pointer">
+              </div>
+
+              <div class="flex items-center justify-between p-4 bg-[#FFF7F0] dark:bg-[#382D23] rounded-2xl border border-[#E8D4C3] dark:border-[#4A3B2C]">
+                <div>
+                  <span class="text-xs font-bold text-[#3B2A1A] dark:text-[#FFF7E8] block">Audit Trail Retention Window</span>
+                  <span class="text-[11px] text-[#6B5845] dark:text-[#D6C4AE]">Cryptographically verified append-only audit trail retained for compliance.</span>
+                </div>
+                <span class="text-xs font-mono font-bold text-[#B8860B]">365 Days</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function updatePrivacySetting(key, val) {
+      state.privacySettings[key] = val;
+      saveState();
+    }
+
+    function renderCivicMapView() {
+      const lang = state.currentLanguage || "en";
+      const t = TRANSLATIONS[lang];
+      return `
+        <div class="space-y-6">
+          <div class="bg-[#FFFDF9] dark:bg-[#2C231B] border border-[#E8D4C3] dark:border-[#382D23] rounded-3xl p-6 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div>
+              <h2 class="font-display font-extrabold text-2xl text-[#3B2A1A] dark:text-[#FFF7E8]">${t.civic_map_title}</h2>
+              <p class="text-xs text-[#6B5845] dark:text-[#D6C4AE] mt-1">${t.civic_map_sub}</p>
+            </div>
+          </div>
+          <div class="relative bg-[#FFFDF9] dark:bg-[#2C231B] border border-[#E8D4C3] dark:border-[#382D23] rounded-3xl p-3 shadow-md overflow-hidden">
+            <div id="leafletMap" class="h-[540px] w-full rounded-2xl z-10"></div>
+          </div>
+        </div>
+      `;
+    }
+
+    // FORM SUBMIT HANDLER - GUARANTEES SUBMISSION & FIRESTORE WRITE
+    function postRenderView(route) {
+      if (route === "report") {
+        detectUserLocation();
+
+        const form = document.getElementById("newComplaintForm");
+        if (form) {
+          form.onsubmit = (e) => {
+            e.preventDefault();
+            const cat = document.getElementById("issueCategory").value;
+            const desc = document.getElementById("issueDescription").value.trim();
+            const loc = document.getElementById("issueLocation").value.trim();
+            const fileInput = document.getElementById("evidenceFile");
+            const photoErr = document.getElementById("photoErrorMsg");
+
+            const hasFile = (fileInput && fileInput.files && fileInput.files.length > 0) || hasUploadedPhoto;
+            if (!hasFile) {
+              if (photoErr) photoErr.classList.remove("hidden");
+              return;
+            }
+            if (photoErr) photoErr.classList.add("hidden");
+
+            const nextNum = (state.complaints.length + 1).toString().padStart(4, '0');
+            const newId = `CRP-2026-${nextNum}`;
+            const userLang = state.currentLanguage || "en";
+            const slaHrs = DEPARTMENT_SLA_HOURS[cat] || 24;
+
+            const rawComplaint = {
+              id: newId,
+              complaintId: newId,
+              residentId: state.currentUser?.id || "USR-1001",
+              title: desc.length > 50 ? desc.substring(0, 50) + "..." : desc,
+              description: desc,
+              originalDescription: desc,
+              aiGeneratedDescription: desc,
+              originalLanguage: userLang,
+              originalText: desc,
+              translatedEnglish: desc,
+              translatedHindi: "दर्ज की गई नागरिक समस्या",
+              title_en: desc.length > 50 ? desc.substring(0, 50) + "..." : desc,
+              title_hi: "दर्ज की गई नागरिक समस्या",
+              desc_en: desc,
+              desc_hi: "नागरिक समस्या विवरण",
+              category: cat,
+              location: loc || "Ward 12 • Near College Gate",
+              ward: "Ward 12",
+              status: "Submitted",
+              assignedOfficer: "Officer R. Patil (OFF-1001)",
+              evidencePhoto: "proof_attached.jpg",
+              slaHours: slaHrs,
+              slaDueMs: Date.now() + slaHrs * 3600 * 1000,
+              slaStatus: "ON_TRACK",
+              submittedAt: new Date().toLocaleString(),
+              createdAt: new Date().toISOString(),
+              updatedAt: new Date().toISOString()
+            };
+
+            const aiResult = runGeminiAiTriage(rawComplaint, state.complaints);
+            const newComplaint = { ...rawComplaint, ...aiResult };
+
+            state.pendingTriageComplaint = newComplaint;
+            state.complaints.unshift(newComplaint);
+            saveState();
+
+            logAudit("Complaint Submitted & AI Triaged", "Rahul Sharma (USR-1001)", `Logged ID: ${newId} with Priority: ${newComplaint.priority}`);
+            syncComplaintToFirestore(newComplaint);
+
+            navigateTo("ai-triage");
+          };
+        }
+      } else if (route === "map") {
+        setTimeout(() => {
+          if (typeof L !== 'undefined') {
+            const mapInstance = L.map("leafletMap").setView([18.5204, 73.8567], 13);
+            L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+              attribution: "© OpenStreetMap • JanSeva"
+            }).addTo(mapInstance);
+          }
+        }, 150);
+      }
+    }
+
+    function updateOfficerComplaintStatus(id, newStatus) {
+      const c = state.complaints.find(x => x.id === id);
+      if (c) {
+        c.status = newStatus;
+        if (newStatus === "Resolved") {
+          c.slaStatus = "RESOLVED";
+          c.resolvedAt = new Date().toLocaleString();
+        }
+        const actor = state.currentUser ? `${state.currentUser.name} (${state.currentUser.id})` : "Officer R. Patil (OFF-1001)";
+        c.auditTrail = c.auditTrail || [];
+        c.auditTrail.push({
+          time: new Date().toLocaleString(),
+          action: `Status Updated to ${newStatus}`,
+          actor: actor
+        });
+        logAudit("Status Updated", actor, `Changed ${c.id} status to ${newStatus}`);
+        syncComplaintToFirestore(c);
+
+        if (state.currentRoute === "officer-dashboard") navigateTo("officer-dashboard");
+        else if (state.currentRoute === "complaint-queue") navigateTo("complaint-queue");
+      }
+    }
+
+    function changeLanguage(newLang) {
+      state.currentLanguage = newLang;
+      localStorage.setItem("app_language", newLang);
+      applyLanguageToDOM();
+
+      const appContainer = document.getElementById("appContainer");
+      if (appContainer && !appContainer.classList.contains("hidden") && state.currentUser) {
+        updateHeaderAndSidebar();
+        navigateTo(state.currentRoute);
+      }
+    }
+
+    function initEventListeners() {
+      const openBtn = document.getElementById("openSidebarBtn");
+      const closeBtn = document.getElementById("closeSidebarBtn");
+      const sidebar = document.getElementById("sidebar");
+
+      if (openBtn && sidebar) openBtn.addEventListener("click", () => sidebar.classList.remove("-translate-x-full"));
+      if (closeBtn && sidebar) closeBtn.addEventListener("click", () => sidebar.classList.add("-translate-x-full"));
+
+      document.getElementById("authThemeToggle")?.addEventListener("click", toggleTheme);
+      document.getElementById("headerThemeToggle")?.addEventListener("click", toggleTheme);
+
+      document.getElementById("headerLogoutBtn")?.addEventListener("click", logout);
+      document.getElementById("sidebarLogoutBtn")?.addEventListener("click", logout);
+
+      const authLang = document.getElementById("authLangSelect");
+      const headerLang = document.getElementById("headerLangSelect");
+
+      if (authLang) authLang.addEventListener("change", (e) => changeLanguage(e.target.value));
+      if (headerLang) headerLang.addEventListener("change", (e) => changeLanguage(e.target.value));
+    }
+  </script>
+</body>
+</html>
