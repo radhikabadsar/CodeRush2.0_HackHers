@@ -1,0 +1,160 @@
+/* Community Redressal Planner - Custom Theme & CSS Tokens */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@500;600;700;800;900&display=swap');
+
+:root {
+  --color-bg-main: #FFF1E6;
+  --color-bg-secondary: #FFE4D1;
+  --color-card-bg: #FFFDF9;
+  --color-input-bg: #FFF7F0;
+  
+  --color-primary-gold: #B8860B;
+  --color-dark-gold: #8F6B00;
+  --color-hover-gold: #9C7500;
+  --color-light-gold: #F4D77A;
+
+  --color-text-main: #3B2A1A;
+  --color-text-secondary: #6B5845;
+  --color-text-muted: #8C7A68;
+  --color-border: #E8D4C3;
+
+  --color-sidebar-bg: #3B2A1A;
+  --color-sidebar-hover: #6B4F2A;
+  --color-sidebar-active: #B8860B;
+}
+
+.dark {
+  --color-bg-main: #211A14;
+  --color-bg-secondary: #2C231B;
+  --color-card-bg: #2C231B;
+  --color-input-bg: #382D23;
+
+  --color-primary-gold: #C99A16;
+  --color-dark-gold: #A77B00;
+
+  --color-text-main: #FFF7E8;
+  --color-text-secondary: #D6C4AE;
+  --color-text-muted: #A3917C;
+  --color-border: #382D23;
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background-color: var(--color-bg-main);
+  color: var(--color-text-main);
+  margin: 0;
+  padding: 0;
+}
+
+h1, h2, h3, h4, h5, h6, .font-display {
+  font-family: 'Outfit', 'Inter', sans-serif;
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #E8D4C3;
+  border-radius: 9999px;
+}
+.dark ::-webkit-scrollbar-thumb {
+  background: #382D23;
+}
+
+/* Role Selector Card Active Styles */
+.role-select-card.active {
+  border-color: #B8860B !important;
+  background-color: #FFFDF9 !important;
+  box-shadow: 0 10px 25px -5px rgba(184, 134, 11, 0.25) !important;
+}
+.dark .role-select-card.active {
+  border-color: #C99A16 !important;
+  background-color: #2C231B !important;
+}
+.role-select-card.active .role-badge {
+  display: inline-block !important;
+}
+
+/* Navigation Items in Sidebar */
+.nav-item {
+  color: #D6C4AE;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  border-radius: 12px;
+}
+.nav-item:hover {
+  background-color: #6B4F2A;
+  color: #FFFFFF;
+}
+.nav-item.active {
+  background-color: #B8860B !important;
+  color: #FFFFFF !important;
+  font-weight: 700;
+  box-shadow: 0 4px 14px rgba(184, 134, 11, 0.35);
+}
+.nav-item.active::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 20%;
+  height: 60%;
+  width: 4px;
+  background-color: #F4D77A;
+  border-radius: 0 4px 4px 0;
+}
+
+/* Status Badges */
+.badge-status-received {
+  background-color: #FFE4D1;
+  color: #8F6B00;
+}
+.badge-status-progress {
+  background-color: #FFF7F0;
+  color: #B8860B;
+  border: 1px solid #B8860B;
+}
+.badge-status-resolved {
+  background-color: #E8F5E9;
+  color: #2E7D32;
+}
+.badge-status-atrisk {
+  background-color: #FFF3E0;
+  color: #C77C02;
+}
+.badge-status-breached {
+  background-color: #FFEBEE;
+  color: #C62828;
+}
+
+/* Map Pins Pulsing Animation */
+@keyframes mapPinPulse {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(184, 134, 11, 0.6);
+  }
+  70% {
+    transform: scale(1.15);
+    box-shadow: 0 0 0 10px rgba(184, 134, 11, 0);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(184, 134, 11, 0);
+  }
+}
+.map-marker-pin {
+  animation: mapPinPulse 2.5s infinite;
+  cursor: pointer;
+}
+
+/* Pulse animation for AI Triage */
+@keyframes aiScan {
+  0%, 100% { opacity: 0.3; transform: scale(0.98); }
+  50% { opacity: 1; transform: scale(1.02); }
+}
+.ai-scan-pulse {
+  animation: aiScan 2s infinite ease-in-out;
+}

@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Community Redressal Planner | Civic Redressal & Action</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            peach: {
+              50: '#FFF1E6',
+              100: '#FFE4D1',
+              200: '#FCD4B8',
+              300: '#F9BE97',
+              light: '#FFF1E6',
+              secondary: '#FFE4D1'
+            },
+            cream: {
+              50: '#FFFDF9',
+              100: '#FFF7F0',
+              card: '#FFFDF9',
+              input: '#FFF7F0'
+            },
+            gold: {
+              DEFAULT: '#B8860B',
+              primary: '#B8860B',
+              dark: '#8F6B00',
+              hover: '#9C7500',
+              light: '#F4D77A',
+              100: '#FEF9E7',
+              200: '#FDEFB7',
+              500: '#B8860B',
+              600: '#8F6B00',
+              700: '#6E5200'
+            },
+            brown: {
+              DEFAULT: '#3B2A1A',
+              main: '#3B2A1A',
+              secondary: '#6B5845',
+              muted: '#8C7A68',
+              hover: '#6B4F2A',
+              border: '#E8D4C3'
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            display: ['Outfit', 'Inter', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- FontAwesome 6 Icons CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <!-- Leaflet CSS & JS for Civic Maps -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <!-- Custom Theme Styles -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="h-full bg-[#FFF1E6] dark:bg-[#211A14] text-[#3B2A1A] dark:text-[#FFF7E8] font-sans antialiased selection:bg-[#F4D77A] selection:text-[#3B2A1A]">
+
+  <!-- ========================================== -->
+  <!-- 1. AUTHENTICATION & LOGIN SCREEN -->
+  <!-- ========================================== -->
+  <div id="authScreen" class="fixed inset-0 z-50 overflow-y-auto bg-[#FFF1E6] dark:bg-[#211A14] flex flex-col justify-between p-4 md:p-8 min-h-screen">
+    
+    <!-- Auth Header Branding -->
+    <header class="max-w-6xl mx-auto w-full flex items-center justify-between py-4 border-b border-[#E8D4C3] dark:border-[#382D23]">
+      <div class="flex items-center gap-3">
+        <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#B8860B] to-[#8F6B00] flex items-center justify-center shadow-lg shadow-[#B8860B]/20">
+          <i class="fa-solid font-black text-2xl text-white fa-landmark-flag"></i>
+        </div>
+        <div>
+          <h1 class="font-display font-bold text-xl md:text-2xl text-[#3B2A1A] dark:text-[#FFF7E8] tracking-tight">COMMUNITY REDRESSAL PLANNER</h1>
+          <p class="text-xs md:text-sm text-[#6B5845] dark:text-[#D6C4AE]">Civic Redressal & Accountability Infrastructure</p>
+        </div>
+      </div>
+      
+      <!-- Top Right Auth Options -->
+      <div class="flex items-center gap-3">
+        <button id="authThemeToggle" class="p-2.5 rounded-xl border border-[#E8D4C3] dark:border-[#382D23] bg-[#FFFDF9] dark:bg-[#2C231B] text-[#3B2A1A] dark:text-[#FFF7E8] hover:bg-[#FFE4D1] dark:hover:bg-[#382D23] transition-all">
+          <i class="fa-solid fa-moon dark:hidden text-[#B8860B]"></i>
+          <i class="fa-solid fa-sun hidden dark:inline text-[#F4D77A]"></i>
+        </button>
+        <div class="relative">
+          <select id="authLangSelect" class="bg-[#FFFDF9] dark:bg-[#2C231B] border border-[#E8D4C3] dark:border-[#382D23] text-[#3B2A1A] dark:text-[#FFF7E8] text-xs font-semibold py-2.5 px-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#B8860B] cursor-pointer">
+            <option value="en">🌐 English (EN)</option>
+            <option value="hi">🌐 हिंदी (HI)</option>
+          </select>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Auth Container -->
+    <main class="max-w-4xl mx-auto w-full my-auto py-8">
+      
+      <!-- Hero Banner -->
+      <div class="text-center mb-8">
+        <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#FFE4D1] dark:bg-[#382D23] text-[#8F6B00] dark:text-[#F4D77A] text-xs font-bold uppercase tracking-wider mb-3">
+          <i class="fa-solid fa-shield-halved"></i> Transparent Civic Governance
+        </span>
+        <h2 class="font-display text-3xl md:text-5xl font-extrabold text-[#3B2A1A] dark:text-[#FFF7E8] mb-3">
+          Report issues. Track action. <br class="hidden sm:inline"><span class="text-[#B8860B] dark:text-[#C99A16]">Build better communities.</span>
+        </h2>
+        <p class="text-sm md:text-base text-[#6B5845] dark:text-[#D6C4AE] max-w-xl mx-auto">
+          An AI-assisted, SLA-monitored portal connecting residents directly with local municipal service teams.
+        </p>
+      </div>
+
+      <!-- Role Selector Cards (Cards select login mode ONLY - Do NOT grant access) -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+        
+        <!-- RESIDENT CARD -->
+        <button id="selectResidentRole" class="role-select-card active flex flex-col p-5 rounded-2xl border-2 border-[#B8860B] bg-[#FFFDF9] dark:bg-[#2C231B] text-left transition-all hover:shadow-lg shadow-md cursor-pointer relative overflow-hidden group">
+          <div class="flex items-center justify-between mb-3">
+            <div class="w-12 h-12 rounded-xl bg-[#FFE4D1] dark:bg-[#382D23] text-[#B8860B] dark:text-[#F4D77A] flex items-center justify-center text-xl font-bold">
+              👤
+            </div>
+            <span class="role-badge text-[10px] font-extrabold uppercase px-2.5 py-1 rounded-full bg-[#B8860B] text-white">Active</span>
+          </div>
+          <h3 class="font-display text-lg font-bold text-[#3B2A1A] dark:text-[#FFF7E8]">RESIDENT</h3>
+          <p class="text-xs text-[#6B5845] dark:text-[#D6C4AE] mt-1">Report and track civic complaints in your locality.</p>
+        </button>
+
+        <!-- OFFICER CARD -->
+        <button id="selectOfficerRole" class="role-select-card flex flex-col p-5 rounded-2xl border-2 border-[#E8D4C3] dark:border-[#382D23] bg-[#FFFDF9] dark:bg-[#2C231B] text-left transition-all hover:border-[#B8860B]/60 shadow-sm hover:shadow-md cursor-pointer relative overflow-hidden group">
+          <div class="flex items-center justify-between mb-3">
+            <div class="w-12 h-12 rounded-xl bg-[#FFE4D1] dark:bg-[#382D23] text-[#B8860B] dark:text-[#F4D77A] flex items-center justify-center text-xl font-bold">
+              🏛️
+            </div>
+            <span class="role-badge hidden text-[10px] font-extrabold uppercase px-2.5 py-1 rounded-full bg-[#B8860B] text-white">Active</span>
+          </div>
+          <h3 class="font-display text-lg font-bold text-[#3B2A1A] dark:text-[#FFF7E8]">OFFICER</h3>
+          <p class="text-xs text-[#6B5845] dark:text-[#D6C4AE] mt-1">Manage, route, and resolve assigned department grievances.</p>
+        </button>
+
+        <!-- ADMIN CARD -->
+        <button id="selectAdminRole" class="role-select-card flex flex-col p-5 rounded-2xl border-2 border-[#E8D4C3] dark:border-[#382D23] bg-[#FFFDF9] dark:bg-[#2C231B] text-left transition-all hover:border-[#B8860B]/60 shadow-sm hover:shadow-md cursor-pointer relative overflow-hidden group">
+          <div class="flex items-center justify-between mb-3">
+            <div class="w-12 h-12 rounded-xl bg-[#FFE4D1] dark:bg-[#382D23] text-[#B8860B] dark:text-[#F4D77A] flex items-center justify-center text-xl font-bold">
+              ⚙️
+            </div>
+            <span class="role-badge hidden text-[10px] font-extrabold uppercase px-2.5 py-1 rounded-full bg-[#B8860B] text-white">Active</span>
+          </div>
+          <h3 class="font-display text-lg font-bold text-[#3B2A1A] dark:text-[#FFF7E8]">ADMIN</h3>
+          <p class="text-xs text-[#6B5845] dark:text-[#D6C4AE] mt-1">Monitor system performance, audit trails, & SLA rules.</p>
+        </button>
+
+      </div>
+
+      <!-- Authentication Form Card Container -->
+      <div class="bg-[#FFFDF9] dark:bg-[#2C231B] border border-[#E8D4C3] dark:border-[#382D23] rounded-3xl p-6 md:p-8 shadow-xl max-w-xl mx-auto">
+        
+        <!-- RESIDENT LOGIN FORM -->
+        <form id="residentLoginForm" class="space-y-5">
+          <div class="flex items-center justify-between pb-3 border-b border-[#E8D4C3] dark:border-[#382D23]">
+            <div>
+              <h4 class="font-display font-bold text-lg text-[#3B2A1A] dark:text-[#FFF7E8]">Resident Authentication</h4>
+              <p class="text-xs text-[#6B5845] dark:text-[#D6C4AE]">Enter your 12-digit Aadhaar number for OTP verification</p>
+            </div>
+            <span class="text-xs bg-[#FFE4D1] dark:bg-[#382D23] text-[#8F6B00] dark:text-[#F4D77A] font-semibold px-2.5 py-1 rounded-lg">Aadhaar + OTP</span>
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-[#3B2A1A] dark:text-[#FFF7E8] uppercase tracking-wider mb-2">Aadhaar Card Number</label>
+            <div class="relative">
+              <input type="text" id="resAadhaarInput" maxlength="14" placeholder="XXXX XXXX XXXX" class="w-full bg-[#FFF7F0] dark:bg-[#382D23] border border-[#E8D4C3] dark:border-[#4A3B2C] text-[#3B2A1A] dark:text-[#FFF7E8] px-4 py-3 rounded-xl font-mono text-base tracking-wider focus:outline-none focus:ring-2 focus:ring-[#B8860B] focus:bg-white" required>
+              <i class="fa-solid fa-id-card absolute right-4 top-4 text-[#8C7A68]"></i>
+            </div>
+            <p class="text-[11px] text-[#8C7A68] dark:text-[#D6C4AE] mt-1.5 flex items-center gap-1">
+              <i class="fa-solid fa-lock text-[#2E7D32]"></i> Privacy Protected: Aadhaar is never stored unmasked.
+            </p>
+          </div>
+
+          <!-- Step 1 Button: Request OTP -->
+          <div id="otpRequestStep">
+            <button type="button" id="btnRequestOtp" class="w-full py-3.5 px-6 rounded-xl bg-[#B8860B] hover:bg-[#8F6B00] text-white font-bold text-sm shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2">
+              <span>Request OTP / ओटीपी प्राप्त करें</span>
+              <i class="fa-solid fa-paper-plane text-xs"></i>
+            </button>
+          </div>
+
+          <!-- Step 2 Container: OTP Input (Hidden initially) -->
+          <div id="otpVerifyStep" class="hidden space-y-4 pt-2 border-t border-dashed border-[#E8D4C3] dark:border-[#382D23]">
+            <div class="p-3 bg-[#FFE4D1]/60 dark:bg-[#382D23] rounded-xl text-xs text-[#8F6B00] dark:text-[#F4D77A] flex items-center justify-between">
+              <span><i class="fa-solid fa-circle-check text-[#2E7D32]"></i> Demo OTP sent to registered mobile!</span>
+              <strong class="font-mono bg-white dark:bg-[#211A14] px-2 py-0.5 rounded border border-[#B8860B]">123456</strong>
+            </div>
+
+            <div>
+              <label class="block text-xs font-bold text-[#3B2A1A] dark:text-[#FFF7E8] uppercase tracking-wider mb-2">Enter 6-Digit OTP</label>
+              <input type="text" id="resOtpInput" maxlength="6" placeholder="123456" class="w-full bg-[#FFF7F0] dark:bg-[#382D23] border border-[#E8D4C3] dark:border-[#4A3B2C] text-[#3B2A1A] dark:text-[#FFF7E8] px-4 py-3 rounded-xl font-mono text-center text-lg tracking-widest focus:outline-none focus:ring-2 focus:ring-[#B8860B] focus:bg-white" required>
+            </div>
+
+            <button type="submit" id="btnVerifyProceed" class="w-full py-3.5 px-6 rounded-xl bg-[#B8860B] hover:bg-[#8F6B00] text-white font-bold text-sm shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2">
+              <span>Verify & Proceed</span>
+              <i class="fa-solid fa-arrow-right text-xs"></i>
+            </button>
+          </div>
+        </form>
+
+        <!-- OFFICER LOGIN FORM (Hidden initially) -->
+        <form id="officerLoginForm" class="hidden space-y-5">
+          <div class="flex items-center justify-between pb-3 border-b border-[#E8D4C3] dark:border-[#382D23]">
+            <div>
+              <h4 class="font-display font-bold text-lg text-[#3B2A1A] dark:text-[#FFF7E8]">Officer Portal Login</h4>
+              <p class="text-xs text-[#6B5845] dark:text-[#D6C4AE]">Municipal Staff & Department Lead Access</p>
+            </div>
+            <span class="text-xs bg-[#FFE4D1] dark:bg-[#382D23] text-[#8F6B00] dark:text-[#F4D77A] font-semibold px-2.5 py-1 rounded-lg">Staff Auth</span>
+          </div>
+
+          <div class="p-3 bg-[#FFE4D1]/40 dark:bg-[#382D23] rounded-xl text-xs text-[#6B5845] dark:text-[#D6C4AE]">
+            <strong>Demo Credentials:</strong> ID: <code class="bg-white dark:bg-[#211A14] px-1.5 py-0.5 rounded text-[#3B2A1A] dark:text-[#FFF7E8] font-bold">OFF-1001</code> | Password: <code class="bg-white dark:bg-[#211A14] px-1.5 py-0.5 rounded text-[#3B2A1A] dark:text-[#FFF7E8] font-bold">123456</code>
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-[#3B2A1A] dark:text-[#FFF7E8] uppercase tracking-wider mb-2">Officer ID</label>
+            <input type="text" id="offIdInput" placeholder="OFF-1001" value="OFF-1001" class="w-full bg-[#FFF7F0] dark:bg-[#382D23] border border-[#E8D4C3] dark:border-[#4A3B2C] text-[#3B2A1A] dark:text-[#FFF7E8] px-4 py-3 rounded-xl font-mono text-sm focus:outline-none focus:ring-2 focus:ring-[#B8860B] focus:bg-white" required>
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-[#3B2A1A] dark:text-[#FFF7E8] uppercase tracking-wider mb-2">Password / Demo PIN</label>
+            <input type="password" id="offPasswordInput" placeholder="••••••••" value="123456" class="w-full bg-[#FFF7F0] dark:bg-[#382D23] border border-[#E8D4C3] dark:border-[#4A3B2C] text-[#3B2A1A] dark:text-[#FFF7E8] px-4 py-3 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#B8860B] focus:bg-white" required>
+          </div>
+
+          <button type="submit" class="w-full py-3.5 px-6 rounded-xl bg-[#B8860B] hover:bg-[#8F6B00] text-white font-bold text-sm shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2">
+            <span>Officer Login</span>
+            <i class="fa-solid fa-right-to-bracket text-xs"></i>
+          </button>
+        </form>
+
+        <!-- ADMIN LOGIN FORM (Hidden initially) -->
+        <form id="adminLoginForm" class="hidden space-y-5">
+          <div class="flex items-center justify-between pb-3 border-b border-[#E8D4C3] dark:border-[#382D23]">
+            <div>
+              <h4 class="font-display font-bold text-lg text-[#3B2A1A] dark:text-[#FFF7E8]">System Admin Login</h4>
+              <p class="text-xs text-[#6B5845] dark:text-[#D6C4AE]">System Audit, Governance & SLA Rules</p>
+            </div>
+            <span class="text-xs bg-[#FFE4D1] dark:bg-[#382D23] text-[#8F6B00] dark:text-[#F4D77A] font-semibold px-2.5 py-1 rounded-lg">Admin Auth</span>
+          </div>
+
+          <div class="p-3 bg-[#FFE4D1]/40 dark:bg-[#382D23] rounded-xl text-xs text-[#6B5845] dark:text-[#D6C4AE]">
+            <strong>Demo Credentials:</strong> ID: <code class="bg-white dark:bg-[#211A14] px-1.5 py-0.5 rounded text-[#3B2A1A] dark:text-[#FFF7E8] font-bold">ADMIN-001</code> | Password: <code class="bg-white dark:bg-[#211A14] px-1.5 py-0.5 rounded text-[#3B2A1A] dark:text-[#FFF7E8] font-bold">admin123</code>
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-[#3B2A1A] dark:text-[#FFF7E8] uppercase tracking-wider mb-2">Admin ID</label>
+            <input type="text" id="adminIdInput" placeholder="ADMIN-001" value="ADMIN-001" class="w-full bg-[#FFF7F0] dark:bg-[#382D23] border border-[#E8D4C3] dark:border-[#4A3B2C] text-[#3B2A1A] dark:text-[#FFF7E8] px-4 py-3 rounded-xl font-mono text-sm focus:outline-none focus:ring-2 focus:ring-[#B8860B] focus:bg-white" required>
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-[#3B2A1A] dark:text-[#FFF7E8] uppercase tracking-wider mb-2">Password</label>
+            <input type="password" id="adminPasswordInput" placeholder="••••••••" value="admin123" class="w-full bg-[#FFF7F0] dark:bg-[#382D23] border border-[#E8D4C3] dark:border-[#4A3B2C] text-[#3B2A1A] dark:text-[#FFF7E8] px-4 py-3 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#B8860B] focus:bg-white" required>
+          </div>
+
+          <button type="submit" class="w-full py-3.5 px-6 rounded-xl bg-[#B8860B] hover:bg-[#8F6B00] text-white font-bold text-sm shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2">
+            <span>Admin Console Login</span>
+            <i class="fa-solid fa-lock text-xs"></i>
+          </button>
+        </form>
+
+      </div>
+    </main>
+
+    <!-- Auth Footer -->
+    <footer class="max-w-4xl mx-auto w-full text-center pt-6 border-t border-[#E8D4C3] dark:border-[#382D23] text-xs text-[#8C7A68] dark:text-[#D6C4AE]">
+      <p>© 2026 Community Redressal Planner • Municipal Governance & AI Triage Platform • Privacy-Preserving Civic Data Architecture</p>
+    </footer>
+  </div>
+
+
+  <!-- ========================================== -->
+  <!-- 2. PROTECTED APPLICATION CONTAINER -->
+  <!-- ========================================== -->
+  <div id="appContainer" class="hidden flex h-screen overflow-hidden bg-[#FFF1E6] dark:bg-[#211A14]">
+    
+    <!-- SIDEBAR NAVIGATION -->
+    <aside id="sidebar" class="w-64 bg-[#3B2A1A] text-[#FFF7E8] flex flex-col flex-shrink-0 transition-all duration-300 z-30 relative shadow-2xl">
+      
+      <!-- Sidebar Header -->
+      <div class="h-16 px-5 flex items-center justify-between border-b border-[#6B4F2A]">
+        <div class="flex items-center gap-3 overflow-hidden">
+          <div class="w-9 h-9 rounded-xl bg-[#B8860B] text-white flex items-center justify-center font-bold text-lg flex-shrink-0 shadow-md">
+            <i class="fa-solid fa-landmark-flag"></i>
+          </div>
+          <div class="truncate">
+            <h2 class="font-display font-bold text-sm tracking-tight text-white leading-tight">REDRESSAL PLANNER</h2>
+            <p id="sidebarRoleLabel" class="text-[10px] text-[#F4D77A] font-semibold tracking-wider uppercase">Resident App</p>
+          </div>
+        </div>
+        <button id="closeSidebarBtn" class="md:hidden text-[#FFF7E8] hover:text-white p-1">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+
+      <!-- Navigation Links List (Dynamically updated based on role) -->
+      <nav id="navMenuList" class="flex-1 px-3 py-4 space-y-1.5 overflow-y-auto">
+        <!-- Injected via JavaScript -->
+      </nav>
+
+      <!-- Sidebar User Footprint -->
+      <div class="p-4 border-t border-[#6B4F2A] bg-[#2C1F13]">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-3 overflow-hidden">
+            <div class="w-8 h-8 rounded-full bg-[#B8860B] text-white flex items-center justify-center font-bold text-xs">
+              <span id="userAvatarText">RES</span>
+            </div>
+            <div class="truncate">
+              <p id="navUserName" class="text-xs font-bold text-white truncate">Resident</p>
+              <p id="navUserId" class="text-[10px] text-[#D6C4AE] font-mono truncate">RES-1001</p>
+            </div>
+          </div>
+          <button id="sidebarLogoutBtn" title="Logout" class="p-2 text-[#D6C4AE] hover:text-white hover:bg-[#6B4F2A] rounded-lg transition-all">
+            <i class="fa-solid fa-right-from-bracket text-sm"></i>
+          </button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT AREA -->
+    <div class="flex-1 flex flex-col min-w-0 overflow-hidden">
+      
+      <!-- TOP NAVIGATION HEADER -->
+      <header class="h-16 bg-[#FFF7F0] dark:bg-[#2C231B] border-b border-[#E8D4C3] dark:border-[#382D23] px-4 md:px-6 flex items-center justify-between z-20 flex-shrink-0">
+        
+        <!-- Mobile Sidebar Hamburger & Search -->
+        <div class="flex items-center gap-3 flex-1 max-w-md">
+          <button id="openSidebarBtn" class="md:hidden text-[#3B2A1A] dark:text-[#FFF7E8] p-2 rounded-xl border border-[#E8D4C3] dark:border-[#382D23]">
+            <i class="fa-solid fa-bars text-lg"></i>
+          </button>
+          
+          <div class="relative w-full hidden sm:block">
+            <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3 text-[#8C7A68]"></i>
+            <input type="text" id="globalSearchInput" placeholder="Search complaint ID, category, ward..." class="w-full bg-[#FFF1E6] dark:bg-[#382D23] border border-[#E8D4C3] dark:border-[#4A3B2C] text-[#3B2A1A] dark:text-[#FFF7E8] text-xs py-2 pl-9 pr-4 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#B8860B]">
+          </div>
+        </div>
+
+        <!-- Header Actions: ONLY Global Language, Dark Mode, Notifications, Profile, Logout -->
+        <!-- NOTE: NO duplicate "+ Report an Issue" button here as requested! -->
+        <div class="flex items-center gap-2 sm:gap-3">
+          
+          <!-- Global Language Selector -->
+          <div class="relative">
+            <select id="headerLangSelect" class="bg-[#FFF1E6] dark:bg-[#382D23] border border-[#E8D4C3] dark:border-[#4A3B2C] text-[#3B2A1A] dark:text-[#FFF7E8] text-xs font-bold py-2 px-2.5 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#B8860B] cursor-pointer">
+              <option value="en">🌐 English (EN)</option>
+              <option value="hi">🌐 हिंदी (HI)</option>
+            </select>
+          </div>
+
+          <!-- Theme Mode Toggle -->
+          <button id="headerThemeToggle" title="Toggle Theme" class="p-2.5 rounded-xl border border-[#E8D4C3] dark:border-[#382D23] bg-[#FFF1E6] dark:bg-[#382D23] text-[#3B2A1A] dark:text-[#FFF7E8] hover:bg-[#FFE4D1] transition-all">
+            <i class="fa-solid fa-moon dark:hidden text-[#B8860B]"></i>
+            <i class="fa-solid fa-sun hidden dark:inline text-[#F4D77A]"></i>
+          </button>
+
+          <!-- Notifications Icon -->
+          <button id="headerNotifBtn" title="Notifications" class="p-2.5 rounded-xl border border-[#E8D4C3] dark:border-[#382D23] bg-[#FFF1E6] dark:bg-[#382D23] text-[#3B2A1A] dark:text-[#FFF7E8] hover:bg-[#FFE4D1] relative transition-all">
+            <i class="fa-solid fa-bell text-sm"></i>
+            <span id="notifBadge" class="absolute -top-1 -right-1 w-4 h-4 bg-[#C62828] text-white text-[10px] font-bold rounded-full flex items-center justify-center">3</span>
+          </button>
+
+          <div class="h-6 w-px bg-[#E8D4C3] dark:bg-[#382D23] mx-1"></div>
+
+          <!-- User Quick Profile Pill -->
+          <button id="headerProfileBtn" class="flex items-center gap-2 py-1 px-2 rounded-xl hover:bg-[#FFE4D1] dark:hover:bg-[#382D23] transition-all">
+            <div class="w-8 h-8 rounded-full bg-[#B8860B] text-white font-bold text-xs flex items-center justify-center">
+              <span id="headerAvatarText">RES</span>
+            </div>
+            <div class="hidden lg:block text-left">
+              <p id="headerUserName" class="text-xs font-bold text-[#3B2A1A] dark:text-[#FFF7E8]">Resident</p>
+              <p id="headerUserRole" class="text-[10px] text-[#6B5845] dark:text-[#D6C4AE] uppercase font-semibold">Resident</p>
+            </div>
+          </button>
+
+          <!-- Logout Button -->
+          <button id="headerLogoutBtn" title="Logout" class="p-2 rounded-xl bg-[#FFE4D1] dark:bg-[#382D23] text-[#C62828] font-bold text-xs hover:bg-[#C62828] hover:text-white transition-all flex items-center gap-1.5 px-3">
+            <i class="fa-solid fa-right-from-bracket"></i>
+            <span class="hidden sm:inline">Logout</span>
+          </button>
+
+        </div>
+      </header>
+
+      <!-- PAGE VIEWS DYNAMIC CONTAINER -->
+      <main id="mainContent" class="flex-1 overflow-y-auto p-4 md:p-6 space-y-6">
+        <!-- Rendered view content injected dynamically by script.js -->
+      </main>
+
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- 3. ACCESS RESTRICTED AUTHORIZATION MODAL -->
+  <!-- ========================================== -->
+  <div id="accessDeniedModal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden items-center justify-center p-4">
+    <div class="bg-[#FFFDF9] dark:bg-[#2C231B] border-2 border-[#C62828] rounded-3xl max-w-md w-full p-6 shadow-2xl text-center space-y-4">
+      <div class="w-16 h-16 rounded-full bg-[#C62828]/10 text-[#C62828] flex items-center justify-center text-3xl mx-auto">
+        <i class="fa-solid fa-shield-cat"></i>
+      </div>
+      <div>
+        <h3 class="font-display text-2xl font-black text-[#C62828]">ACCESS RESTRICTED</h3>
+        <p class="text-sm text-[#6B5845] dark:text-[#D6C4AE] mt-2">You do not have permission to access this area.</p>
+      </div>
+      <div class="p-3 bg-[#FFE4D1] dark:bg-[#382D23] rounded-xl text-xs font-mono text-[#3B2A1A] dark:text-[#FFF7E8]">
+        Role Guard Enforcement: <span id="deniedAttemptRoute" class="font-bold">/officer-dashboard</span>
+      </div>
+      <button id="btnDismissAccessDenied" class="w-full py-3 rounded-xl bg-[#B8860B] hover:bg-[#8F6B00] text-white font-bold text-sm shadow-md transition-all">
+        Return to Authorized Dashboard
+      </button>
+    </div>
+  </div>
+
+  <!-- Main Pure JS Application Logic Bundle -->
+  <script src="script.js"></script>
+</body>
+</html>
